@@ -8,6 +8,7 @@ import { StatsSection } from "@/components/blocks/stats-section";
 import { ProcessSteps, type ProcessStep } from "@/components/blocks/process-steps";
 import { FAQ } from "@/components/blocks/faq";
 import { CTABanner } from "@/components/blocks/cta-banner";
+import { QuoteForm } from "@/components/blocks/quote-form";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
 
@@ -184,7 +185,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="quote-form" aria-label="Start your quote" />
+      <section
+        id="quote-form"
+        aria-labelledby="quote-form-heading"
+        className="bg-primary-soft"
+      >
+        <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-20 lg:px-8 lg:py-24">
+          <SectionHeading
+            eyebrow="Start your quote"
+            headline="Tell us about your operation."
+            subhead="A real conversation with an agent who specializes in trucking. We will review your current coverage, understand your operation, and return options from the carriers that fit. An agent responds within 2 business hours."
+            align="center"
+          />
+          <QuoteForm />
+        </div>
+      </section>
 
       <section
         id="faq"
