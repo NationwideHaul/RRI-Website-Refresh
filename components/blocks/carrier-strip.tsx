@@ -1,18 +1,12 @@
-import { ShieldCheck } from "lucide-react";
+import Image from "next/image";
 import { SectionHeading } from "./section-heading";
+import { CARRIERS_DISPLAY } from "@/lib/constants";
 
 /**
  * Carrier strip shown on homepage right after the hero.
- * Current state: no specific carrier names or logos until Derek confirms
- * active appointments in writing + we receive usable logo files. Strategy
- * doc §3.3 and §6.5 block naming carriers publicly until then.
- *
- * When greenlit, replace the placeholder pill grid with a real logo strip
- * using /public/images/carriers/*.svg and add a `CARRIERS_DISPLAY` list
- * to lib/constants.ts.
+ * Logos are grayscale by default and colorize on hover per Design
+ * doc §06. Add carriers via CARRIERS_DISPLAY in lib/constants.ts.
  */
-const PLACEHOLDER_TILES = Array.from({ length: 8 });
-
 export function CarrierStrip() {
   return (
     <section
@@ -28,21 +22,26 @@ export function CarrierStrip() {
           align="center"
         />
 
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:gap-4">
-          {PLACEHOLDER_TILES.map((_, i) => (
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 lg:gap-4">
+          {CARRIERS_DISPLAY.map((carrier) => (
             <li
-              key={i}
-              className="flex h-20 items-center justify-center gap-2 rounded-xl border border-gray-100 bg-gray-50 text-[13px] font-semibold uppercase tracking-[0.15em] text-gray-500"
+              key={carrier.slug}
+              className="group flex h-24 items-center justify-center rounded-xl border border-gray-100 bg-white p-4 transition-all hover:border-gray-300 hover:shadow-sm"
             >
-              <ShieldCheck className="h-4 w-4 text-primary" strokeWidth={1.75} />
-              A-Rated Carrier
+              <Image
+                src={carrier.logo}
+                alt={carrier.name}
+                width={160}
+                height={56}
+                className="max-h-12 w-auto object-contain grayscale opacity-60 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
+              />
             </li>
           ))}
         </ul>
 
         <p className="text-center text-[13px] text-gray-500">
-          Carrier names and logos pending confirmation. Licensed in 48 states
-          plus DC.
+          Plus 100+ additional commercial trucking markets. Licensed in 48
+          states plus DC.
         </p>
       </div>
     </section>

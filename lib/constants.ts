@@ -43,17 +43,26 @@ export const LICENSE_INFO = {
 } as const;
 
 /**
- * Carriers RRI holds active appointments with.
- * NAMING SPECIFIC CARRIERS REQUIRES DEREK'S WRITTEN CONFIRMATION.
- * Until confirmed, use `CARRIERS_COUNT_LABEL` only.
+ * Carriers displayed publicly on the site (homepage strip, trust
+ * elements, etc.). Add a new entry here + drop a logo PNG/WEBP/SVG
+ * in /public/images/carriers/ to extend.
+ *
+ * Derek still needs to confirm carrier appointment status for any
+ * name ADDED here. Logos should be supplied/approved by the carrier.
  */
-export const CARRIERS_PENDING_CONFIRMATION = [
-  "Great West Casualty Company",
-  "Sentry Insurance",
-  "QBE",
-  "Lancer Insurance",
-  // Plus 100+ additional carriers
-] as const;
+export type DisplayCarrier = {
+  name: string;
+  slug: string;
+  logo: string; // path under /public
+};
+
+export const CARRIERS_DISPLAY: DisplayCarrier[] = [
+  { name: "Great West Casualty Company", slug: "great-west", logo: "/images/carriers/great-west.webp" },
+  { name: "Berkshire Hathaway Homestate Companies", slug: "bhhc", logo: "/images/carriers/bhhc.png" },
+  { name: "Lancer Insurance", slug: "lancer", logo: "/images/carriers/lancer.png" },
+  { name: "Progressive Commercial", slug: "progressive", logo: "/images/carriers/progressive.png" },
+  { name: "Northland Insurance", slug: "northland", logo: "/images/carriers/northland.png" },
+];
 
 export const CARRIERS_COUNT_LABEL = "100+ carriers";
 

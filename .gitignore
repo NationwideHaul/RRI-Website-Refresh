@@ -25,6 +25,9 @@
 ._*
 *.pem
 
+# source brand asset folders (originals — copies live under public/images/)
+/Insurance Companies/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
