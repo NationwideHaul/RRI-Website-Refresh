@@ -77,6 +77,7 @@ export function QuoteForm() {
     else if (!isValidEmail(form.email)) next.email = "Double-check the email.";
     if (!form.phone.trim()) next.phone = "Required.";
     else if (!isValidPhone(form.phone)) next.phone = "Phone looks incomplete.";
+    if (!form.dot.trim()) next.dot = "Required.";
     if (!form.authority) next.authority = "Pick one.";
     if (!form.consent) next.consent = "Please confirm to submit.";
     setErrors(next);
@@ -160,7 +161,7 @@ export function QuoteForm() {
           Get A Quote Today
         </h2>
         <p className="text-[13px] text-gray-500">
-          An agent responds within 2 business hours.
+          A licensed agent will reach out.
         </p>
       </div>
 
@@ -276,18 +277,23 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-dot" className={LABEL_CLASS}>
-            USDOT Number
+            USDOT Number <span className="text-destructive">*</span>
           </Label>
           <Input
             id="qf-dot"
             type="text"
             inputMode="numeric"
             placeholder="1234567"
-            className={FIELD_CLASS}
+            className={cn(
+              FIELD_CLASS,
+              errors.dot && "border-destructive focus-visible:border-destructive",
+            )}
             value={form.dot}
             onChange={(e) => update("dot", e.target.value)}
             disabled={isLoading}
+            required
           />
+          {errors.dot && <p className={ERROR_CLASS}>{errors.dot}</p>}
         </div>
 
         <div>
@@ -329,29 +335,19 @@ export function QuoteForm() {
           onCheckedChange={(v) => update("consent", v === true)}
           disabled={isLoading}
           aria-invalid={!!errors.consent}
-          className="mt-1 shrink-0"
+          className="mt-0.5 shrink-0"
         />
         <div className="flex flex-col gap-1">
-          <Label
+          <label
             htmlFor="qf-consent"
-            className="cursor-pointer text-[13px] leading-[1.5] font-normal text-gray-700"
+            className="cursor-pointer text-[12.5px] leading-[1.5] text-gray-500"
           >
             I agree to the{" "}
-            <Link
-              href="/privacy-policy/"
-              className="text-primary underline underline-offset-2 hover:text-primary-dark"
-            >
-              Privacy Policy
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/terms-conditions/"
-              className="text-primary underline underline-offset-2 hover:text-primary-dark"
-            >
-              Terms of Service
-            </Link>
+            <Link href="/privacy-policy/" className="text-primary underline underline-offset-2 hover:text-primary-dark">Privacy Policy</Link>
+            {" "}and{" "}
+            <Link href="/terms-conditions/" className="text-primary underline underline-offset-2 hover:text-primary-dark">Terms of Service</Link>
             , and consent to receive communications from Road Ready Insurance.
-          </Label>
+          </label>
           {errors.consent && (
             <p className="text-[12px] text-destructive">{errors.consent}</p>
           )}

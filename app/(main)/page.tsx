@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone, Shield, ShieldCheck } from "lucide-react";
 import { SectionHeading } from "@/components/blocks/section-heading";
@@ -8,9 +9,9 @@ import { ProcessSteps, type ProcessStep } from "@/components/blocks/process-step
 import { FAQ } from "@/components/blocks/faq";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { QuoteForm } from "@/components/blocks/quote-form";
-import { CarrierStrip } from "@/components/blocks/carrier-strip";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
+import { CARRIERS_DISPLAY } from "@/lib/constants";
 
 const HERO_FEATURES = [
   "+120 premium markets",
@@ -91,55 +92,82 @@ export default function HomePage() {
       <InsuranceAgencySchema />
 
       {/*
-        Hero with dark photo background + overlay + white text + form right.
-        Placeholder: dark gradient for now. Swap background div for a
-        <Image /> full-bleed truck photo once Adriana supplies the file —
-        structure below is photo-ready.
+        Hero with full-bleed photo + overlay + white text + form right + carrier pills below.
+        Placeholder: public/images/hero-bg.jpg (Unsplash Kenworth at sunset).
+        Swap with Adriana's exact truck photo by overwriting that file.
       */}
       <section
         id="hero"
         aria-labelledby="hero-heading"
         className="relative isolate overflow-hidden bg-primary-dark text-white"
       >
-        {/* Placeholder background — replace with photo */}
+        {/* Full-bleed background photo */}
+        <Image
+          src="/images/hero-bg.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+          aria-hidden="true"
+        />
+        {/* Left-weighted dark gradient so text stays readable on the photo */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,_rgba(34,82,150,0.45),_rgba(15,30,61,1)_65%)]"
+          className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/70 to-primary-dark/20"
         />
-        {/* Left-side dark overlay to guarantee text contrast when photo lands */}
+        {/* Bottom fade so carrier pills anchor cleanly */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/60 to-primary-dark/20"
+          className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-primary-dark/90 to-transparent"
         />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-20 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-28">
-          <div className="flex flex-col gap-8 lg:col-span-7">
-            <h1
-              id="hero-heading"
-              className="text-[40px] font-bold leading-[1.05] tracking-[-0.015em] text-white sm:text-[52px] lg:text-[60px]"
-            >
-              Trucking Insurance made for fleets that protect what they&apos;ve built.
-            </h1>
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-14 px-6 py-16 lg:px-8 lg:pt-24 lg:pb-12">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="flex flex-col gap-8 lg:col-span-7">
+              <h1
+                id="hero-heading"
+                className="text-[40px] font-bold leading-[1.05] tracking-[-0.015em] text-white sm:text-[52px] lg:text-[60px]"
+              >
+                Trucking Insurance made for fleets that protect what they&apos;ve built.
+              </h1>
 
-            <ul className="grid max-w-lg grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
-              {HERO_FEATURES.map((item) => (
-                <li
-                  key={item}
-                  className="border-l-2 border-cyan pl-4 py-1 text-[15px] font-medium leading-[1.35] text-white"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+              <ul className="grid grid-cols-1 gap-x-12 gap-y-3 sm:grid-cols-2">
+                {HERO_FEATURES.map((item) => (
+                  <li
+                    key={item}
+                    className="border-l-2 border-cyan whitespace-nowrap pl-4 py-1 text-[15px] font-medium leading-[1.35] text-white"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div id="quote-form" className="relative lg:col-span-5">
+              <QuoteForm />
+            </div>
           </div>
 
-          <div id="quote-form" className="relative lg:col-span-5">
-            <QuoteForm />
-          </div>
+          {/* Carrier pill strip anchored to hero bottom (integrated with photo) */}
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+            {CARRIERS_DISPLAY.map((carrier) => (
+              <li
+                key={carrier.slug}
+                className="flex h-16 items-center justify-center rounded-full border border-white/10 bg-white/95 px-5 shadow-lg backdrop-blur-sm transition-shadow hover:shadow-xl lg:h-20 lg:px-6"
+              >
+                <Image
+                  src={carrier.logo}
+                  alt={carrier.name}
+                  width={160}
+                  height={44}
+                  className="max-h-9 w-auto object-contain lg:max-h-10"
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
-
-      <CarrierStrip />
 
       <section
         id="who-we-serve"
