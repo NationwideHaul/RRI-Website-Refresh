@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -18,24 +19,24 @@ import { cn } from "@/lib/utils";
 type Status = "idle" | "loading" | "success" | "error";
 
 type FormState = {
-  name: string;
-  phone: string;
-  email: string;
+  fullName: string;
   company: string;
+  email: string;
+  phone: string;
   dot: string;
-  fleetSize: string;
-  message: string;
+  authority: string;
+  consent: boolean;
   companyWebsite: string; // honeypot
 };
 
 const INITIAL: FormState = {
-  name: "",
-  phone: "",
-  email: "",
+  fullName: "",
   company: "",
+  email: "",
+  phone: "",
   dot: "",
-  fleetSize: "",
-  message: "",
+  authority: "",
+  consent: false,
   companyWebsite: "",
 };
 
@@ -52,8 +53,7 @@ function isValidEmail(value: string): boolean {
 }
 
 function isValidPhone(value: string): boolean {
-  const digits = value.replace(/\D/g, "");
-  return digits.length >= 10;
+  return value.replace(/\D/g, "").length >= 10;
 }
 
 export function QuoteForm() {
@@ -71,15 +71,14 @@ export function QuoteForm() {
 
   function validate(): boolean {
     const next: Partial<Record<keyof FormState, string>> = {};
-    if (!form.name.trim()) next.name = "This one we need.";
-    if (!form.phone.trim()) next.phone = "This one we need.";
-    else if (!isValidPhone(form.phone))
-      next.phone = "Phone number looks incomplete.";
-    if (!form.email.trim()) next.email = "This one we need.";
-    else if (!isValidEmail(form.email))
-      next.email = "Double-check the email, something is off.";
-    if (!form.company.trim()) next.company = "This one we need.";
-    if (!form.fleetSize) next.fleetSize = "Pick a fleet size.";
+    if (!form.fullName.trim()) next.fullName = "Required.";
+    if (!form.company.trim()) next.company = "Required.";
+    if (!form.email.trim()) next.email = "Required.";
+    else if (!isValidEmail(form.email)) next.email = "Double-check the email.";
+    if (!form.phone.trim()) next.phone = "Required.";
+    else if (!isValidPhone(form.phone)) next.phone = "Phone looks incomplete.";
+    if (!form.authority) next.authority = "Pick one.";
+    if (!form.consent) next.consent = "Please confirm to submit.";
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -117,7 +116,7 @@ export function QuoteForm() {
         ).gtag;
         gtag?.("event", "quote_form_submit", {
           event_category: "lead",
-          event_label: form.fleetSize,
+          event_label: form.authority,
         });
       }
 
@@ -132,21 +131,17 @@ export function QuoteForm() {
   }
 
   if (status === "success") {
-    const phoneFallback =
-      !NAP.phone.startsWith("PLACEHOLDER_") &&
-      ` or call us at ${NAP.phoneDisplay}`;
     return (
       <div
         role="status"
-        className="flex flex-col items-center gap-4 rounded-2xl border border-gray-100 bg-white p-8 text-center lg:p-12"
+        className="flex flex-col items-center gap-4 rounded-2xl border border-gray-100 bg-white p-8 text-center"
       >
         <CheckCircle2 className="h-10 w-10 text-success" strokeWidth={1.5} />
-        <h3 className="text-[22px] font-semibold text-foreground">
+        <h3 className="text-[20px] font-semibold text-foreground">
           Got it. An agent will reach out within 2 business hours.
         </h3>
-        <p className="text-[16px] leading-[1.6] text-gray-700">
-          If you need something sooner{phoneFallback || ""}, just reply to the
-          confirmation email.
+        <p className="text-[15px] leading-[1.55] text-gray-700">
+          If you need something sooner, call us at {NAP.phoneDisplay}.
         </p>
       </div>
     );
@@ -158,16 +153,16 @@ export function QuoteForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="flex flex-col gap-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm lg:p-10"
+      className="flex flex-col gap-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm lg:p-7"
     >
       {status === "error" && errorMessage && (
         <div
           role="alert"
           className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-[14px] text-destructive"
         >
-          {errorMessage}
+          {errorMessage}{" "}
           {!NAP.phone.startsWith("PLACEHOLDER_") &&
-            ` Or call us directly at ${NAP.phoneDisplay}.`}
+            `Or call us directly at ${NAP.phoneDisplay}.`}
         </div>
       )}
 
@@ -185,68 +180,26 @@ export function QuoteForm() {
         </label>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="qf-name" className={LABEL_CLASS}>
-            Your name <span className="text-destructive">*</span>
+          <Label htmlFor="qf-fullname" className={LABEL_CLASS}>
+            Full name <span className="text-destructive">*</span>
           </Label>
           <Input
-            id="qf-name"
+            id="qf-fullname"
             type="text"
             autoComplete="name"
             placeholder="Jane Doe"
             className={cn(
               FIELD_CLASS,
-              errors.name && "border-destructive focus-visible:border-destructive",
+              errors.fullName && "border-destructive focus-visible:border-destructive",
             )}
-            value={form.name}
-            onChange={(e) => update("name", e.target.value)}
+            value={form.fullName}
+            onChange={(e) => update("fullName", e.target.value)}
             disabled={isLoading}
             required
           />
-          {errors.name && <p className={ERROR_CLASS}>{errors.name}</p>}
-        </div>
-
-        <div>
-          <Label htmlFor="qf-phone" className={LABEL_CLASS}>
-            Best number to reach you <span className="text-destructive">*</span>
-          </Label>
-          <Input
-            id="qf-phone"
-            type="tel"
-            autoComplete="tel"
-            placeholder="(305) 555-0100"
-            className={cn(
-              FIELD_CLASS,
-              errors.phone && "border-destructive focus-visible:border-destructive",
-            )}
-            value={form.phone}
-            onChange={(e) => update("phone", e.target.value)}
-            disabled={isLoading}
-            required
-          />
-          {errors.phone && <p className={ERROR_CLASS}>{errors.phone}</p>}
-        </div>
-
-        <div>
-          <Label htmlFor="qf-email" className={LABEL_CLASS}>
-            Email <span className="text-destructive">*</span>
-          </Label>
-          <Input
-            id="qf-email"
-            type="email"
-            autoComplete="email"
-            placeholder="jane@fleet.com"
-            className={cn(
-              FIELD_CLASS,
-              errors.email && "border-destructive focus-visible:border-destructive",
-            )}
-            value={form.email}
-            onChange={(e) => update("email", e.target.value)}
-            disabled={isLoading}
-            required
-          />
-          {errors.email && <p className={ERROR_CLASS}>{errors.email}</p>}
+          {errors.fullName && <p className={ERROR_CLASS}>{errors.fullName}</p>}
         </div>
 
         <div>
@@ -271,9 +224,50 @@ export function QuoteForm() {
         </div>
 
         <div>
+          <Label htmlFor="qf-email" className={LABEL_CLASS}>
+            Email <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="qf-email"
+            type="email"
+            autoComplete="email"
+            placeholder="jane@fleet.com"
+            className={cn(
+              FIELD_CLASS,
+              errors.email && "border-destructive focus-visible:border-destructive",
+            )}
+            value={form.email}
+            onChange={(e) => update("email", e.target.value)}
+            disabled={isLoading}
+            required
+          />
+          {errors.email && <p className={ERROR_CLASS}>{errors.email}</p>}
+        </div>
+
+        <div>
+          <Label htmlFor="qf-phone" className={LABEL_CLASS}>
+            Phone number <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="qf-phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="(305) 555-0100"
+            className={cn(
+              FIELD_CLASS,
+              errors.phone && "border-destructive focus-visible:border-destructive",
+            )}
+            value={form.phone}
+            onChange={(e) => update("phone", e.target.value)}
+            disabled={isLoading}
+            required
+          />
+          {errors.phone && <p className={ERROR_CLASS}>{errors.phone}</p>}
+        </div>
+
+        <div>
           <Label htmlFor="qf-dot" className={LABEL_CLASS}>
-            USDOT number{" "}
-            <span className="text-gray-500">(if you have one)</span>
+            USDOT number
           </Label>
           <Input
             id="qf-dot"
@@ -288,74 +282,88 @@ export function QuoteForm() {
         </div>
 
         <div>
-          <Label htmlFor="qf-fleet" className={LABEL_CLASS}>
-            How many units? <span className="text-destructive">*</span>
+          <Label htmlFor="qf-authority" className={LABEL_CLASS}>
+            Authority <span className="text-destructive">*</span>
           </Label>
           <Select
-            value={form.fleetSize || undefined}
-            onValueChange={(v) => update("fleetSize", v as string)}
+            value={form.authority || undefined}
+            onValueChange={(v) => update("authority", v as string)}
             disabled={isLoading}
           >
             <SelectTrigger
-              id="qf-fleet"
+              id="qf-authority"
               className={cn(
                 FIELD_CLASS,
                 "!h-12 justify-between text-left data-[placeholder]:text-gray-500",
-                errors.fleetSize &&
+                errors.authority &&
                   "border-destructive focus-visible:border-destructive",
               )}
             >
-              <SelectValue placeholder="Select fleet size" />
+              <SelectValue placeholder="Select authority status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">1 unit</SelectItem>
-              <SelectItem value="2-5">2 to 5 units</SelectItem>
-              <SelectItem value="6-9">6 to 9 units</SelectItem>
-              <SelectItem value="10-25">10 to 25 units</SelectItem>
-              <SelectItem value="25+">25 or more units</SelectItem>
+              <SelectItem value="new-authority">New Authority</SelectItem>
+              <SelectItem value="existing-authority">Existing Authority</SelectItem>
+              <SelectItem value="pending-cancellation">Pending Cancellation</SelectItem>
             </SelectContent>
           </Select>
-          {errors.fleetSize && (
-            <p className={ERROR_CLASS}>{errors.fleetSize}</p>
+          {errors.authority && (
+            <p className={ERROR_CLASS}>{errors.authority}</p>
           )}
         </div>
       </div>
 
-      <div>
-        <Label htmlFor="qf-message" className={LABEL_CLASS}>
-          Tell us about your operation
-        </Label>
-        <Textarea
-          id="qf-message"
-          rows={5}
-          placeholder="We run 4 dry vans in FL and GA, mostly regional freight. Our renewal is in 60 days..."
-          className={cn(FIELD_CLASS, "!h-auto min-h-[120px] py-3")}
-          value={form.message}
-          onChange={(e) => update("message", e.target.value)}
+      <div className="flex items-start gap-3">
+        <Checkbox
+          id="qf-consent"
+          checked={form.consent}
+          onCheckedChange={(v) => update("consent", v === true)}
           disabled={isLoading}
+          aria-invalid={!!errors.consent}
+          className="mt-1 shrink-0"
         />
+        <div className="flex flex-col gap-1">
+          <Label
+            htmlFor="qf-consent"
+            className="cursor-pointer text-[13px] leading-[1.5] font-normal text-gray-700"
+          >
+            I agree to the{" "}
+            <Link
+              href="/privacy-policy/"
+              className="text-primary underline underline-offset-2 hover:text-primary-dark"
+            >
+              Privacy Policy
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/terms-conditions/"
+              className="text-primary underline underline-offset-2 hover:text-primary-dark"
+            >
+              Terms of Service
+            </Link>
+            , and consent to receive marketing emails from Road Ready Insurance.
+            Unsubscribe any time.
+          </Label>
+          {errors.consent && (
+            <p className="text-[12px] text-destructive">{errors.consent}</p>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[13px] text-gray-500">
-          We will never share your information. An agent will respond within 2
-          business hours.
-        </p>
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="inline-flex h-[52px] min-w-[180px] items-center justify-center gap-2 rounded-lg bg-primary px-8 text-[17px] font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-primary/80"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
-              Sending...
-            </>
-          ) : (
-            "Send My Info"
-          )}
-        </button>
-      </div>
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-[17px] font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-primary/80"
+      >
+        {isLoading ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
+            Sending...
+          </>
+        ) : (
+          "Submit Request"
+        )}
+      </button>
     </form>
   );
 }

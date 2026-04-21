@@ -167,3 +167,41 @@
     @apply font-sans;
   }
 }
+
+/* ------- Hero motion: highway lane scroll + shield pulse ------- */
+
+@keyframes rri-lane-scroll {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -48; }
+}
+
+@keyframes rri-shield-pulse {
+  0% { transform: scale(0.55); opacity: 0; }
+  20% { opacity: 0.45; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+.rri-lane-markers {
+  animation: rri-lane-scroll 2.2s linear infinite;
+}
+
+.rri-shield-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rri-shield-pulse 4.5s ease-out infinite;
+  opacity: 0;
+}
+
+.rri-shield-ring-delay-1 { animation-delay: 0s; }
+.rri-shield-ring-delay-2 { animation-delay: 1.5s; }
+.rri-shield-ring-delay-3 { animation-delay: 3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rri-lane-markers,
+  .rri-shield-ring {
+    animation: none;
+  }
+  .rri-shield-ring {
+    opacity: 0.2;
+  }
+}

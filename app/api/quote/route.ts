@@ -4,14 +4,20 @@ import { NAP, SITE } from "@/lib/constants";
 export const runtime = "nodejs";
 
 type QuoteLead = {
-  name?: string;
-  phone?: string;
-  email?: string;
+  fullName?: string;
   company?: string;
+  email?: string;
+  phone?: string;
   dot?: string;
-  fleetSize?: string;
-  message?: string;
+  authority?: string;
+  consent?: boolean;
   companyWebsite?: string; // honeypot
+};
+
+const AUTHORITY_LABELS: Record<string, string> = {
+  "new-authority": "New Authority",
+  "existing-authority": "Existing Authority",
+  "pending-cancellation": "Pending Cancellation",
 };
 
 function isValidEmail(value: string): boolean {
@@ -43,30 +49,33 @@ export async function POST(req: Request) {
     return ok();
   }
 
-  const name = body.name?.trim() ?? "";
-  const phone = body.phone?.trim() ?? "";
-  const email = body.email?.trim() ?? "";
+  const fullName = body.fullName?.trim() ?? "";
   const company = body.company?.trim() ?? "";
+  const email = body.email?.trim() ?? "";
+  const phone = body.phone?.trim() ?? "";
   const dot = body.dot?.trim() ?? "";
-  const fleetSize = body.fleetSize?.trim() ?? "";
-  const message = body.message?.trim() ?? "";
+  const authority = body.authority?.trim() ?? "";
+  const consent = body.consent === true;
 
-  if (!name) return bad("Missing name.");
-  if (!phone) return bad("Missing phone.");
-  if (!isValidPhone(phone)) return bad("Invalid phone.");
+  if (!fullName) return bad("Missing full name.");
+  if (!company) return bad("Missing company.");
   if (!email) return bad("Missing email.");
   if (!isValidEmail(email)) return bad("Invalid email.");
-  if (!company) return bad("Missing company.");
-  if (!fleetSize) return bad("Missing fleet size.");
+  if (!phone) return bad("Missing phone.");
+  if (!isValidPhone(phone)) return bad("Invalid phone.");
+  if (!authority) return bad("Missing authority.");
+  if (!AUTHORITY_LABELS[authority]) return bad("Invalid authority value.");
+  if (!consent) return bad("Consent required.");
 
   const lead = {
-    name,
-    phone,
-    email,
+    fullName,
     company,
+    email,
+    phone,
     dot: dot || null,
-    fleetSize,
-    message: message || null,
+    authority,
+    authorityLabel: AUTHORITY_LABELS[authority],
+    consent,
     submittedAt: new Date().toISOString(),
     source: SITE.url,
   };
@@ -90,7 +99,7 @@ export async function POST(req: Request) {
           from: formFrom,
           to: formTo.split(",").map((s) => s.trim()),
           reply_to: email,
-          subject: `New quote request from ${name} (${company})`,
+          subject: `New quote request from ${fullName} (${company})`,
           html: renderLeadEmail(lead),
           text: renderLeadText(lead),
         }),
@@ -116,10 +125,9 @@ export async function POST(req: Request) {
     }
   }
 
-  // Always log server-side so leads are never silently lost during setup.
   if (!resendKey && !crmUrl) {
     console.warn(
-      "[quote] No RESEND_API_KEY or GHL_WEBHOOK_URL configured. Lead received but not forwarded:",
+      "[quote] No RESEND_API_KEY or CRM_WEBHOOK_URL configured. Lead received but not forwarded:",
       lead,
     );
   } else if (failures.length > 0) {
@@ -131,34 +139,34 @@ export async function POST(req: Request) {
     console.info("[quote] Lead forwarded successfully:", {
       email,
       company,
-      fleetSize,
+      authority,
     });
   }
 
-  // Succeed from the client's perspective even if a forwarder failed —
-  // we logged the lead server-side and failing the user-facing request
-  // just loses a good lead to a transient email outage.
   return ok();
 }
 
-function renderLeadEmail(lead: {
-  name: string;
-  phone: string;
-  email: string;
+type LeadForEmail = {
+  fullName: string;
   company: string;
+  email: string;
+  phone: string;
   dot: string | null;
-  fleetSize: string;
-  message: string | null;
+  authority: string;
+  authorityLabel: string;
+  consent: boolean;
   submittedAt: string;
-}) {
+};
+
+function renderLeadEmail(lead: LeadForEmail) {
   const rows = [
-    ["Name", lead.name],
-    ["Phone", lead.phone],
-    ["Email", lead.email],
+    ["Name", lead.fullName],
     ["Company", lead.company],
+    ["Email", lead.email],
+    ["Phone", lead.phone],
     ["USDOT", lead.dot ?? "—"],
-    ["Fleet size", lead.fleetSize],
-    ["Message", lead.message ?? "—"],
+    ["Authority", lead.authorityLabel],
+    ["Consent", lead.consent ? "Yes" : "No"],
     ["Submitted", lead.submittedAt],
   ]
     .map(
@@ -178,25 +186,16 @@ function renderLeadEmail(lead: {
 </body></html>`;
 }
 
-function renderLeadText(lead: {
-  name: string;
-  phone: string;
-  email: string;
-  company: string;
-  dot: string | null;
-  fleetSize: string;
-  message: string | null;
-  submittedAt: string;
-}) {
+function renderLeadText(lead: LeadForEmail) {
   return `New quote request — ${NAP.shortName}
 
-Name: ${lead.name}
-Phone: ${lead.phone}
-Email: ${lead.email}
+Name: ${lead.fullName}
 Company: ${lead.company}
+Email: ${lead.email}
+Phone: ${lead.phone}
 USDOT: ${lead.dot ?? "-"}
-Fleet size: ${lead.fleetSize}
-Message: ${lead.message ?? "-"}
+Authority: ${lead.authorityLabel}
+Consent: ${lead.consent ? "Yes" : "No"}
 Submitted: ${lead.submittedAt}
 
 Submitted via ${SITE.url}`;

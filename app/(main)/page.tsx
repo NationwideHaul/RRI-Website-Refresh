@@ -9,6 +9,8 @@ import { FAQ } from "@/components/blocks/faq";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { QuoteForm } from "@/components/blocks/quote-form";
 import { CarrierStrip } from "@/components/blocks/carrier-strip";
+import { HeroHighway } from "@/components/blocks/hero-highway";
+import { HeroShield } from "@/components/blocks/hero-shield";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
 
@@ -83,53 +85,35 @@ export default function HomePage() {
     <>
       <InsuranceAgencySchema />
 
-      {/* Hero with side-by-side text + form */}
+      {/* Hero with side-by-side text + form, animated highway + shield */}
       <section
         id="hero"
         aria-labelledby="hero-heading"
         className="relative overflow-hidden bg-background"
       >
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-16 lg:grid-cols-12 lg:gap-16 lg:px-8 lg:py-24">
-          <div className="flex flex-col gap-6 lg:col-span-6">
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <HeroHighway />
+        </div>
+
+        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-28">
+          <div className="flex flex-col gap-6 lg:col-span-7">
             <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
               Commercial trucking insurance · Licensed in 48 states
             </p>
 
             <h1
               id="hero-heading"
-              className="text-[36px] font-semibold leading-[1.1] tracking-[-0.01em] text-primary sm:text-[44px] lg:text-[48px]"
+              className="text-[36px] font-semibold leading-[1.1] tracking-[-0.01em] text-primary sm:text-[44px] lg:text-[52px]"
             >
               Commercial trucking insurance, placed with the carriers that matter.
             </h1>
 
-            <p className="text-[17px] leading-[1.55] text-gray-700 sm:text-[18px]">
-              Road Ready Insurance specializes in commercial trucking coverage
-              for established fleet owners. We place policies with A-rated
-              carriers most brokers cannot access, with in-house licensed
-              claims, responsive agents, and coverage that is correct the
-              first time.
+            <p className="max-w-xl text-[17px] leading-[1.55] text-gray-700 sm:text-[18px]">
+              Specialist trucking broker. 100+ carriers, in-house claims, agents
+              who answer. Licensed in 48 states plus DC.
             </p>
 
-            <ul className="mt-2 flex flex-col gap-3">
-              {[
-                "100+ carriers including premium A-rated markets",
-                "In-house licensed claims adjuster on staff",
-                "Named agents who answer the phone",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-[15px] text-gray-700"
-                >
-                  <ShieldCheck
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary"
-                    strokeWidth={1.75}
-                  />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
               <Link
                 href="/rri-advantage/"
                 className="group inline-flex items-center gap-2 text-[15px] font-semibold text-primary transition-colors hover:text-primary-dark"
@@ -142,7 +126,7 @@ export default function HomePage() {
               </Link>
               <span className="hidden text-gray-300 sm:inline">·</span>
               <a
-                href={`tel:+19549534845`}
+                href="tel:+19549534845"
                 className="inline-flex items-center gap-2 text-[15px] font-semibold text-foreground transition-colors hover:text-primary"
               >
                 <Phone className="h-4 w-4" strokeWidth={1.75} />
@@ -153,14 +137,16 @@ export default function HomePage() {
 
           <div
             id="quote-form"
-            className="lg:col-span-6"
+            className="relative lg:col-span-5"
           >
-            <div className="mb-4 flex flex-col gap-1">
-              <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
-                Start your quote
-              </p>
+            <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+              <div className="aspect-square h-full max-h-[520px] w-full max-w-[520px]">
+                <HeroShield />
+              </div>
+            </div>
+            <div className="mb-5 flex flex-col gap-1 text-center lg:text-left">
               <h2 className="text-[22px] font-semibold leading-tight text-foreground sm:text-[24px]">
-                Tell us about your operation.
+                Get a Quote from our Trucking Insurance Specialists
               </h2>
             </div>
             <QuoteForm />
