@@ -39,12 +39,12 @@ export function Nav() {
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-8 px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2" aria-label="Road Ready Insurance home">
           <Image
-            src="/images/rr-primary-logo.png"
+            src="/images/rr-secondary-logo.png"
             alt="Road Ready Insurance"
-            width={140}
-            height={32}
+            width={160}
+            height={36}
             priority
-            className="h-8 w-auto"
+            className="h-9 w-auto"
           />
         </Link>
 
@@ -93,10 +93,16 @@ export function Nav() {
 
         <div className="flex items-center gap-2">
           <Link
-            href="/#quote-form"
+            href="/customer-service/"
+            className="hidden rounded-lg border-[1.5px] border-gray-300 px-4 py-2 text-[14px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary lg:inline-flex"
+          >
+            Client Portal
+          </Link>
+          <Link
+            href="/contact-us/"
             className="hidden rounded-lg bg-primary px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
           >
-            Start Your Quote
+            Contact us
           </Link>
           <MobileNav />
         </div>

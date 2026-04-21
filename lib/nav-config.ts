@@ -43,7 +43,6 @@ export const NAV_SECTIONS: NavSection[] = [
   { kind: "group", label: "Insurance Solutions", children: INSURANCE_SOLUTIONS },
   { kind: "group", label: "Client Resources", children: CLIENT_RESOURCES },
   { kind: "group", label: "Our Agency", children: OUR_AGENCY },
-  { kind: "link", label: "Contact", href: "/contact-us/" },
 ];
 
 export const FOOTER_COVERAGES: NavLink[] = INSURANCE_SOLUTIONS.slice(0, 8);

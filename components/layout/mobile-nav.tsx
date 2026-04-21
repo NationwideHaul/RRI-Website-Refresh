@@ -48,13 +48,20 @@ export function MobileNav() {
           </SheetClose>
         </SheetHeader>
 
-        <div className="px-6 py-6">
+        <div className="flex flex-col gap-3 px-6 py-6">
           <Link
-            href="/#quote-form"
+            href="/contact-us/"
             onClick={() => setOpen(false)}
             className="flex items-center justify-center rounded-lg bg-primary px-5 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark"
           >
-            Start Your Quote
+            Contact us
+          </Link>
+          <Link
+            href="/customer-service/"
+            onClick={() => setOpen(false)}
+            className="flex items-center justify-center rounded-lg border-[1.5px] border-gray-300 px-5 py-3 text-[15px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+          >
+            Client Portal
           </Link>
         </div>
 
