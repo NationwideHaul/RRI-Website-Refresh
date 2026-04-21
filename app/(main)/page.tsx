@@ -1,9 +1,11 @@
 import Image from "next/image";
+import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import { SITE } from "@/lib/constants";
 
 export default function HomePage() {
   return (
     <section className="mx-auto flex max-w-5xl flex-col items-start gap-8 px-6 py-24 lg:px-8 lg:py-32">
+      <InsuranceAgencySchema />
       <Image
         src="/images/rr-primary-logo.png"
         alt="Road Ready Insurance"

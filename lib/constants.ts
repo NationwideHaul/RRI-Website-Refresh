@@ -78,5 +78,54 @@ export const STATS = {
 export const SITE = {
   url: "https://www.roadreadyinsurance.com",
   name: "Road Ready Insurance",
+  legalName: "Road Ready Insurance Agency",
+  description:
+    "Specialist commercial trucking insurance broker. Licensed in 48 states plus DC with access to 100+ carriers including premium A-rated markets. In-house licensed claims and named agents who answer the phone.",
   tagline: "Commercial trucking insurance, placed with the carriers that matter.",
+  logoPath: "/images/rr-primary-logo.png",
+  foundingLocation: "Boca Raton, FL",
 } as const;
+
+/**
+ * Social / external profile URLs used in schema `sameAs`.
+ * Confirm exact handles with Derek; leave empty strings filtered out
+ * in schema builders so a placeholder never ships.
+ */
+export const SOCIALS = {
+  facebook: "", // e.g. "https://www.facebook.com/roadreadyinsurance"
+  linkedin: "", // e.g. "https://www.linkedin.com/company/road-ready-insurance"
+  instagram: "", // e.g. "https://www.instagram.com/roadreadyinsurance"
+  youtube: "",
+  twitter: "",
+} as const;
+
+/**
+ * Coverage types offered (mirrors INSURANCE_SOLUTIONS in nav-config).
+ * Used for InsuranceAgency `serviceType` and offer catalogs.
+ */
+export const SERVICE_TYPES = [
+  "Commercial Trucking Liability Insurance",
+  "Physical Damage Insurance",
+  "Motor Truck Cargo Insurance",
+  "Trailer Interchange Insurance",
+  "Non-Trucking Liability Insurance",
+  "Reefer Breakdown Insurance",
+  "Truckers Workers Compensation",
+  "Transportation Bonds",
+  "Single Trip Cargo Insurance",
+  "Construction Equipment Insurance",
+  "Additional Commercial Trucking Coverages",
+] as const;
+
+/**
+ * Full list of US states + DC where RRI is licensed.
+ * Used for InsuranceAgency `areaServed`. This is the 48-state list
+ * (excludes Hawaii and Alaska, per strategy doc — confirm with Derek).
+ */
+export const AREA_SERVED_STATES = [
+  "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
+  "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME",
+  "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ",
+  "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD",
+  "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY",
+] as const;
