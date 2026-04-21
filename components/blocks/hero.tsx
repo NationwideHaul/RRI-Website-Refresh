@@ -7,7 +7,7 @@ export type HeroProps = {
   eyebrow?: string;
   headline: string;
   subhead?: string;
-  primaryCTA: HeroCTA;
+  primaryCTA?: HeroCTA;
   secondaryCTA?: HeroCTA;
   trustLine?: string;
   variant?: "light" | "dark";
@@ -66,33 +66,37 @@ export function Hero({
           </p>
         )}
 
-        <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-          <Link
-            href={primaryCTA.href}
-            className={cn(
-              "inline-flex h-[52px] items-center justify-center rounded-lg px-8 text-[17px] font-semibold transition-colors",
-              isDark
-                ? "bg-cyan text-primary-dark hover:bg-white"
-                : "bg-primary text-white hover:bg-primary-dark",
+        {(primaryCTA || secondaryCTA) && (
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            {primaryCTA && (
+              <Link
+                href={primaryCTA.href}
+                className={cn(
+                  "inline-flex h-[52px] items-center justify-center rounded-lg px-8 text-[17px] font-semibold transition-colors",
+                  isDark
+                    ? "bg-cyan text-primary-dark hover:bg-white"
+                    : "bg-primary text-white hover:bg-primary-dark",
+                )}
+              >
+                {primaryCTA.text}
+              </Link>
             )}
-          >
-            {primaryCTA.text}
-          </Link>
 
-          {secondaryCTA && (
-            <Link
-              href={secondaryCTA.href}
-              className={cn(
-                "inline-flex h-[52px] items-center justify-center rounded-lg border-[1.5px] bg-transparent px-8 text-[17px] font-semibold transition-colors",
-                isDark
-                  ? "border-white/70 text-white hover:bg-white hover:text-primary-dark"
-                  : "border-primary text-primary hover:bg-primary hover:text-white",
-              )}
-            >
-              {secondaryCTA.text}
-            </Link>
-          )}
-        </div>
+            {secondaryCTA && (
+              <Link
+                href={secondaryCTA.href}
+                className={cn(
+                  "inline-flex h-[52px] items-center justify-center rounded-lg border-[1.5px] bg-transparent px-8 text-[17px] font-semibold transition-colors",
+                  isDark
+                    ? "border-white/70 text-white hover:bg-white hover:text-primary-dark"
+                    : "border-primary text-primary hover:bg-primary hover:text-white",
+                )}
+              >
+                {secondaryCTA.text}
+              </Link>
+            )}
+          </div>
+        )}
 
         {trustLine && (
           <p

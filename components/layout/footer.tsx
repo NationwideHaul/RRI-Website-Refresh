@@ -73,6 +73,8 @@ export function Footer() {
             <span>&copy; {year} {NAP.legalName}. All rights reserved.</span>
             <span className="hidden md:inline text-white/40">&middot;</span>
             <span>{LICENSE_INFO.licensedDescription}</span>
+            <span className="hidden md:inline text-white/40">&middot;</span>
+            <span>FL License #{LICENSE_INFO.agencyLicenseNumber}</span>
           </div>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {FOOTER_LEGAL.map((link) => (

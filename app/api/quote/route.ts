@@ -75,7 +75,7 @@ export async function POST(req: Request) {
 
   // 1. Email via Resend (if configured).
   const resendKey = process.env.RESEND_API_KEY;
-  const formTo = process.env.FORM_EMAIL_TO;
+  const formTo = process.env.FORM_EMAIL_TO ?? NAP.leadsEmail;
   const formFrom = process.env.FORM_EMAIL_FROM;
 
   if (resendKey && formTo && formFrom) {
@@ -101,23 +101,23 @@ export async function POST(req: Request) {
     }
   }
 
-  // 2. CRM webhook (GoHighLevel etc.)
-  const ghlUrl = process.env.GHL_WEBHOOK_URL;
-  if (ghlUrl) {
+  // 2. Custom CRM webhook (RRI's own pipeline CRM).
+  const crmUrl = process.env.CRM_WEBHOOK_URL;
+  if (crmUrl) {
     try {
-      const ghlRes = await fetch(ghlUrl, {
+      const crmRes = await fetch(crmUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(lead),
       });
-      if (!ghlRes.ok) failures.push(`ghl:${ghlRes.status}`);
+      if (!crmRes.ok) failures.push(`crm:${crmRes.status}`);
     } catch (err) {
-      failures.push(`ghl:${errMsg(err)}`);
+      failures.push(`crm:${errMsg(err)}`);
     }
   }
 
   // Always log server-side so leads are never silently lost during setup.
-  if (!resendKey && !ghlUrl) {
+  if (!resendKey && !crmUrl) {
     console.warn(
       "[quote] No RESEND_API_KEY or GHL_WEBHOOK_URL configured. Lead received but not forwarded:",
       lead,

@@ -8,21 +8,25 @@
 export const NAP = {
   legalName: "Road Ready Insurance Agency",
   shortName: "Road Ready Insurance",
-  phone: "PLACEHOLDER_PHONE", // e.g. "+1-561-555-0100" — confirm with Derek
-  phoneDisplay: "PLACEHOLDER_PHONE_DISPLAY", // e.g. "(561) 555-0100"
-  email: "PLACEHOLDER_EMAIL", // e.g. "info@roadreadyinsurance.com"
+  phone: "+19549534845",
+  phoneDisplay: "(954) 953-4845",
+  email: "info@roadreadyinsurance.com",
+  // Internal lead-routing destination (form submissions). Kept here so
+  // schema-builder never ships it publicly but form API can reference it.
+  leadsEmail: "agents@roadreadyinsurance.com",
   address: {
-    street: "PLACEHOLDER_STREET", // Boca Raton office street address
+    street: "101 Plaza Real S, Suite 226",
     city: "Boca Raton",
     state: "FL",
-    zip: "PLACEHOLDER_ZIP",
+    zip: "33432",
     country: "US",
   },
   hours: "Monday-Friday, 9am-6pm ET",
   geo: {
-    // Approximate Boca Raton centroid — replace with exact office coordinates
-    latitude: 26.3683,
-    longitude: -80.1289,
+    // 101 Plaza Real S, Boca Raton — approximate Plaza Real centroid.
+    // Refine to exact office coordinates if needed for LocalBusiness geo.
+    latitude: 26.3487,
+    longitude: -80.0843,
   },
 } as const;
 
@@ -30,10 +34,11 @@ export const LICENSE_INFO = {
   statesLicensed: 48,
   plusDC: true,
   licensedDescription: "Licensed in 48 states plus the District of Columbia",
-  // Per-state license numbers needed for footer disclosure / state pages.
-  // Ask Derek for the full list (FL, GA, TX, NJ, NC, OH, IL, TN, SC, AL for Phase 1-2).
+  // RRI's Florida agency license. Per-state license numbers for other states
+  // pending Derek confirmation (needed for state pages Phase 2).
+  agencyLicenseNumber: "6003367",
   licenseNumbers: {
-    FL: "PLACEHOLDER_FL_LICENSE",
+    FL: "6003367",
   } as Record<string, string>,
 } as const;
 
