@@ -58,10 +58,10 @@ export type DisplayCarrier = {
 
 export const CARRIERS_DISPLAY: DisplayCarrier[] = [
   { name: "Great West Casualty Company", slug: "great-west", logo: "/images/carriers/great-west.webp" },
-  { name: "Berkshire Hathaway Homestate Companies", slug: "bhhc", logo: "/images/carriers/bhhc.png" },
+  { name: "QEO Insurance Group", slug: "qeo", logo: "/images/carriers/qeo.png" },
   { name: "Lancer Insurance", slug: "lancer", logo: "/images/carriers/lancer.png" },
-  { name: "Progressive Commercial", slug: "progressive", logo: "/images/carriers/progressive.png" },
-  { name: "Northland Insurance", slug: "northland", logo: "/images/carriers/northland.png" },
+  { name: "Sentry Insurance", slug: "sentry", logo: "/images/carriers/sentry.jpg" },
+  { name: "Berkshire Hathaway Homestate Companies", slug: "bhhc", logo: "/images/carriers/bhhc.webp" },
 ];
 
 export const CARRIERS_COUNT_LABEL = "120+ carriers";
