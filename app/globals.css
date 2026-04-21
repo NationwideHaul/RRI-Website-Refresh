@@ -176,9 +176,9 @@
 }
 
 @keyframes rri-shield-pulse {
-  0% { transform: scale(0.55); opacity: 0; }
-  20% { opacity: 0.45; }
-  100% { transform: scale(1.35); opacity: 0; }
+  0% { transform: scale(0.5); opacity: 0; }
+  18% { opacity: 0.7; }
+  100% { transform: scale(1.5); opacity: 0; }
 }
 
 .rri-lane-markers {

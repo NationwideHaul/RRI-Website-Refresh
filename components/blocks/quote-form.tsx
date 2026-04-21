@@ -155,6 +155,15 @@ export function QuoteForm() {
       noValidate
       className="flex flex-col gap-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm lg:p-7"
     >
+      <div className="flex flex-col gap-1">
+        <h2 className="text-[22px] font-semibold leading-tight text-foreground sm:text-[24px]">
+          Get A Quote Today
+        </h2>
+        <p className="text-[13px] text-gray-500">
+          An agent responds within 2 business hours.
+        </p>
+      </div>
+
       {status === "error" && errorMessage && (
         <div
           role="alert"
@@ -183,7 +192,7 @@ export function QuoteForm() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="qf-fullname" className={LABEL_CLASS}>
-            Full name <span className="text-destructive">*</span>
+            Full Name <span className="text-destructive">*</span>
           </Label>
           <Input
             id="qf-fullname"
@@ -204,7 +213,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-company" className={LABEL_CLASS}>
-            Company name <span className="text-destructive">*</span>
+            Company Name <span className="text-destructive">*</span>
           </Label>
           <Input
             id="qf-company"
@@ -246,7 +255,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-phone" className={LABEL_CLASS}>
-            Phone number <span className="text-destructive">*</span>
+            Phone Number <span className="text-destructive">*</span>
           </Label>
           <Input
             id="qf-phone"
@@ -267,7 +276,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-dot" className={LABEL_CLASS}>
-            USDOT number
+            USDOT Number
           </Label>
           <Input
             id="qf-dot"
@@ -299,7 +308,7 @@ export function QuoteForm() {
                   "border-destructive focus-visible:border-destructive",
               )}
             >
-              <SelectValue placeholder="Select authority status" />
+              <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="new-authority">New Authority</SelectItem>
@@ -341,8 +350,7 @@ export function QuoteForm() {
             >
               Terms of Service
             </Link>
-            , and consent to receive marketing emails from Road Ready Insurance.
-            Unsubscribe any time.
+            , and consent to receive communications from Road Ready Insurance.
           </Label>
           {errors.consent && (
             <p className="text-[12px] text-destructive">{errors.consent}</p>

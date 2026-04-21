@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "The RRI Advantage — Why fleet owners choose Road Ready Insurance",
   description:
-    "Most brokers sell the same thing. The difference is how we place it, who we place it with, and what happens when you need us. Licensed in 48 states, 100+ carriers, in-house claims.",
+    "Most brokers sell the same thing. The difference is how we place it, who we place it with, and what happens when you need us. Licensed in 48 states, 120+ carriers, in-house claims.",
   alternates: { canonical: "/rri-advantage/" },
 };
 
@@ -25,7 +25,7 @@ const SECTIONS: AdvantageSection[] = [
     headline: "The carriers that protect serious operations.",
     paragraphs: [
       "Every broker claims to work with many carriers. What matters is which carriers. A 5-minute quote is almost always coming from the same handful of secondary markets every broker can access. The premium A-rated carriers, the ones that protect against nuclear verdicts and catastrophic claims, do not quote in 5 minutes, and most small brokers cannot access them at all.",
-      "Road Ready Insurance has active appointments with more than 100 commercial trucking insurance carriers, including premium A-rated markets most small brokers cannot place. When we build your submission, we match you with the carriers that fit your operation, not just the ones that respond fastest.",
+      "Road Ready Insurance has active appointments with more than 120 commercial trucking insurance carriers, including premium A-rated markets most small brokers cannot place. When we build your submission, we match you with the carriers that fit your operation, not just the ones that respond fastest.",
     ],
   },
   {

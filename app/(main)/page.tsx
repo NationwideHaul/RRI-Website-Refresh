@@ -89,66 +89,64 @@ export default function HomePage() {
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden bg-background"
+        className="relative isolate overflow-hidden bg-background"
       >
+        {/* Highway grid — full-section animated background */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <HeroHighway />
         </div>
 
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-28">
-          <div className="flex flex-col gap-6 lg:col-span-7">
-            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
-              Commercial trucking insurance · Licensed in 48 states
-            </p>
+        {/* Shield rings — positioned to the right so rings extend past form card */}
+        <div className="pointer-events-none absolute right-[-40px] top-1/2 z-0 hidden h-[620px] w-[620px] -translate-y-1/2 lg:block">
+          <HeroShield />
+        </div>
 
+        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 py-20 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-24">
+          <div className="flex flex-col gap-6 lg:col-span-7">
             <h1
               id="hero-heading"
-              className="text-[36px] font-semibold leading-[1.1] tracking-[-0.01em] text-primary sm:text-[44px] lg:text-[52px]"
+              className="text-[34px] font-semibold leading-[1.1] tracking-[-0.01em] text-primary sm:text-[40px] lg:text-[48px]"
             >
-              Commercial trucking insurance, placed with the carriers that matter.
+              Commercial Trucking Insurance made for fleets that are built to last.
             </h1>
 
             <p className="max-w-xl text-[17px] leading-[1.55] text-gray-700 sm:text-[18px]">
-              Specialist trucking broker. 100+ carriers, in-house claims, agents
-              who answer. Licensed in 48 states plus DC.
+              We place policies with A-rated carriers most brokers cannot
+              access, with in-house licensed claims, responsive agents, and
+              coverage that is correct the first time.
             </p>
 
-            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-              <Link
-                href="/rri-advantage/"
-                className="group inline-flex items-center gap-2 text-[15px] font-semibold text-primary transition-colors hover:text-primary-dark"
-              >
-                See what sets us apart
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                  strokeWidth={1.75}
-                />
-              </Link>
-              <span className="hidden text-gray-300 sm:inline">·</span>
+            <ul className="mt-1 flex flex-col gap-2.5">
+              {[
+                "120+ carriers access, including premium A-rated markets.",
+                "We do only trucking. Specialists, not generalists.",
+                "Responsive agents and support that actually answer the phone.",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2.5 text-[14px] leading-[1.5] text-gray-700"
+                >
+                  <ShieldCheck
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary"
+                    strokeWidth={1.75}
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-3">
               <a
                 href="tel:+19549534845"
-                className="inline-flex items-center gap-2 text-[15px] font-semibold text-foreground transition-colors hover:text-primary"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-lg bg-primary px-7 text-[16px] font-semibold text-white transition-colors hover:bg-primary-dark"
               >
-                <Phone className="h-4 w-4" strokeWidth={1.75} />
-                Or call (954) 953-4845
+                <Phone className="h-5 w-5" strokeWidth={1.75} />
+                Call Us Now
               </a>
             </div>
           </div>
 
-          <div
-            id="quote-form"
-            className="relative lg:col-span-5"
-          >
-            <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-              <div className="aspect-square h-full max-h-[520px] w-full max-w-[520px]">
-                <HeroShield />
-              </div>
-            </div>
-            <div className="mb-5 flex flex-col gap-1 text-center lg:text-left">
-              <h2 className="text-[22px] font-semibold leading-tight text-foreground sm:text-[24px]">
-                Get a Quote from our Trucking Insurance Specialists
-              </h2>
-            </div>
+          <div id="quote-form" className="relative lg:col-span-5">
             <QuoteForm />
           </div>
         </div>

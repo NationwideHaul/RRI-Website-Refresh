@@ -1,12 +1,13 @@
 /**
  * HeroShield — protection pulse rings behind the homepage quote form.
  *
- * A subtle shield outline sits behind the form card, with three concentric
- * cyan rings expanding outward in sequence (staggered 1.5s apart). The
- * animation metaphor: the form IS the moment of requesting protection,
- * and the pulse visualizes that protection radiating outward.
+ * Sized to sit on the right side of the hero section so the pulsing
+ * rings extend BEYOND the form card edges (the form card's white fill
+ * sits on top of the rings, clipping the center but leaving the halo
+ * visible on all four sides).
  *
- * Honors prefers-reduced-motion via globals.css.
+ * Three concentric cyan rings expand outward on a 4.5s loop, staggered
+ * 1.5s apart. Honors prefers-reduced-motion via globals.css.
  */
 export function HeroShield() {
   return (
@@ -14,62 +15,49 @@ export function HeroShield() {
       aria-hidden="true"
       viewBox="0 0 400 400"
       preserveAspectRatio="xMidYMid meet"
-      className="absolute inset-0 h-full w-full pointer-events-none"
+      className="h-full w-full"
     >
-      {/* Static shield silhouette */}
+      {/* Soft shield silhouette anchor */}
       <path
-        d="M200 60
-           L310 100
-           L310 210
-           Q310 300 200 350
-           Q90 300 90 210
-           L90 100
+        d="M200 80
+           L310 120
+           L310 220
+           Q310 310 200 360
+           Q90 310 90 220
+           L90 120
            Z"
         fill="none"
         stroke="#225296"
-        strokeOpacity="0.08"
+        strokeOpacity="0.12"
         strokeWidth={1.5}
-      />
-      <path
-        d="M200 100
-           L270 130
-           L270 205
-           Q270 265 200 305
-           Q130 265 130 205
-           L130 130
-           Z"
-        fill="none"
-        stroke="#225296"
-        strokeOpacity="0.06"
-        strokeWidth={1.25}
       />
 
       {/* Three pulsing protection rings */}
       <circle
         cx="200"
-        cy="205"
+        cy="220"
         r="110"
         fill="none"
         stroke="#00FFFC"
-        strokeWidth={1.5}
+        strokeWidth={2}
         className="rri-shield-ring rri-shield-ring-delay-1"
       />
       <circle
         cx="200"
-        cy="205"
+        cy="220"
         r="110"
         fill="none"
         stroke="#00FFFC"
-        strokeWidth={1.5}
+        strokeWidth={2}
         className="rri-shield-ring rri-shield-ring-delay-2"
       />
       <circle
         cx="200"
-        cy="205"
+        cy="220"
         r="110"
         fill="none"
         stroke="#00FFFC"
-        strokeWidth={1.5}
+        strokeWidth={2}
         className="rri-shield-ring rri-shield-ring-delay-3"
       />
     </svg>

@@ -1,7 +1,7 @@
 # Road Ready Insurance Agency
 
 > Specialist commercial trucking insurance broker based in Boca Raton, Florida.
-> Licensed in 48 states plus the District of Columbia. Access to 100+ carriers
+> Licensed in 48 states plus the District of Columbia. Access to 120+ carriers
 > including premium A-rated markets most small brokers cannot place, with an
 > in-house licensed claims adjuster and named agents who answer the phone.
 
@@ -14,7 +14,7 @@ the fast-quote, 5-minute-turnaround market.
 - Website: https://www.roadreadyinsurance.com
 - Headquarters: Boca Raton, Florida
 - States served: 48 US states plus DC
-- Carrier network: 100+ carriers including premium A-rated markets
+- Carrier network: 120+ carriers including premium A-rated markets
 - Claims: In-house licensed claims adjuster on staff
 - Hours: Monday through Friday, 9am-6pm ET
 

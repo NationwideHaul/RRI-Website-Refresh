@@ -64,7 +64,7 @@ export const CARRIERS_DISPLAY: DisplayCarrier[] = [
   { name: "Northland Insurance", slug: "northland", logo: "/images/carriers/northland.png" },
 ];
 
-export const CARRIERS_COUNT_LABEL = "100+ carriers";
+export const CARRIERS_COUNT_LABEL = "120+ carriers";
 
 export const STATS = {
   statesLicensed: {
@@ -73,7 +73,7 @@ export const STATS = {
     detail: "Licensed across the continental US",
   },
   carriers: {
-    value: "100+",
+    value: "120+",
     label: "Carriers",
     detail: "Including premium A-rated markets",
   },
@@ -94,7 +94,7 @@ export const SITE = {
   name: "Road Ready Insurance",
   legalName: "Road Ready Insurance Agency",
   description:
-    "Specialist commercial trucking insurance broker. Licensed in 48 states plus DC with access to 100+ carriers including premium A-rated markets. In-house licensed claims and named agents who answer the phone.",
+    "Specialist commercial trucking insurance broker. Licensed in 48 states plus DC with access to 120+ carriers including premium A-rated markets. In-house licensed claims and named agents who answer the phone.",
   tagline: "Commercial trucking insurance, placed with the carriers that matter.",
   logoPath: "/images/rr-primary-logo.png",
   foundingLocation: "Boca Raton, FL",
