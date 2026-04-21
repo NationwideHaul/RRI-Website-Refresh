@@ -9,10 +9,15 @@ import { FAQ } from "@/components/blocks/faq";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { QuoteForm } from "@/components/blocks/quote-form";
 import { CarrierStrip } from "@/components/blocks/carrier-strip";
-import { HeroHighway } from "@/components/blocks/hero-highway";
-import { HeroShield } from "@/components/blocks/hero-shield";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
+
+const HERO_FEATURES = [
+  "+120 premium markets",
+  "Licensed in 48 states",
+  "Trucking Specialists Only.",
+  "Support who actually answers.",
+];
 
 const PROCESS: ProcessStep[] = [
   {
@@ -85,65 +90,47 @@ export default function HomePage() {
     <>
       <InsuranceAgencySchema />
 
-      {/* Hero with side-by-side text + form, animated highway + shield */}
+      {/*
+        Hero with dark photo background + overlay + white text + form right.
+        Placeholder: dark gradient for now. Swap background div for a
+        <Image /> full-bleed truck photo once Adriana supplies the file —
+        structure below is photo-ready.
+      */}
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative isolate overflow-hidden bg-background"
+        className="relative isolate overflow-hidden bg-primary-dark text-white"
       >
-        {/* Highway grid — full-section animated background */}
-        <div className="pointer-events-none absolute inset-0 z-0">
-          <HeroHighway />
-        </div>
+        {/* Placeholder background — replace with photo */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,_rgba(34,82,150,0.45),_rgba(15,30,61,1)_65%)]"
+        />
+        {/* Left-side dark overlay to guarantee text contrast when photo lands */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/60 to-primary-dark/20"
+        />
 
-        {/* Shield rings — positioned to the right so rings extend past form card */}
-        <div className="pointer-events-none absolute right-[-40px] top-1/2 z-0 hidden h-[620px] w-[620px] -translate-y-1/2 lg:block">
-          <HeroShield />
-        </div>
-
-        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 py-20 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-24">
-          <div className="flex flex-col gap-6 lg:col-span-7">
+        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-20 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-28">
+          <div className="flex flex-col gap-8 lg:col-span-7">
             <h1
               id="hero-heading"
-              className="text-[34px] font-semibold leading-[1.1] tracking-[-0.01em] text-primary sm:text-[40px] lg:text-[48px]"
+              className="text-[40px] font-bold leading-[1.05] tracking-[-0.015em] text-white sm:text-[52px] lg:text-[60px]"
             >
-              Commercial Trucking Insurance made for fleets that are built to last.
+              Trucking Insurance made for fleets that protect what they&apos;ve built.
             </h1>
 
-            <p className="max-w-xl text-[17px] leading-[1.55] text-gray-700 sm:text-[18px]">
-              We place policies with A-rated carriers most brokers cannot
-              access, with in-house licensed claims, responsive agents, and
-              coverage that is correct the first time.
-            </p>
-
-            <ul className="mt-1 flex flex-col gap-2.5">
-              {[
-                "120+ carriers access, including premium A-rated markets.",
-                "We do only trucking. Specialists, not generalists.",
-                "Responsive agents and support that actually answer the phone.",
-              ].map((item) => (
+            <ul className="grid max-w-lg grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
+              {HERO_FEATURES.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-2.5 text-[14px] leading-[1.5] text-gray-700"
+                  className="border-l-2 border-cyan pl-4 py-1 text-[15px] font-medium leading-[1.35] text-white"
                 >
-                  <ShieldCheck
-                    className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary"
-                    strokeWidth={1.75}
-                  />
-                  <span>{item}</span>
+                  {item}
                 </li>
               ))}
             </ul>
-
-            <div className="mt-3">
-              <a
-                href="tel:+19549534845"
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-lg bg-primary px-7 text-[16px] font-semibold text-white transition-colors hover:bg-primary-dark"
-              >
-                <Phone className="h-5 w-5" strokeWidth={1.75} />
-                Call Us Now
-              </a>
-            </div>
           </div>
 
           <div id="quote-form" className="relative lg:col-span-5">
