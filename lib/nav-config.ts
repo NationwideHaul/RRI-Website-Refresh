@@ -40,12 +40,14 @@ export const OUR_AGENCY: NavLink[] = [
 ];
 
 // Top nav follows Adriana's reference design: Coverage / Claims /
-// About Us / Client Perks, with Client Portal + Contact Us as buttons.
+// About Us / Client Perks / Contact Us, with Client Portal + Call Now
+// as pill buttons on the right.
 export const NAV_SECTIONS: NavSection[] = [
   { kind: "group", label: "Coverage", children: INSURANCE_SOLUTIONS },
   { kind: "link", label: "Claims", href: "/report-a-claim/" },
   { kind: "group", label: "About Us", children: OUR_AGENCY },
   { kind: "link", label: "Client Perks", href: "/client-perks/" },
+  { kind: "link", label: "Contact Us", href: "/contact-us/" },
 ];
 
 export const FOOTER_COVERAGES: NavLink[] = INSURANCE_SOLUTIONS.slice(0, 8);

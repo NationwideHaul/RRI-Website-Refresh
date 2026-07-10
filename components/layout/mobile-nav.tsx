@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import {
   Sheet,
   SheetClose,
@@ -18,6 +18,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { NAV_SECTIONS } from "@/lib/nav-config";
+import { NAP } from "@/lib/constants";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -49,17 +50,18 @@ export function MobileNav() {
         </SheetHeader>
 
         <div className="flex flex-col gap-3 px-6 py-6">
-          <Link
-            href="/contact-us/"
+          <a
+            href={`tel:${NAP.phone}`}
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center rounded-lg bg-primary px-5 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark"
+            className="flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark"
           >
-            Contact us
-          </Link>
+            <Phone className="h-4 w-4" strokeWidth={2} />
+            Call Now
+          </a>
           <Link
             href="/customer-service/"
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center rounded-lg border-[1.5px] border-gray-300 px-5 py-3 text-[15px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+            className="flex items-center justify-center rounded-full border-[1.5px] border-gray-300 px-5 py-3 text-[15px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
           >
             Client Portal
           </Link>

@@ -25,10 +25,8 @@ export const REVIEWS_SUMMARY = {
   count: 103,
 };
 
-/** Public link to the full review list. Replace with the exact GBP share
- * link (Business Profile > Ask for reviews) when Adriana provides it. */
-export const REVIEWS_URL =
-  "https://www.google.com/search?q=Road+Ready+Insurance+Agency+Boca+Raton+FL+reviews";
+/** RRI's Google Business Profile review link (provided by Adriana). */
+export const REVIEWS_URL = "https://g.page/r/CdPp7siXKtrhEAE/review";
 
 export const REVIEWS: Review[] = [
   {

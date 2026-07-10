@@ -268,7 +268,7 @@ float noise(vec2 p) {
 float fbm(vec2 p) {
   float v = 0.0;
   float a = 0.5;
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 3; i++) {
     v += a * noise(p);
     p = p * 2.03 + vec2(7.31, 3.7);
     a *= 0.5;
@@ -276,42 +276,56 @@ float fbm(vec2 p) {
   return v;
 }
 
+// A clean, designed brand gradient first; animation layered on top:
+// the light/dark anchors orbit slowly, noise only nudges positions
+// (max ~8%), and the cursor's flowmap displaces + lights the surface.
 void main() {
-  // RG of the flowmap = accumulated mouse velocity (the "fluid")
   vec3 flow = texture2D(tFlow, vUv).rgb;
 
-  float t = uTime * 0.05;
-  vec2 uv = vUv;
-  uv.x *= uResolution.x / max(uResolution.y, 1.0);
+  float aspect = uResolution.x / max(uResolution.y, 1.0);
+  float t = uTime * 0.1;
 
-  // Liquid: the flow displaces the noise domain
-  vec2 warped = uv + flow.xy * 0.24;
+  // Subtle organic warp — keeps the gradient smooth, never blobby
+  vec2 p = vec2(vUv.x * aspect, vUv.y);
+  vec2 warp = vec2(
+    fbm(p * 1.1 + vec2(t * 0.30, -t * 0.20)),
+    fbm(p * 1.1 + vec2(-t * 0.24, t * 0.26) + 5.2)
+  );
+  warp = (warp - 0.5) * 0.08;
 
-  float n1 = fbm(warped * 1.6 + vec2(t * 0.9, -t * 0.6));
-  float n2 = fbm(warped * 2.6 + vec2(-t * 0.5, t * 0.8) + n1 * 1.4);
-  float h = n1 * 0.65 + n2 * 0.35;
+  vec2 uv = vUv + warp + flow.xy * 0.16;
 
-  // Brand palette around #225296 — kept dark enough for white text on top
-  vec3 deep  = vec3(0.051, 0.114, 0.235);
-  vec3 brand = vec3(0.133, 0.322, 0.588);
-  vec3 lift  = vec3(0.231, 0.463, 0.769);
-  vec3 col = mix(deep, brand, smoothstep(0.15, 0.62, h));
-  col = mix(col, lift, smoothstep(0.60, 0.95, h));
+  // Brand palette
+  vec3 cLight = vec3(0.310, 0.510, 0.820); // soft light blue
+  vec3 cBrand = vec3(0.133, 0.322, 0.588); // #225296
+  vec3 cDeep  = vec3(0.075, 0.173, 0.353);
+  vec3 cDark  = vec3(0.043, 0.106, 0.224);
 
-  // Slightly-3D: treat the flow as a surface slope and light it, so the
-  // wake of the cursor gets a soft diffuse shift + liquid specular sheen
-  float flowAmt = clamp(length(flow.xy) * 1.6, 0.0, 1.0);
-  vec3 normal = normalize(vec3(-flow.xy * 2.0, 1.0));
+  // Base: smooth diagonal, brand (top-left) into deep (bottom-right)
+  float diag = clamp(uv.x * 0.55 + (1.0 - uv.y) * 0.6, 0.0, 1.3);
+  vec3 col = mix(cBrand, cDeep, smoothstep(0.15, 1.15, diag));
+
+  // Slow-orbiting anchors give the liquid, breathing motion
+  vec2 aLight = vec2(0.16 + 0.05 * sin(t * 0.50), 0.80 + 0.05 * cos(t * 0.43));
+  vec2 aDark  = vec2(0.86 + 0.04 * cos(t * 0.37), 0.16 + 0.05 * sin(t * 0.31));
+  float dl = length(vec2((uv.x - aLight.x) * 1.7, uv.y - aLight.y));
+  float dd = length(vec2((uv.x - aDark.x) * 1.7, uv.y - aDark.y));
+  col = mix(cLight, col, smoothstep(0.05, 0.75, dl));
+  col = mix(col, cDark, (1.0 - smoothstep(0.10, 0.80, dd)) * 0.85);
+
+  // Cursor wake: slightly-3D diffuse shift + liquid specular sheen
+  float flowAmt = clamp(length(flow.xy) * 1.5, 0.0, 1.0);
+  vec3 normal = normalize(vec3(-flow.xy * 1.6, 1.0));
   vec3 lightDir = normalize(vec3(-0.35, 0.5, 0.8));
   float diff = max(dot(normal, lightDir), 0.0);
-  float spec = pow(max(dot(reflect(-lightDir, normal), vec3(0.0, 0.0, 1.0)), 0.0), 8.0);
-  col += (diff - 0.55) * 0.12 * flowAmt;
-  col += spec * 0.18 * flowAmt;
-  col += vec3(0.0, 1.0, 0.99) * flowAmt * 0.04;
+  float spec = pow(max(dot(reflect(-lightDir, normal), vec3(0.0, 0.0, 1.0)), 0.0), 10.0);
+  col += (diff - 0.55) * 0.10 * flowAmt;
+  col += spec * 0.16 * flowAmt;
+  col += vec3(0.0, 1.0, 0.99) * flowAmt * 0.035;
 
-  // Fine animated grain — the "noise" in the noise gradient
+  // Fine grain — the "noise" in the noise gradient, kept subtle
   float grain = hash(vUv * uResolution.xy + fract(uTime) * 61.7) - 0.5;
-  col += grain * 0.05;
+  col += grain * 0.04;
 
   gl_FragColor = vec4(col, 1.0);
 }

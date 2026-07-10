@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { NAP } from "@/lib/constants";
 import { NAV_SECTIONS } from "@/lib/nav-config";
 import { MobileNav } from "./mobile-nav";
 import {
@@ -17,41 +18,23 @@ import {
 
 export function Nav() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 2);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  // On the homepage the nav sits ON the hero photo as a frosted glass bar
-  // (white text, white logo). Once scrolled — or on any other page — it
-  // falls back to the solid white bar with dark text.
-  const glass = pathname === "/" && !scrolled;
-
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 w-full transition-colors duration-200",
-        glass
-          ? "border-b border-white/15 bg-white/10 backdrop-blur-md"
-          : "border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur",
-      )}
-    >
-      <div className="mx-auto flex h-[80px] max-w-7xl items-center justify-between gap-8 px-6 lg:px-8">
+    // White glassmorphic bar (RingCentral-style): translucent white +
+    // backdrop blur so content frosts through on scroll, soft diffuse shadow.
+    <header className="sticky top-0 z-40 w-full bg-white/75 backdrop-blur-xl shadow-[0_2px_16px_rgba(15,30,61,0.08)]">
+      <div className="mx-auto flex h-[84px] max-w-7xl items-center justify-between gap-8 px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2" aria-label="Road Ready Insurance home">
           <Image
-            src={glass ? "/images/rr-white-logo.png" : "/images/rr-secondary-logo.png"}
+            src="/images/rr-secondary-logo.png"
             alt="Road Ready Insurance"
-            width={220}
-            height={48}
+            width={260}
+            height={56}
             priority
-            className="h-12 w-auto"
+            className="h-14 w-auto"
           />
         </Link>
 
@@ -65,11 +48,8 @@ export function Nav() {
                     <Link
                       href={section.href}
                       className={cn(
-                        "relative inline-flex h-10 items-center px-3 text-[15px] font-medium transition-colors focus-visible:outline-none",
-                        glass
-                          ? "text-white hover:text-cyan focus-visible:text-cyan"
-                          : "text-foreground hover:text-primary focus-visible:text-primary",
-                        active && !glass && "text-primary",
+                        "relative inline-flex h-10 items-center px-3 text-[15px] font-medium text-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none",
+                        active && "text-primary",
                       )}
                     >
                       {section.label}
@@ -86,11 +66,8 @@ export function Nav() {
                 <NavigationMenuItem key={section.label}>
                   <NavigationMenuTrigger
                     className={cn(
-                      "h-10 bg-transparent px-3 text-[15px] font-medium hover:bg-transparent data-[popup-open]:bg-transparent focus:bg-transparent",
-                      glass
-                        ? "text-white hover:text-cyan data-[popup-open]:text-cyan"
-                        : "text-foreground hover:text-primary data-[popup-open]:text-primary",
-                      anyChildActive && !glass && "text-primary",
+                      "h-10 bg-transparent px-3 text-[15px] font-medium text-foreground hover:bg-transparent hover:text-primary data-[popup-open]:bg-transparent data-[popup-open]:text-primary focus:bg-transparent",
+                      anyChildActive && "text-primary",
                     )}
                   >
                     {section.label}
@@ -104,19 +81,20 @@ export function Nav() {
           </NavigationMenuList>
         </NavigationMenu>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <Link
             href="/customer-service/"
-            className="hidden rounded-lg bg-primary px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
+            className="hidden rounded-full bg-primary px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
           >
             Client Portal
           </Link>
-          <Link
-            href="/contact-us/"
-            className="hidden rounded-lg bg-primary px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
+          <a
+            href={`tel:${NAP.phone}`}
+            className="hidden items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
           >
-            Contact Us
-          </Link>
+            <Phone className="h-4 w-4" strokeWidth={2} />
+            Call Now
+          </a>
           <MobileNav />
         </div>
       </div>

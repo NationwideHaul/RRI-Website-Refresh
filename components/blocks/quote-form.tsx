@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { useEffect, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
+import { CheckCircle2, Loader2, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -25,6 +26,8 @@ type FormState = {
   phone: string;
   dot: string;
   authority: string;
+  /** "yes" = has time for the full quick-quote application (opens popup). */
+  quickApp: "" | "yes" | "no";
   consent: boolean;
   companyWebsite: string; // honeypot
 };
@@ -36,6 +39,7 @@ const INITIAL: FormState = {
   phone: "",
   dot: "",
   authority: "",
+  quickApp: "",
   consent: false,
   companyWebsite: "",
 };
@@ -62,6 +66,7 @@ export function QuoteForm({
   );
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showQuickApp, setShowQuickApp] = useState(false);
 
   const glass = variant === "glass";
 
@@ -368,6 +373,64 @@ export function QuoteForm({
         </div>
       </div>
 
+      {/* Optional deeper application — some people only want to leave
+          contact info, others have time for more steps. "Yes" opens the
+          quick-quote popup (question set TBD from Adriana). */}
+      <div
+        className={cn(
+          "flex flex-wrap items-center justify-between gap-x-4 gap-y-3 rounded-lg border px-4 py-3",
+          glass ? "border-white/20 bg-white/5" : "border-gray-200 bg-gray-50",
+        )}
+      >
+        <span
+          className={cn(
+            "text-[13.5px] font-medium leading-snug",
+            glass ? "text-white" : "text-foreground",
+          )}
+        >
+          Would you like to fill out a quick quote application?
+        </span>
+        <div className="flex gap-2" role="group" aria-label="Quick quote application">
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={() => {
+              update("quickApp", "yes");
+              setShowQuickApp(true);
+            }}
+            className={cn(
+              "rounded-lg px-4 py-1.5 text-[13.5px] font-semibold transition-colors",
+              form.quickApp === "yes"
+                ? "bg-cyan text-primary-dark"
+                : glass
+                  ? "border border-white/30 text-white hover:border-cyan hover:text-cyan"
+                  : "border border-gray-300 text-foreground hover:border-primary hover:text-primary",
+            )}
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={() => update("quickApp", "no")}
+            className={cn(
+              "rounded-lg px-4 py-1.5 text-[13.5px] font-semibold transition-colors",
+              form.quickApp === "no"
+                ? "bg-cyan text-primary-dark"
+                : glass
+                  ? "border border-white/30 text-white hover:border-cyan hover:text-cyan"
+                  : "border border-gray-300 text-foreground hover:border-primary hover:text-primary",
+            )}
+          >
+            No, just contact me
+          </button>
+        </div>
+      </div>
+
+      {showQuickApp && (
+        <QuickAppDialog onClose={() => setShowQuickApp(false)} />
+      )}
+
       <div className="flex items-start gap-3">
         <Checkbox
           id="qf-consent"
@@ -436,5 +499,67 @@ export function QuoteForm({
         )}
       </button>
     </form>
+  );
+}
+
+/**
+ * Popup for the deeper quick-quote application. The question set is
+ * pending from Adriana — until it lands, this explains the next step so
+ * the "Yes" path never dead-ends.
+ */
+function QuickAppDialog({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  // Portal to <body>: the glass form card's backdrop-filter creates a
+  // containing block, which would trap position:fixed inside the card.
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quick-app-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
+      <button
+        type="button"
+        aria-label="Close"
+        onClick={onClose}
+        className="absolute inset-0 cursor-default bg-primary-dark/60 backdrop-blur-sm"
+      />
+      <div className="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl">
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close dialog"
+          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 hover:text-foreground"
+        >
+          <X className="h-5 w-5" strokeWidth={1.75} />
+        </button>
+        <h3
+          id="quick-app-title"
+          className="pr-8 text-[22px] font-semibold leading-tight text-foreground"
+        >
+          Quick quote application
+        </h3>
+        <p className="mt-3 text-[15px] leading-[1.6] text-gray-700">
+          Great — a few extra details help us place you with the right market
+          faster. Submit your request and this application will continue with
+          your licensed agent.
+        </p>
+        <button
+          type="button"
+          onClick={onClose}
+          className="mt-6 inline-flex h-[48px] w-full items-center justify-center rounded-lg bg-primary px-8 text-[16px] font-semibold text-white transition-colors hover:bg-primary-dark"
+        >
+          Got it
+        </button>
+      </div>
+    </div>,
+    document.body,
   );
 }

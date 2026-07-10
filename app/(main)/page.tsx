@@ -14,7 +14,8 @@ import { PolicyReviewCta } from "@/components/blocks/policy-review-cta";
 import { Reveal } from "@/components/blocks/reveal";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
-import { REVIEWS_SUMMARY } from "@/content/reviews";
+import { REVIEWS_SUMMARY, REVIEWS_URL } from "@/content/reviews";
+import { GoogleG } from "@/components/blocks/google-g";
 
 const AGENT_AVATARS = [
   "/images/avatars/agent-1.jpg",
@@ -60,15 +61,14 @@ export default function HomePage() {
     <>
       <InsuranceAgencySchema />
 
-      {/* Hero (reference design): full-bleed photo integrated with the
-          frosted nav, dark headline with a cyan marker highlight, trust row,
-          and the glass "Speak with an Expert Today" form. Carrier logos live
-          in the MarketsBand below (all-white treatment). -mt pulls the photo
-          up behind the sticky glass nav (h-80px). */}
+      {/* Hero (reference design): full-bleed photo under the white nav,
+          dark headline with a cyan marker highlight, trust row, and the
+          glass "Speak with an Expert Today" form. Carrier logos live in
+          the MarketsBand below (all-white treatment). */}
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative isolate -mt-[80px] overflow-hidden bg-primary-soft"
+        className="relative isolate overflow-hidden bg-primary-soft"
       >
         <FillPhoto
           src="/images/home-hero.jpg"
@@ -77,7 +77,7 @@ export default function HomePage() {
           sizes="100vw"
         />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 pb-16 pt-[120px] lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8 lg:pb-20 lg:pt-[150px]">
+        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8 lg:py-20">
           <div className="flex flex-col gap-7 lg:col-span-6">
             <h1
               id="hero-heading"
@@ -99,10 +99,20 @@ export default function HomePage() {
               fleet operators.
             </p>
 
-            {/* Trust row: live rating / states licensed / 24-7 service */}
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6">
-              <div className="flex flex-col gap-1.5">
+            {/* Trust row — two symmetric columns, all-white on the photo:
+                left = live Google rating (links to the GBP so it reads
+                legit), right = 48+ states with Premium Customer Service
+                stacked beneath. */}
+            <div className="mt-8 flex flex-wrap items-stretch gap-x-10 gap-y-6 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+              <a
+                href={REVIEWS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between gap-3"
+                aria-label={`${REVIEWS_SUMMARY.rating.toFixed(1)} stars from ${REVIEWS_SUMMARY.count} Google reviews — read them on Google`}
+              >
                 <div className="flex items-center gap-2">
+                  <GoogleG className="h-4 w-4 drop-shadow" />
                   <span className="flex items-center gap-0.5" aria-hidden="true">
                     {Array.from({ length: 5 }, (_, i) => (
                       <Star
@@ -112,56 +122,55 @@ export default function HomePage() {
                       />
                     ))}
                   </span>
-                  <span className="text-[12px] text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                  <span className="text-[12px] text-white/90 underline-offset-2 group-hover:underline">
                     ({REVIEWS_SUMMARY.count} reviews)
                   </span>
                 </div>
                 <div className="flex items-end gap-2.5">
-                  <span className="text-[38px] font-bold leading-none text-gray-900">
+                  <span className="text-[38px] font-bold leading-none text-white">
                     {REVIEWS_SUMMARY.rating.toFixed(1)}
                   </span>
-                  <span className="max-w-[150px] text-[12px] leading-tight text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                  <span className="max-w-[150px] text-[12px] leading-tight text-white/90">
                     Positive Reviews From Our Customers
                   </span>
                 </div>
-              </div>
+              </a>
 
-              <span aria-hidden="true" className="hidden h-12 w-px bg-white/40 sm:block" />
+              <span aria-hidden="true" className="hidden w-px self-stretch bg-white/40 sm:block" />
 
-              <div className="flex items-end gap-2.5">
-                <span className="text-[38px] font-bold leading-none text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.35)]">
-                  48+
-                </span>
-                <span className="max-w-[110px] text-[12px] leading-tight text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
-                  Licensed across United States
-                </span>
-              </div>
-
-              <span aria-hidden="true" className="hidden h-12 w-px bg-white/40 sm:block" />
-
-              <div className="flex items-center gap-3">
-                <span className="flex -space-x-2.5">
-                  {AGENT_AVATARS.map((src, i) => (
-                    <Image
-                      key={src}
-                      src={src}
-                      alt={`Road Ready customer service agent ${i + 1}`}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full border-2 border-white object-cover"
-                    />
-                  ))}
-                </span>
-                <span className="max-w-[110px] text-[12px] leading-tight text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
-                  24/7 Customer Service
-                </span>
+              <div className="flex flex-col justify-between gap-3">
+                <div className="flex items-end gap-2.5">
+                  <span className="text-[26px] font-bold leading-none text-white">
+                    48+
+                  </span>
+                  <span className="max-w-[130px] text-[12px] leading-tight text-white/90">
+                    Licensed across United States
+                  </span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <span className="flex -space-x-2">
+                    {AGENT_AVATARS.map((src, i) => (
+                      <Image
+                        key={src}
+                        src={src}
+                        alt={`Road Ready customer service agent ${i + 1}`}
+                        width={32}
+                        height={32}
+                        className="h-8 w-8 rounded-full border-2 border-white object-cover"
+                      />
+                    ))}
+                  </span>
+                  <span className="max-w-[130px] text-[12px] leading-tight text-white/90">
+                    Premium Customer Service
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
           <div
             id="quote-form"
-            className="relative w-full max-w-[520px] lg:col-span-5 lg:col-start-7"
+            className="relative w-full max-w-[520px] lg:col-span-6 lg:col-start-7 lg:justify-self-center"
           >
             <QuoteForm variant="glass" />
           </div>
