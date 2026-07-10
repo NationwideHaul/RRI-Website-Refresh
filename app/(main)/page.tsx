@@ -1,56 +1,25 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Phone, Shield, ShieldCheck } from "lucide-react";
-import { SectionHeading } from "@/components/blocks/section-heading";
-import { CoverageCard } from "@/components/blocks/coverage-card";
-import { CoverageGrid } from "@/components/blocks/coverage-grid";
-import { StatsSection } from "@/components/blocks/stats-section";
-import { ProcessSteps, type ProcessStep } from "@/components/blocks/process-steps";
+import { Star } from "lucide-react";
+import { FillPhoto } from "@/components/blocks/fill-photo";
 import { FAQ } from "@/components/blocks/faq";
-import { CTABanner } from "@/components/blocks/cta-banner";
 import { QuoteForm } from "@/components/blocks/quote-form";
+import { SectionHeading } from "@/components/blocks/section-heading";
+import { MarketsBand } from "@/components/blocks/markets-band";
+import { CoverageExpander } from "@/components/blocks/coverage-expander";
+import { GoogleReviews } from "@/components/blocks/google-reviews";
+import { AboutAgency } from "@/components/blocks/about-agency";
+import { CoverageSlider } from "@/components/blocks/coverage-slider";
+import { ResourceCards } from "@/components/blocks/resource-cards";
+import { PolicyReviewCta } from "@/components/blocks/policy-review-cta";
+import { Reveal } from "@/components/blocks/reveal";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
-import { CARRIERS_DISPLAY } from "@/lib/constants";
+import { REVIEWS_SUMMARY } from "@/content/reviews";
 
-const HERO_FEATURES = [
-  "+120 premium markets",
-  "Licensed in 48 states",
-  "Trucking Specialists Only.",
-  "Support who actually answers.",
-];
-
-const PROCESS: ProcessStep[] = [
-  {
-    title: "Initial conversation",
-    duration: "20-30 min",
-    detail:
-      "We learn your operation, current coverage, fleet profile, and what you actually need.",
-  },
-  {
-    title: "Secondary market quotes",
-    duration: "24-48 hours",
-    detail:
-      "We return initial numbers from accessible markets within two business days.",
-  },
-  {
-    title: "Premium market placement",
-    duration: "1-2 weeks",
-    detail:
-      "For A-rated carriers, we work with underwriters to build the right submission.",
-  },
-  {
-    title: "Review and bind",
-    duration: "Together",
-    detail:
-      "We walk through every coverage, endorsement, and exclusion before you sign.",
-  },
-  {
-    title: "Ongoing partnership",
-    duration: "As long as needed",
-    detail:
-      "Your named agent stays with you through renewals, certificates, claims, and growth.",
-  },
+const AGENT_AVATARS = [
+  "/images/avatars/agent-1.jpg",
+  "/images/avatars/agent-2.jpg",
+  "/images/avatars/agent-3.jpg",
 ];
 
 const FAQS: FAQItem[] = [
@@ -91,176 +60,158 @@ export default function HomePage() {
     <>
       <InsuranceAgencySchema />
 
-      {/*
-        Hero with full-bleed photo + overlay + white text + form right + carrier pills below.
-        Placeholder: public/images/hero-bg.jpg (Unsplash Kenworth at sunset).
-        Swap with Adriana's exact truck photo by overwriting that file.
-      */}
+      {/* Hero (reference design): full-bleed photo integrated with the
+          frosted nav, dark headline with a cyan marker highlight, trust row,
+          and the glass "Speak with an Expert Today" form. Carrier logos live
+          in the MarketsBand below (all-white treatment). -mt pulls the photo
+          up behind the sticky glass nav (h-80px). */}
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative isolate overflow-hidden bg-primary-dark text-white"
+        className="relative isolate -mt-[80px] overflow-hidden bg-primary-soft"
       >
-        {/* Full-bleed background photo */}
-        <Image
-          src="/images/hero-bg.jpg"
+        <FillPhoto
+          src="/images/home-hero.jpg"
           alt=""
-          fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
-          aria-hidden="true"
-        />
-        {/* Left-weighted dark gradient so text stays readable on the photo */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/70 to-primary-dark/20"
-        />
-        {/* Bottom fade so carrier pills anchor cleanly */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-primary-dark/90 to-transparent"
         />
 
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-14 px-6 py-16 lg:px-8 lg:pt-24 lg:pb-12">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="flex flex-col gap-8 lg:col-span-7">
-              <h1
-                id="hero-heading"
-                className="text-[40px] font-bold leading-[1.05] tracking-[-0.015em] text-white sm:text-[52px] lg:text-[60px]"
-              >
-                Trucking Insurance made for fleets that protect what they&apos;ve built.
-              </h1>
+        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 pb-16 pt-[120px] lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8 lg:pb-20 lg:pt-[150px]">
+          <div className="flex flex-col gap-7 lg:col-span-6">
+            <h1
+              id="hero-heading"
+              className="text-[42px] font-bold leading-[1.12] tracking-[-0.015em] text-gray-900 sm:text-[54px] lg:text-[60px]"
+            >
+              Made for fleets
+              <br />
+              <span className="bg-[linear-gradient(transparent_62%,#00fffc_62%)]">
+                that protects
+              </span>{" "}
+              what
+              <br />
+              you&apos;ve built.
+            </h1>
 
-              <ul className="grid grid-cols-1 gap-x-12 gap-y-3 sm:grid-cols-2">
-                {HERO_FEATURES.map((item) => (
-                  <li
-                    key={item}
-                    className="border-l-2 border-cyan whitespace-nowrap pl-4 py-1 text-[15px] font-medium leading-[1.35] text-white"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="max-w-xl text-[15px] leading-[1.65] text-gray-800 sm:text-[16px]">
+              Commercial trucking insurance specialists with access to the top
+              markets in the industry, and agents who work exclusively with
+              fleet operators.
+            </p>
 
-            <div id="quote-form" className="relative lg:col-span-5">
-              <QuoteForm />
+            {/* Trust row: live rating / states licensed / 24-7 service */}
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-6">
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="flex items-center gap-0.5" aria-hidden="true">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star
+                        key={i}
+                        className="h-4 w-4 fill-amber-400 text-amber-400"
+                        strokeWidth={0}
+                      />
+                    ))}
+                  </span>
+                  <span className="text-[12px] text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                    ({REVIEWS_SUMMARY.count} reviews)
+                  </span>
+                </div>
+                <div className="flex items-end gap-2.5">
+                  <span className="text-[38px] font-bold leading-none text-gray-900">
+                    {REVIEWS_SUMMARY.rating.toFixed(1)}
+                  </span>
+                  <span className="max-w-[150px] text-[12px] leading-tight text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                    Positive Reviews From Our Customers
+                  </span>
+                </div>
+              </div>
+
+              <span aria-hidden="true" className="hidden h-12 w-px bg-white/40 sm:block" />
+
+              <div className="flex items-end gap-2.5">
+                <span className="text-[38px] font-bold leading-none text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.35)]">
+                  48+
+                </span>
+                <span className="max-w-[110px] text-[12px] leading-tight text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                  Licensed across United States
+                </span>
+              </div>
+
+              <span aria-hidden="true" className="hidden h-12 w-px bg-white/40 sm:block" />
+
+              <div className="flex items-center gap-3">
+                <span className="flex -space-x-2.5">
+                  {AGENT_AVATARS.map((src, i) => (
+                    <Image
+                      key={src}
+                      src={src}
+                      alt={`Road Ready customer service agent ${i + 1}`}
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 rounded-full border-2 border-white object-cover"
+                    />
+                  ))}
+                </span>
+                <span className="max-w-[110px] text-[12px] leading-tight text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                  24/7 Customer Service
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Carrier pill strip anchored to hero bottom (integrated with photo) */}
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-            {CARRIERS_DISPLAY.map((carrier) => (
-              <li
-                key={carrier.slug}
-                className="flex h-16 items-center justify-center rounded-full border border-white/10 bg-white/95 px-5 shadow-lg backdrop-blur-sm transition-shadow hover:shadow-xl lg:h-20 lg:px-6"
-              >
-                <Image
-                  src={carrier.logo}
-                  alt={carrier.name}
-                  width={160}
-                  height={44}
-                  className="max-h-9 w-auto object-contain lg:max-h-10"
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section
-        id="who-we-serve"
-        aria-labelledby="who-we-serve-heading"
-        className="bg-gray-50"
-      >
-        <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-20 lg:px-8 lg:py-24">
-          <SectionHeading
-            eyebrow="Who we work with"
-            headline="Built for fleets that have earned their place."
-            subhead="RRI works best with commercial trucking operations that are stable, growing, and serious about protection. If you are running 2 to 50 units, have been in business 2 or more years, and are growing steadily, you are who we are built for. You are also who underwriters want to insure. That means better markets, better rates, and a long-term partnership that understands how your operation scales."
-          />
-          <Link
-            href="/who-we-cover/"
-            className="group inline-flex items-center gap-1.5 self-start text-[16px] font-semibold text-primary transition-colors hover:text-primary-dark"
+          <div
+            id="quote-form"
+            className="relative w-full max-w-[520px] lg:col-span-5 lg:col-start-7"
           >
-            See exactly who we cover
-            <ArrowRight
-              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-              strokeWidth={1.75}
-            />
-          </Link>
-        </div>
-      </section>
-
-      <section
-        id="rri-advantage"
-        aria-labelledby="rri-advantage-heading"
-        className="bg-background"
-      >
-        <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 py-20 lg:px-8 lg:py-24">
-          <SectionHeading
-            eyebrow="The RRI advantage"
-            headline="Three reasons fleet owners choose RRI."
-            subhead="Most brokers sell the same coverage. What makes RRI different is how we place it, who we place it with, and what happens when you need us."
-          />
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-8">
-            <CoverageCard
-              icon={Shield}
-              title="Carriers that matter"
-              description="Access to premium A-rated markets most brokers cannot place. The carriers that protect serious operations, not just the ones that quote fastest."
-              href="/rri-advantage/#carriers"
-              linkText="How we place coverage"
-            />
-            <CoverageCard
-              icon={ShieldCheck}
-              title="In-house claims expertise"
-              description="When something happens, your claim is handled by our in-house licensed adjuster, not a call center. A real person who knows trucking and stays with you until it is resolved."
-              href="/rri-advantage/#claims"
-              linkText="How claims work"
-            />
-            <CoverageCard
-              icon={Phone}
-              title="Agents who answer"
-              description="Your account has a named agent. They pick up the phone, remember your fleet, and call you at renewal before you have to call them."
-              href="/rri-advantage/#agents"
-              linkText="Meet our team"
-            />
+            <QuoteForm variant="glass" />
           </div>
         </div>
       </section>
 
+      {/* All market logos, uniform white, on the dark blue band */}
+      <MarketsBand />
+
+      {/* Expanding panels: what working with RRI actually gets you */}
       <section
         id="coverages"
         aria-labelledby="coverages-heading"
-        className="bg-gray-50"
-      >
-        <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 py-20 lg:px-8 lg:py-24">
-          <SectionHeading
-            eyebrow="Every coverage in one place"
-            headline="Every coverage a trucking operation needs."
-            subhead="We place eleven coverage types for commercial trucking operations. Browse what we offer, or call us to discuss your specific setup."
-          />
-          <CoverageGrid />
-        </div>
-      </section>
-
-      <StatsSection />
-
-      <section
-        id="process"
-        aria-labelledby="process-heading"
         className="bg-background"
       >
         <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 py-20 lg:px-8 lg:py-24">
-          <SectionHeading
-            eyebrow="How we work"
-            headline="A real quote takes time. Here is how it actually goes."
-            subhead="Fast-quote brokers work from a limited pool of secondary markets. For the premium carriers worth placing with, the process takes a bit longer. We are transparent about what that looks like."
-          />
-          <ProcessSteps steps={PROCESS} />
+          <Reveal>
+            <SectionHeading
+              eyebrow="Why fleets choose RRI"
+              headline="Every coverage a trucking operation needs."
+              subhead="Tap a panel to see how we work. From first quote to claim day, everything is built around fleet operators."
+            />
+          </Reveal>
+          <Reveal delay={120}>
+            <CoverageExpander />
+          </Reveal>
         </div>
       </section>
+
+      {/* Live Google Business Profile reviews */}
+      <GoogleReviews />
+
+      {/* Creative About panel with animated stats */}
+      <AboutAgency />
+
+      {/* The 11 coverage types as a slider */}
+      <section
+        id="coverage-options"
+        aria-labelledby="coverage-slider-heading"
+        className="bg-gray-50"
+      >
+        <div className="mx-auto flex max-w-7xl flex-col px-6 py-20 lg:px-8 lg:py-24">
+          <Reveal>
+            <CoverageSlider />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Stripe-style resource promos */}
+      <ResourceCards />
 
       <section
         id="faq"
@@ -268,21 +219,19 @@ export default function HomePage() {
         className="bg-gray-50"
       >
         <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-20 lg:px-8 lg:py-24">
-          <SectionHeading
-            eyebrow="Common questions"
-            headline="Straight answers to the questions fleet owners ask."
-            align="left"
-          />
+          <Reveal>
+            <SectionHeading
+              eyebrow="Common questions"
+              headline="Straight answers to the questions fleet owners ask."
+              align="left"
+            />
+          </Reveal>
           <FAQ items={FAQS} />
         </div>
       </section>
 
-      <CTABanner
-        headline="Ready to see what your coverage should look like?"
-        subhead="Talk to an agent who specializes in trucking. No pressure, no 5-minute sales pitch. Just a real conversation about your operation."
-        primaryCTA={{ text: "Start Your Quote", href: "#quote-form" }}
-        variant="dark"
-      />
+      {/* Policy-review CTA (the "switch to us" moment) */}
+      <PolicyReviewCta />
     </>
   );
 }

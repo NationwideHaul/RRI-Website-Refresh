@@ -4,6 +4,8 @@ import "./globals.css";
 import { OrganizationSchema } from "@/components/schema/organization";
 import { SITE } from "@/lib/constants";
 
+// Site-wide typeface per Adriana (Jul 2026): Inter everywhere.
+// (Circular Std was tried and rejected — the .ttf still lives in app/fonts.)
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",

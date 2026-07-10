@@ -29,22 +29,29 @@ export function Nav() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  // On the homepage the nav sits ON the hero photo as a frosted glass bar
+  // (white text, white logo). Once scrolled — or on any other page — it
+  // falls back to the solid white bar with dark text.
+  const glass = pathname === "/" && !scrolled;
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 w-full border-b border-gray-100 bg-white/95 backdrop-blur transition-shadow duration-150",
-        scrolled && "shadow-sm",
+        "sticky top-0 z-40 w-full transition-colors duration-200",
+        glass
+          ? "border-b border-white/15 bg-white/10 backdrop-blur-md"
+          : "border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur",
       )}
     >
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-8 px-6 lg:px-8">
+      <div className="mx-auto flex h-[80px] max-w-7xl items-center justify-between gap-8 px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2" aria-label="Road Ready Insurance home">
           <Image
-            src="/images/rr-secondary-logo.png"
+            src={glass ? "/images/rr-white-logo.png" : "/images/rr-secondary-logo.png"}
             alt="Road Ready Insurance"
-            width={160}
-            height={36}
+            width={220}
+            height={48}
             priority
-            className="h-9 w-auto"
+            className="h-12 w-auto"
           />
         </Link>
 
@@ -58,8 +65,11 @@ export function Nav() {
                     <Link
                       href={section.href}
                       className={cn(
-                        "relative inline-flex h-10 items-center px-3 text-[15px] font-medium text-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none",
-                        active && "text-primary",
+                        "relative inline-flex h-10 items-center px-3 text-[15px] font-medium transition-colors focus-visible:outline-none",
+                        glass
+                          ? "text-white hover:text-cyan focus-visible:text-cyan"
+                          : "text-foreground hover:text-primary focus-visible:text-primary",
+                        active && !glass && "text-primary",
                       )}
                     >
                       {section.label}
@@ -76,8 +86,11 @@ export function Nav() {
                 <NavigationMenuItem key={section.label}>
                   <NavigationMenuTrigger
                     className={cn(
-                      "h-10 bg-transparent px-3 text-[15px] font-medium text-foreground hover:bg-transparent hover:text-primary data-[popup-open]:bg-transparent data-[popup-open]:text-primary focus:bg-transparent",
-                      anyChildActive && "text-primary",
+                      "h-10 bg-transparent px-3 text-[15px] font-medium hover:bg-transparent data-[popup-open]:bg-transparent focus:bg-transparent",
+                      glass
+                        ? "text-white hover:text-cyan data-[popup-open]:text-cyan"
+                        : "text-foreground hover:text-primary data-[popup-open]:text-primary",
+                      anyChildActive && !glass && "text-primary",
                     )}
                   >
                     {section.label}
@@ -94,7 +107,7 @@ export function Nav() {
         <div className="flex items-center gap-2">
           <Link
             href="/customer-service/"
-            className="hidden rounded-lg border-[1.5px] border-gray-300 px-4 py-2 text-[14px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary lg:inline-flex"
+            className="hidden rounded-lg bg-primary px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
           >
             Client Portal
           </Link>
@@ -102,7 +115,7 @@ export function Nav() {
             href="/contact-us/"
             className="hidden rounded-lg bg-primary px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
           >
-            Contact us
+            Contact Us
           </Link>
           <MobileNav />
         </div>

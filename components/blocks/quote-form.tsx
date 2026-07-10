@@ -40,13 +40,7 @@ const INITIAL: FormState = {
   companyWebsite: "",
 };
 
-const FIELD_CLASS =
-  "h-12 w-full rounded-lg border-[1.5px] border-gray-300 bg-white px-4 text-[16px] text-foreground placeholder:text-gray-500 transition-colors focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/60 disabled:cursor-not-allowed disabled:opacity-60";
-
-const LABEL_CLASS =
-  "mb-2 block text-[14px] font-medium leading-tight text-foreground";
-
-const ERROR_CLASS = "mt-1 text-[13px] text-destructive";
+export type QuoteFormVariant = "light" | "glass";
 
 function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -56,13 +50,39 @@ function isValidPhone(value: string): boolean {
   return value.replace(/\D/g, "").length >= 10;
 }
 
-export function QuoteForm() {
+export function QuoteForm({
+  variant = "light",
+}: {
+  /** "glass" = WhatsApp-style dark frosted card for photo backgrounds. */
+  variant?: QuoteFormVariant;
+} = {}) {
   const [form, setForm] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>(
     {},
   );
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const glass = variant === "glass";
+
+  const FIELD_CLASS = cn(
+    "h-12 w-full bg-white px-4 text-[16px] text-foreground placeholder:text-gray-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/60 disabled:cursor-not-allowed disabled:opacity-60",
+    glass
+      ? "rounded-lg border border-white/30 focus-visible:border-cyan"
+      : "rounded-lg border-[1.5px] border-gray-300 focus-visible:border-primary",
+  );
+
+  const LABEL_CLASS = cn(
+    "mb-2 block text-[14px] font-medium leading-tight",
+    glass ? "text-white" : "text-foreground",
+  );
+
+  const ERROR_CLASS = cn(
+    "mt-1 text-[13px]",
+    glass ? "text-red-300" : "text-destructive",
+  );
+
+  const REQUIRED_CLASS = glass ? "text-red-300" : "text-destructive";
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -135,13 +155,18 @@ export function QuoteForm() {
     return (
       <div
         role="status"
-        className="flex flex-col items-center gap-4 rounded-2xl border border-gray-100 bg-white p-8 text-center"
+        className={cn(
+          "flex flex-col items-center gap-4 p-8 text-center",
+          glass
+            ? "rounded-[28px] border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
+            : "rounded-2xl border border-gray-100 bg-white",
+        )}
       >
         <CheckCircle2 className="h-10 w-10 text-success" strokeWidth={1.5} />
-        <h3 className="text-[20px] font-semibold text-foreground">
+        <h3 className={cn("text-[20px] font-semibold", glass ? "text-white" : "text-foreground")}>
           Got it. An agent will reach out within 2 business hours.
         </h3>
-        <p className="text-[15px] leading-[1.55] text-gray-700">
+        <p className={cn("text-[15px] leading-[1.55]", glass ? "text-white/80" : "text-gray-700")}>
           If you need something sooner, call us at {NAP.phoneDisplay}.
         </p>
       </div>
@@ -154,13 +179,23 @@ export function QuoteForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="flex flex-col gap-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm lg:p-7"
+      className={cn(
+        "flex flex-col gap-5 p-6 lg:p-7",
+        glass
+          ? "rounded-[28px] border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
+          : "rounded-2xl border border-gray-100 bg-white shadow-sm",
+      )}
     >
-      <div className="flex flex-col gap-1">
-        <h2 className="text-[22px] font-semibold leading-tight text-foreground sm:text-[24px]">
-          Get A Quote Today
+      <div className={cn("flex flex-col gap-1", glass && "items-center text-center")}>
+        <h2
+          className={cn(
+            "text-[22px] font-semibold leading-tight sm:text-[24px]",
+            glass ? "text-white" : "text-foreground",
+          )}
+        >
+          Speak with an Expert Today
         </h2>
-        <p className="text-[13px] text-gray-500">
+        <p className={cn("text-[13px]", glass ? "text-white/70" : "text-gray-500")}>
           A licensed agent will reach out.
         </p>
       </div>
@@ -168,7 +203,12 @@ export function QuoteForm() {
       {status === "error" && errorMessage && (
         <div
           role="alert"
-          className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-[14px] text-destructive"
+          className={cn(
+            "rounded-lg px-4 py-3 text-[14px]",
+            glass
+              ? "border border-red-300/40 bg-red-500/15 text-red-100"
+              : "border border-destructive/30 bg-destructive/5 text-destructive",
+          )}
         >
           {errorMessage}{" "}
           {!NAP.phone.startsWith("PLACEHOLDER_") &&
@@ -193,7 +233,7 @@ export function QuoteForm() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="qf-fullname" className={LABEL_CLASS}>
-            Full Name <span className="text-destructive">*</span>
+            Full Name <span className={REQUIRED_CLASS}>*</span>
           </Label>
           <Input
             id="qf-fullname"
@@ -214,7 +254,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-company" className={LABEL_CLASS}>
-            Company Name <span className="text-destructive">*</span>
+            Company Name <span className={REQUIRED_CLASS}>*</span>
           </Label>
           <Input
             id="qf-company"
@@ -235,7 +275,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-email" className={LABEL_CLASS}>
-            Email <span className="text-destructive">*</span>
+            Email <span className={REQUIRED_CLASS}>*</span>
           </Label>
           <Input
             id="qf-email"
@@ -256,7 +296,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-phone" className={LABEL_CLASS}>
-            Phone Number <span className="text-destructive">*</span>
+            Phone Number <span className={REQUIRED_CLASS}>*</span>
           </Label>
           <Input
             id="qf-phone"
@@ -277,7 +317,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-dot" className={LABEL_CLASS}>
-            USDOT Number <span className="text-destructive">*</span>
+            USDOT Number <span className={REQUIRED_CLASS}>*</span>
           </Label>
           <Input
             id="qf-dot"
@@ -298,7 +338,7 @@ export function QuoteForm() {
 
         <div>
           <Label htmlFor="qf-authority" className={LABEL_CLASS}>
-            Authority <span className="text-destructive">*</span>
+            Authority <span className={REQUIRED_CLASS}>*</span>
           </Label>
           <Select
             value={form.authority || undefined}
@@ -335,21 +375,45 @@ export function QuoteForm() {
           onCheckedChange={(v) => update("consent", v === true)}
           disabled={isLoading}
           aria-invalid={!!errors.consent}
-          className="mt-0.5 shrink-0"
+          className={cn(
+            "mt-0.5 shrink-0",
+            glass && "border-white/50 bg-white/10 data-[state=checked]:border-cyan data-[state=checked]:bg-cyan data-[state=checked]:text-primary-dark",
+          )}
         />
         <div className="flex flex-col gap-1">
           <label
             htmlFor="qf-consent"
-            className="cursor-pointer text-[12.5px] leading-[1.5] text-gray-500"
+            className={cn(
+              "cursor-pointer text-[12.5px] leading-[1.5]",
+              glass ? "text-white/70" : "text-gray-500",
+            )}
           >
             I agree to the{" "}
-            <Link href="/privacy-policy/" className="text-primary underline underline-offset-2 hover:text-primary-dark">Privacy Policy</Link>
+            <Link
+              href="/privacy-policy/"
+              className={cn(
+                "underline underline-offset-2",
+                glass ? "text-cyan hover:text-white" : "text-primary hover:text-primary-dark",
+              )}
+            >
+              Privacy Policy
+            </Link>
             {" "}and{" "}
-            <Link href="/terms-conditions/" className="text-primary underline underline-offset-2 hover:text-primary-dark">Terms of Service</Link>
+            <Link
+              href="/terms-conditions/"
+              className={cn(
+                "underline underline-offset-2",
+                glass ? "text-cyan hover:text-white" : "text-primary hover:text-primary-dark",
+              )}
+            >
+              Terms of Service
+            </Link>
             , and consent to receive communications from Road Ready Insurance.
           </label>
           {errors.consent && (
-            <p className="text-[12px] text-destructive">{errors.consent}</p>
+            <p className={cn("text-[12px]", glass ? "text-red-300" : "text-destructive")}>
+              {errors.consent}
+            </p>
           )}
         </div>
       </div>
@@ -357,7 +421,10 @@ export function QuoteForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-[17px] font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-primary/80"
+        className={cn(
+          "inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-[17px] font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-primary/80",
+          glass && "hover:bg-cyan hover:text-primary-dark",
+        )}
       >
         {isLoading ? (
           <>

@@ -66,6 +66,29 @@ export const CARRIERS_DISPLAY: DisplayCarrier[] = [
 
 export const CARRIERS_COUNT_LABEL = "120+ carriers";
 
+/**
+ * Markets band ("Top A-Rated Markets Access") — uniform all-white logo
+ * treatment on the dark blue band. White PNGs are generated from the
+ * originals in /Insurance Companies (see session notes) into
+ * /public/images/carriers/white/. Same Derek-confirmation caveat as
+ * CARRIERS_DISPLAY applies to any name added here.
+ */
+export const CARRIERS_MARKETS: DisplayCarrier[] = [
+  { name: "Great West Casualty Company", slug: "great-west", logo: "/images/carriers/white/great-west.png" },
+  { name: "QEO Insurance Group", slug: "qeo", logo: "/images/carriers/white/qeo.png" },
+  { name: "Lancer Insurance", slug: "lancer", logo: "/images/carriers/white/lancer.png" },
+  { name: "Sentry Insurance", slug: "sentry", logo: "/images/carriers/white/sentry.png" },
+  { name: "Berkshire Hathaway Homestate Companies", slug: "bhhc", logo: "/images/carriers/white/bhhc.png" },
+  { name: "Canal Insurance", slug: "canal", logo: "/images/carriers/white/canal.png" },
+  { name: "Cimarron Insurance Company", slug: "cimarron", logo: "/images/carriers/white/cimarron.png" },
+  { name: "Northland Insurance", slug: "northland", logo: "/images/carriers/white/northland.png" },
+  { name: "Berkley Prime Transportation", slug: "berkley-prime", logo: "/images/carriers/white/berkley-prime.png" },
+  { name: "GEICO Commercial", slug: "geico", logo: "/images/carriers/white/geico.png" },
+  { name: "Progressive Commercial", slug: "progressive", logo: "/images/carriers/white/progressive.png" },
+  { name: "Nirvana Insurance", slug: "nirvana", logo: "/images/carriers/white/nirvana.png" },
+  { name: "Benchmark Insurance Company", slug: "benchmark", logo: "/images/carriers/white/benchmark.png" },
+];
+
 export const STATS = {
   statesLicensed: {
     value: "48+",

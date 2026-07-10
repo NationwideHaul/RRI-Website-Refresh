@@ -39,10 +39,13 @@ export const OUR_AGENCY: NavLink[] = [
   { label: "Careers", href: "/careers/", description: "Join the RRI team." },
 ];
 
+// Top nav follows Adriana's reference design: Coverage / Claims /
+// About Us / Client Perks, with Client Portal + Contact Us as buttons.
 export const NAV_SECTIONS: NavSection[] = [
-  { kind: "group", label: "Insurance Solutions", children: INSURANCE_SOLUTIONS },
-  { kind: "group", label: "Client Resources", children: CLIENT_RESOURCES },
-  { kind: "group", label: "Our Agency", children: OUR_AGENCY },
+  { kind: "group", label: "Coverage", children: INSURANCE_SOLUTIONS },
+  { kind: "link", label: "Claims", href: "/report-a-claim/" },
+  { kind: "group", label: "About Us", children: OUR_AGENCY },
+  { kind: "link", label: "Client Perks", href: "/client-perks/" },
 ];
 
 export const FOOTER_COVERAGES: NavLink[] = INSURANCE_SOLUTIONS.slice(0, 8);

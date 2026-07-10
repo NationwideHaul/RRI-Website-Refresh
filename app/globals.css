@@ -196,12 +196,90 @@
 .rri-shield-ring-delay-2 { animation-delay: 1.5s; }
 .rri-shield-ring-delay-3 { animation-delay: 3s; }
 
+/* ------- Scroll-reveal (driven by components/blocks/reveal.tsx) ------- */
+
+.rri-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.rri-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------- Floating accent cards (About section) ------- */
+
+@keyframes rri-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.rri-float {
+  animation: rri-float 5s ease-in-out infinite;
+}
+
+.rri-float-delay-1 { animation-delay: 0.8s; }
+.rri-float-delay-2 { animation-delay: 1.6s; }
+
+/* ------- Slider: hide scrollbar but keep scrollability ------- */
+
+.rri-no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.rri-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------- Brand touch: semi-truck cursor ------- */
+/* Small navy semi with a cyan cab window. Interactive elements get the
+   same truck with a cyan trailer so "pointer" state stays readable.
+   Falls back to the OS cursor wherever SVG cursors are unsupported. */
+
+body {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='24' viewBox='0 0 34 24'><g><rect x='1' y='3' width='19' height='12' rx='2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><path d='M20 7h6.2c.6 0 1.2.3 1.6.8l3.4 4.4c.3.4.4.8.4 1.3V15c0 .8-.7 1.5-1.5 1.5H20z' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><rect x='22' y='8.5' width='4.5' height='3.5' rx='0.8' fill='%2300fffc'/><circle cx='7' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='7' cy='18' r='1.1' fill='white'/><circle cx='25' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='25' cy='18' r='1.1' fill='white'/></g></svg>")
+      4 12,
+    auto;
+}
+
+a,
+button,
+[role="button"],
+label,
+select,
+summary,
+input[type="checkbox"],
+input[type="radio"] {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='24' viewBox='0 0 34 24'><g><rect x='1' y='3' width='19' height='12' rx='2' fill='%2300fffc' stroke='%230f1e3d' stroke-width='1.4'/><path d='M20 7h6.2c.6 0 1.2.3 1.6.8l3.4 4.4c.3.4.4.8.4 1.3V15c0 .8-.7 1.5-1.5 1.5H20z' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><rect x='22' y='8.5' width='4.5' height='3.5' rx='0.8' fill='%2300fffc'/><circle cx='7' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='7' cy='18' r='1.1' fill='white'/><circle cx='25' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='25' cy='18' r='1.1' fill='white'/></g></svg>")
+      4 12,
+    pointer;
+}
+
+/* Text fields keep the native I-beam so typing targets stay precise. */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea {
+  cursor: text;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rri-lane-markers,
-  .rri-shield-ring {
+  .rri-shield-ring,
+  .rri-float {
     animation: none;
   }
   .rri-shield-ring {
     opacity: 0.2;
+  }
+  .rri-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
