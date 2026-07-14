@@ -250,82 +250,56 @@ uniform vec2 uResolution;
 uniform sampler2D tFlow;
 varying vec2 vUv;
 
-float hash(vec2 p) {
-  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+// Soft gaussian falloff around an anchor (aspect-corrected on x).
+float gauss(vec2 uv, vec2 c, float r, float aspect) {
+  vec2 d = vec2((uv.x - c.x) * aspect, uv.y - c.y);
+  return exp(-dot(d, d) / (r * r));
 }
 
-float noise(vec2 p) {
-  vec2 i = floor(p);
-  vec2 f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(
-    mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-    mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
-    u.y
-  );
-}
-
-float fbm(vec2 p) {
-  float v = 0.0;
-  float a = 0.5;
-  for (int i = 0; i < 3; i++) {
-    v += a * noise(p);
-    p = p * 2.03 + vec2(7.31, 3.7);
-    a *= 0.5;
-  }
-  return v;
-}
-
-// A clean, designed brand gradient first; animation layered on top:
-// the light/dark anchors orbit slowly, noise only nudges positions
-// (max ~8%), and the cursor's flowmap displaces + lights the surface.
+// Smooth mesh gradient in the brand-blue family (ramp.com style): a few
+// soft color anchors orbit slowly and blend with gaussian weights — no
+// fbm noise and no per-frame grain, so the motion reads buttery-smooth.
+// A gentle sinusoidal warp adds life; the cursor flowmap adds a soft
+// liquid displacement + specular sheen on top. Static film grain lives in
+// a CSS overlay above the canvas, so the texture never flickers.
 void main() {
   vec3 flow = texture2D(tFlow, vUv).rgb;
-
   float aspect = uResolution.x / max(uResolution.y, 1.0);
-  float t = uTime * 0.1;
+  float t = uTime * 0.08;
 
-  // Subtle organic warp — keeps the gradient smooth, never blobby
-  vec2 p = vec2(vUv.x * aspect, vUv.y);
-  vec2 warp = vec2(
-    fbm(p * 1.1 + vec2(t * 0.30, -t * 0.20)),
-    fbm(p * 1.1 + vec2(-t * 0.24, t * 0.26) + 5.2)
-  );
-  warp = (warp - 0.5) * 0.08;
-
-  vec2 uv = vUv + warp + flow.xy * 0.16;
+  // Gentle large-scale warp (smooth sinusoids, not noise) + cursor flow
+  vec2 uv = vUv;
+  uv += 0.018 * vec2(sin(uv.y * 3.1 + t * 0.9), cos(uv.x * 3.3 - t * 0.8));
+  uv += flow.xy * 0.10;
 
   // Brand palette
-  vec3 cLight = vec3(0.310, 0.510, 0.820); // soft light blue
+  vec3 cDeep  = vec3(0.043, 0.106, 0.224); // deep navy underlay
   vec3 cBrand = vec3(0.133, 0.322, 0.588); // #225296
-  vec3 cDeep  = vec3(0.075, 0.173, 0.353);
-  vec3 cDark  = vec3(0.043, 0.106, 0.224);
+  vec3 cMid   = vec3(0.180, 0.400, 0.680);
+  vec3 cLight = vec3(0.360, 0.560, 0.860); // soft light blue
 
-  // Base: smooth diagonal, brand (top-left) into deep (bottom-right)
-  float diag = clamp(uv.x * 0.55 + (1.0 - uv.y) * 0.6, 0.0, 1.3);
-  vec3 col = mix(cBrand, cDeep, smoothstep(0.15, 1.15, diag));
+  // Slowly orbiting color anchors
+  vec2 p1 = vec2(0.22 + 0.13 * sin(t * 0.60), 0.28 + 0.10 * cos(t * 0.50));
+  vec2 p2 = vec2(0.78 + 0.11 * cos(t * 0.44), 0.30 + 0.13 * sin(t * 0.52));
+  vec2 p3 = vec2(0.60 + 0.13 * sin(t * 0.38), 0.78 + 0.11 * cos(t * 0.60));
+  vec2 p4 = vec2(0.18 + 0.10 * cos(t * 0.54), 0.82 + 0.10 * sin(t * 0.42));
 
-  // Slow-orbiting anchors give the liquid, breathing motion
-  vec2 aLight = vec2(0.16 + 0.05 * sin(t * 0.50), 0.80 + 0.05 * cos(t * 0.43));
-  vec2 aDark  = vec2(0.86 + 0.04 * cos(t * 0.37), 0.16 + 0.05 * sin(t * 0.31));
-  float dl = length(vec2((uv.x - aLight.x) * 1.7, uv.y - aLight.y));
-  float dd = length(vec2((uv.x - aDark.x) * 1.7, uv.y - aDark.y));
-  col = mix(cLight, col, smoothstep(0.05, 0.75, dl));
-  col = mix(col, cDark, (1.0 - smoothstep(0.10, 0.80, dd)) * 0.85);
+  float w1 = gauss(uv, p1, 0.55, aspect);
+  float w2 = gauss(uv, p2, 0.60, aspect);
+  float w3 = gauss(uv, p3, 0.55, aspect);
+  float w4 = gauss(uv, p4, 0.50, aspect);
+  float wb = 0.35; // base weight keeps deep navy underlying everything
 
-  // Cursor wake: slightly-3D diffuse shift + liquid specular sheen
-  float flowAmt = clamp(length(flow.xy) * 1.5, 0.0, 1.0);
-  vec3 normal = normalize(vec3(-flow.xy * 1.6, 1.0));
+  vec3 col = (cLight * w1 + cBrand * w2 + cMid * w3 + cLight * w4 + cDeep * wb)
+           / (w1 + w2 + w3 + w4 + wb);
+
+  // Cursor wake: gentle specular sheen + faint cyan tint, no hard edges
+  float flowAmt = clamp(length(flow.xy) * 1.4, 0.0, 1.0);
+  vec3 normal = normalize(vec3(-flow.xy * 1.4, 1.0));
   vec3 lightDir = normalize(vec3(-0.35, 0.5, 0.8));
-  float diff = max(dot(normal, lightDir), 0.0);
-  float spec = pow(max(dot(reflect(-lightDir, normal), vec3(0.0, 0.0, 1.0)), 0.0), 10.0);
-  col += (diff - 0.55) * 0.10 * flowAmt;
-  col += spec * 0.16 * flowAmt;
-  col += vec3(0.0, 1.0, 0.99) * flowAmt * 0.035;
-
-  // Fine grain — the "noise" in the noise gradient, kept subtle
-  float grain = hash(vUv * uResolution.xy + fract(uTime) * 61.7) - 0.5;
-  col += grain * 0.04;
+  float spec = pow(max(dot(reflect(-lightDir, normal), vec3(0.0, 0.0, 1.0)), 0.0), 12.0);
+  col += spec * 0.12 * flowAmt;
+  col += vec3(0.0, 1.0, 0.99) * flowAmt * 0.03;
 
   gl_FragColor = vec4(col, 1.0);
 }

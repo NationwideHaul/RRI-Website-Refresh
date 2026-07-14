@@ -226,6 +226,20 @@
 .rri-float-delay-1 { animation-delay: 0.8s; }
 .rri-float-delay-2 { animation-delay: 1.6s; }
 
+/* ------- Hand-drawn circle annotation (hero headline) ------- */
+/* The path declares pathLength="1", so the dash values are normalized and
+   independent of the path's real length. Draws itself in once on load. */
+
+@keyframes rri-draw-circle {
+  to { stroke-dashoffset: 0; }
+}
+
+.rri-draw-circle {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: rri-draw-circle 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.45s forwards;
+}
+
 /* ------- Slider: hide scrollbar but keep scrollability ------- */
 
 .rri-no-scrollbar {
@@ -273,6 +287,10 @@ textarea {
   .rri-shield-ring,
   .rri-float {
     animation: none;
+  }
+  .rri-draw-circle {
+    animation: none;
+    stroke-dashoffset: 0;
   }
   .rri-shield-ring {
     opacity: 0.2;

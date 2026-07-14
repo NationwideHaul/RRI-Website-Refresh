@@ -9,7 +9,9 @@ export default function MainLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
-      <main className="flex-1">{children}</main>
+      {/* Top padding clears the fixed floating nav. The home hero cancels
+          this with a negative margin so its gradient runs up behind the nav. */}
+      <main className="flex-1 pt-24">{children}</main>
       <Footer />
     </div>
   );

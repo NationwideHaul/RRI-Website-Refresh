@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
-import { FillPhoto } from "@/components/blocks/fill-photo";
+import { FluidGradient } from "@/components/blocks/fluid-gradient";
 import { FAQ } from "@/components/blocks/faq";
 import { QuoteForm } from "@/components/blocks/quote-form";
 import { SectionHeading } from "@/components/blocks/section-heading";
@@ -61,39 +61,65 @@ export default function HomePage() {
     <>
       <InsuranceAgencySchema />
 
-      {/* Hero (reference design): full-bleed photo under the white nav,
-          dark headline with a cyan marker highlight, trust row, and the
-          glass "Speak with an Expert Today" form. Carrier logos live in
-          the MarketsBand below (all-white treatment). */}
+      {/* Hero (reference design): interactive fluid-gradient backdrop under
+          the white nav, white headline with a cyan marker highlight, trust
+          row, and the glass "Speak with an Expert Today" form. Carrier logos
+          live in the MarketsBand below (gray treatment on white). */}
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative isolate overflow-hidden bg-primary-soft"
+        className="relative isolate -mt-24 overflow-hidden bg-primary-dark"
       >
-        <FillPhoto
-          src="/images/home-hero.jpg"
-          alt=""
-          priority
-          sizes="100vw"
+        <FluidGradient />
+
+        {/* Film-grain overlay on top of the fluid gradient — fine fractal
+            noise blended so it reads as a subtle textured surface, not flat. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[1] opacity-30 mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E\")",
+            backgroundSize: "160px 160px",
+          }}
         />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8 lg:py-20">
+        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 pb-16 pt-32 lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8 lg:pb-24 lg:pt-40">
           <div className="flex flex-col gap-7 lg:col-span-6">
             <h1
               id="hero-heading"
-              className="text-[42px] font-bold leading-[1.12] tracking-[-0.015em] text-gray-900 sm:text-[54px] lg:text-[60px]"
+              className="text-[42px] font-bold leading-[1.12] tracking-[-0.015em] text-white sm:text-[54px] lg:text-[60px]"
             >
               Made for fleets
               <br />
-              <span className="bg-[linear-gradient(transparent_62%,#00fffc_62%)]">
-                that protects
+              that{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10">protects</span>
+                {/* Hand-drawn circle annotation, drawn in on load */}
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 320 130"
+                  preserveAspectRatio="none"
+                  className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[150%] w-[122%] -translate-x-1/2 -translate-y-1/2 overflow-visible text-cyan"
+                >
+                  <path
+                    d="M42 78 C18 46 92 22 168 23 C252 24 300 50 288 80 C278 106 190 118 116 112 C52 107 16 88 30 58 C37 43 54 35 82 31"
+                    pathLength={1}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={4}
+                    strokeLinecap="round"
+                    vectorEffect="non-scaling-stroke"
+                    className="rri-draw-circle"
+                  />
+                </svg>
               </span>{" "}
               what
               <br />
               you&apos;ve built.
             </h1>
 
-            <p className="max-w-xl text-[15px] leading-[1.65] text-gray-800 sm:text-[16px]">
+            <p className="max-w-xl text-[15px] leading-[1.65] text-white/85 sm:text-[16px]">
               Commercial trucking insurance specialists with access to the top
               markets in the industry, and agents who work exclusively with
               fleet operators.
