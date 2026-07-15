@@ -95,7 +95,7 @@ export function CoverageSlider() {
                   {coverage.short}
                 </span>
               </span>
-              <span className="relative flex w-[140px] shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary-soft">
+              <span className="relative flex aspect-square h-full shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary-soft">
                 {coverage.image ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img

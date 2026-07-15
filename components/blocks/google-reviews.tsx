@@ -17,7 +17,7 @@ export async function GoogleReviews() {
 
   return (
     <section aria-labelledby="reviews-heading" className="bg-gray-50">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 lg:px-8 lg:py-16">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 lg:px-8 lg:py-16">
         <Reveal>
           <SectionHeading
             headline="Backed by"

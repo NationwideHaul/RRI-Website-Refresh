@@ -20,9 +20,10 @@ export function MarketsBand() {
         <div className="flex flex-col items-center gap-3 text-center">
           <h2
             id="markets-heading"
-            className="type-h2 text-[28px] text-ink sm:text-[34px]"
+            className="type-h2 text-[28px] sm:text-[34px]"
           >
-            Top A-Rated Markets <span className="text-slate-muted">Access</span>
+            <span className="rri-gradient-text">Top A-Rated Markets</span>{" "}
+            <span className="text-ink">Access</span>
           </h2>
           <p className="type-sub text-[16px] text-slate">
             When we say we will give you the best rate, we mean it.
@@ -77,6 +78,11 @@ function MarqueeRow({
               src={carrier.colorLogo ?? carrier.logo}
               alt={i < carriers.length ? carrier.name : ""}
               loading="lazy"
+              style={
+                carrier.scale
+                  ? { transform: `scale(${carrier.scale})` }
+                  : undefined
+              }
               className="h-10 w-auto max-w-[188px] object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
             />
           </li>

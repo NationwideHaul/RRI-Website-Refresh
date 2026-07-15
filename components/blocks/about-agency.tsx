@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/blocks/reveal";
+import { FluidGradient } from "@/components/blocks/fluid-gradient";
 
 const STATS: { value: number; prefix?: string; suffix: string; label: string }[] = [
   { value: 12, prefix: "$", suffix: "M+", label: "Premium written" },
@@ -19,9 +20,11 @@ const STATS: { value: number; prefix?: string; suffix: string; label: string }[]
 export function AboutAgency() {
   return (
     <section aria-labelledby="about-heading" className="bg-gray-50">
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-20 lg:px-8 lg:pb-8 lg:pt-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-8 pt-20 lg:px-8 lg:pb-8 lg:pt-24">
         <Reveal>
           <div className="relative isolate overflow-hidden rounded-3xl bg-primary text-white">
+            {/* Animated fluid gradient — same as the hero backdrop */}
+            <FluidGradient />
             {/* Dotted texture + soft cyan glow */}
             <div
               aria-hidden="true"
@@ -44,15 +47,14 @@ export function AboutAgency() {
                   id="about-heading"
                   className="type-h2 text-[34px] text-white sm:text-[44px]"
                 >
-                  Better protection and a better rate,{" "}
+                  Better coverage and a better rate,{" "}
                   <span className="text-white/55">
-                    from people who understand your operation.
+                    from people who get trucking.
                   </span>
                 </h2>
                 <p className="max-w-xl text-[17px] leading-[1.65] text-white/80">
-                  Most fleets are overpaying for coverage that still leaves
-                  gaps, usually because their agent sells everything and
-                  specializes in nothing.
+                  Because we work exclusively with fleets, we know how to spot
+                  the gaps a general policy tends to miss and price it right.
                 </p>
 
                 <dl className="mt-2 grid grid-cols-3 gap-6">

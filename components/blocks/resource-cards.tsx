@@ -29,7 +29,7 @@ const CARDS = [
 export function ResourceCards() {
   return (
     <section aria-label="Client resources" className="bg-gray-50">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 pb-16 pt-0 md:grid-cols-2 lg:px-8">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 pb-16 pt-0 md:grid-cols-2 lg:px-8">
         {CARDS.map((card, i) => (
           <Reveal key={card.key} delay={i * 120}>
             <Link

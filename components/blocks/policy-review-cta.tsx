@@ -10,7 +10,7 @@ import { Reveal } from "@/components/blocks/reveal";
 export function PolicyReviewCta() {
   return (
     <section aria-labelledby="policy-review-heading" className="bg-gray-50">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
         <Reveal>
           <div className="relative isolate flex min-h-[420px] items-start overflow-hidden rounded-3xl bg-primary-dark text-white">
             <FillPhoto

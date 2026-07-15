@@ -102,6 +102,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "BMC-84, ICC, and other surety bonds for authority, brokerage, and operations.",
     icon: FileCheck,
+    image: "/images/coverage-icons/trucking-transportation-bonds.jpg",
   },
   {
     slug: "single-trip-cargo-insurance",
@@ -110,6 +111,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "One-time high-value load coverage without binding a full annual policy.",
     icon: Route,
+    image: "/images/coverage-icons/single-trip-cargo-insurance.jpg",
   },
   {
     slug: "construction-equipment",

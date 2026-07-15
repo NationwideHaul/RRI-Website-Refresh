@@ -85,7 +85,7 @@ export const CARRIERS_MARKETS: DisplayCarrier[] = [
   { name: "Cimarron Insurance Company", slug: "cimarron", logo: "/images/carriers/white/cimarron.png", colorLogo: "/images/carriers/trimmed/cimarron.png" },
   { name: "Northland Insurance", slug: "northland", logo: "/images/carriers/white/northland.png", colorLogo: "/images/carriers/trimmed/northland.png" },
   { name: "Berkley Prime Transportation", slug: "berkley-prime", logo: "/images/carriers/white/berkley-prime.png", colorLogo: "/images/carriers/trimmed/berkley-prime.png" },
-  { name: "GEICO Commercial", slug: "geico", logo: "/images/carriers/white/geico.png", colorLogo: "/images/carriers/trimmed/geico.png" },
+  { name: "GEICO Commercial", slug: "geico", logo: "/images/carriers/white/geico.png", colorLogo: "/images/carriers/trimmed/geico.png", scale: 0.82 },
   { name: "Progressive Commercial", slug: "progressive", logo: "/images/carriers/white/progressive.png", colorLogo: "/images/carriers/trimmed/progressive.png" },
   { name: "Nirvana Insurance", slug: "nirvana", logo: "/images/carriers/white/nirvana.png", colorLogo: "/images/carriers/trimmed/nirvana.png" },
 ];

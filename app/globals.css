@@ -234,6 +234,49 @@
   }
 }
 
+/* ------- Animated gradient text (e.g. "Top A-Rated Markets") ------- */
+@keyframes rri-gradient-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.rri-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    #225296,
+    #3d82f6,
+    #22c9ff,
+    #3d82f6,
+    #225296
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: rri-gradient-shift 4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rri-gradient-text {
+    animation: none;
+  }
+}
+
+/* ------- Scroll-drawn decorative line (Lusion-style) ------- */
+.rri-scroll-line {
+  fill: none;
+  stroke: #00fffc;
+  stroke-width: clamp(12px, 2vw, 22px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* Smooths the gap between rAF scroll updates so the draw never looks steppy. */
+  transition: stroke-dashoffset 0.12s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rri-scroll-line {
+    transition: none;
+  }
+}
+
 /* ------- Hero motion: highway lane scroll + shield pulse ------- */
 
 @keyframes rri-lane-scroll {

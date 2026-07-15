@@ -210,7 +210,7 @@ export default function HomePage() {
           lives inside a rounded, bordered white panel floating on a light gray
           backdrop — Stripe's contained-page look. Footer sits below it. */}
       <div className="bg-[#eef1f6] px-3 pb-3 pt-3 sm:px-5 sm:pb-5 sm:pt-5 lg:px-6 lg:pb-6 lg:pt-6">
-        <div className="overflow-hidden rounded-4xl border border-gray-200/80 bg-background shadow-[0_1px_2px_rgba(10,37,64,0.04),0_16px_40px_-16px_rgba(10,37,64,0.14)]">
+        <div id="coverage-panel" className="overflow-hidden rounded-4xl border border-gray-200/80 bg-background shadow-[0_1px_2px_rgba(10,37,64,0.04),0_16px_40px_-16px_rgba(10,37,64,0.14)]">
 
       {/* Expanding panels: what working with Road Ready Insurance actually gets you */}
       <section
@@ -218,7 +218,7 @@ export default function HomePage() {
         aria-labelledby="coverages-heading"
         className="bg-background"
       >
-        <div className="mx-auto flex max-w-7xl flex-col px-6 py-20 lg:px-8 lg:py-24">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-6 py-20 lg:px-8 lg:py-24">
           <Reveal>
             <CoverageExpander
               headline="Every coverage"
@@ -239,7 +239,7 @@ export default function HomePage() {
         aria-labelledby="coverage-slider-heading"
         className="bg-background"
       >
-        <div className="mx-auto flex max-w-7xl flex-col px-6 pb-20 pt-28 lg:px-8 lg:pb-24 lg:pt-36">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-6 pb-20 pt-28 lg:px-8 lg:pb-24 lg:pt-36">
           <Reveal>
             <CoverageSlider />
           </Reveal>
@@ -257,7 +257,7 @@ export default function HomePage() {
         aria-labelledby="faq-heading"
         className="bg-background"
       >
-        <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 lg:px-8 lg:py-16">
+        <div className="relative z-10 mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 lg:px-8 lg:py-16">
           <Reveal>
             <SectionHeading
               headline="Straight answers"
