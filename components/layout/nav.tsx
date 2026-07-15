@@ -31,9 +31,9 @@ export function Nav() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  // Floating pill nav. Translucent dark glass only at the very top of the
-  // home page (so the fluid-gradient hero shows through, like the reference);
-  // solid dark glass once scrolled or on any inner page, so the white text
+  // Floating pill nav. Translucent white glass at the very top of the home
+  // page (so the fluid-gradient hero shows through as frosted glass); more
+  // solid white glass once scrolled or on any inner page, so the dark text
   // and links stay legible over light page content.
   const solid = scrolled || pathname !== "/";
 
@@ -43,23 +43,23 @@ export function Nav() {
         className={cn(
           "mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 rounded-full border pl-3 pr-3 backdrop-blur-xl transition-colors duration-300 sm:pl-4 sm:pr-4",
           solid
-            ? "border-white/10 bg-primary-dark/90 shadow-[0_10px_30px_rgba(6,17,38,0.35)]"
-            : "border-white/20 bg-primary-dark/35 shadow-[0_10px_30px_rgba(6,17,38,0.20)]",
+            ? "border-gray-200/80 bg-white/85 shadow-[0_8px_30px_rgba(15,30,61,0.10)]"
+            : "border-white/60 bg-white/55 shadow-[0_8px_30px_rgba(15,30,61,0.08)]",
         )}
       >
-        {/* Brand: full Road Ready logo (white version for the dark bar) */}
+        {/* Brand: full Road Ready logo (color version for the white bar) */}
         <Link
           href="/"
           className="flex shrink-0 items-center"
           aria-label="Road Ready Insurance home"
         >
           <Image
-            src="/images/rr-white-logo.png"
+            src="/images/rr-secondary-logo.png"
             alt="Road Ready Insurance"
             width={500}
             height={135}
             priority
-            className="h-10 w-auto"
+            className="h-9 w-auto"
           />
         </Link>
 
@@ -76,8 +76,8 @@ export function Nav() {
                       className={cn(
                         "inline-flex h-9 items-center rounded-full px-3.5 text-[15px] font-medium transition-colors focus-visible:outline-none",
                         active
-                          ? "bg-white/15 text-white"
-                          : "text-white/75 hover:bg-white/10 hover:text-white",
+                          ? "bg-primary/10 text-primary"
+                          : "text-gray-700 hover:bg-black/[0.04] hover:text-ink",
                       )}
                     >
                       {section.label}
@@ -91,10 +91,10 @@ export function Nav() {
                 <NavigationMenuItem key={section.label}>
                   <NavigationMenuTrigger
                     className={cn(
-                      "h-9 rounded-full bg-transparent px-3.5 text-[15px] font-medium hover:bg-white/10 focus:bg-white/10 data-[popup-open]:bg-white/10",
+                      "h-9 rounded-full bg-transparent px-3.5 text-[15px] font-medium hover:bg-black/[0.04] focus:bg-black/[0.04] data-[popup-open]:bg-black/[0.04]",
                       anyChildActive
-                        ? "text-white"
-                        : "text-white/75 hover:text-white data-[popup-open]:text-white",
+                        ? "text-primary"
+                        : "text-gray-700 hover:text-ink data-[popup-open]:text-ink",
                     )}
                   >
                     {section.label}
@@ -112,13 +112,13 @@ export function Nav() {
         <div className="flex shrink-0 items-center gap-2">
           <Link
             href="/customer-service/"
-            className="hidden rounded-full border border-white/30 px-5 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-white/10 lg:inline-flex"
+            className="hidden rounded-full border border-gray-300 px-5 py-2 text-[14px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary lg:inline-flex"
           >
             Client Portal
           </Link>
           <a
             href={`tel:${NAP.phone}`}
-            className="hidden items-center gap-2 rounded-full bg-white px-5 py-2 text-[15px] font-semibold text-primary-dark transition-colors hover:bg-white/90 lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-primary px-5 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-primary-dark lg:inline-flex"
           >
             <Phone className="h-4 w-4" strokeWidth={2} />
             Call Now

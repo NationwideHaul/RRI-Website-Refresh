@@ -1,171 +1,281 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  FileCheck,
-  Headset,
-  ShieldCheck,
-  Truck,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Panel = {
   key: string;
-  icon: LucideIcon;
+  /** Short label overlaid in the corner of the card image. */
+  tag: string;
+  /** Full headline shown in the detail row below the filmstrip. */
   title: string;
   detail: string;
   href: string;
   linkText: string;
+  /** Background photo for the card. */
+  image: string;
 };
 
 const PANELS: Panel[] = [
   {
     key: "fleets",
-    icon: Truck,
-    title: "Fleets of all sizes, including high-risk",
+    tag: "Trucking specialists",
+    title: "Trucking specialists, not general insurance",
     detail:
-      "From a 2-truck operation to a 50-unit fleet, and the hard-to-place, high-risk accounts other brokers turn away. If you run trucks, we have a market for you.",
-    href: "/who-we-cover/",
-    linkText: "See who we cover",
+      "We only write commercial trucking, not home, auto, or general business. That focus is why we know your risks, your carriers, and your filings better than any generalist agency ever could.",
+    href: "/rri-advantage/",
+    linkText: "The Road Ready Insurance advantage",
+    image: "/images/coverage/fleets.jpg",
   },
   {
     key: "claims",
-    icon: Zap,
+    tag: "Claims & filings",
     title: "Faster claims and filings",
     detail:
       "An in-house licensed claims adjuster handles your claim directly. No call centers, no third-party administrators, no waiting weeks for a callback.",
     href: "/report-a-claim/",
     linkText: "How claims work",
+    image: "/images/coverage/claims.jpg",
   },
   {
-    key: "markets",
-    icon: ShieldCheck,
-    title: "120+ premium A-rated markets",
+    key: "specialists",
+    tag: "Who we cover",
+    title: "Fleets of all sizes, including high-risk",
     detail:
-      "We place coverage with the premium A-rated carriers serious fleets want, not just the secondary markets that quote fastest.",
-    href: "/rri-advantage/",
-    linkText: "How we place coverage",
+      "From a 2-truck operation to a 50-unit fleet, and the hard-to-place, high-risk accounts other brokers turn away. If you run trucks, we have a market for you.",
+    href: "/who-we-cover/",
+    linkText: "See who we cover",
+    image: "/images/coverage/specialists.jpg",
   },
   {
     key: "coi",
-    icon: FileCheck,
+    tag: "Certificates",
     title: "Same-day COIs and certificates",
     detail:
       "Need a certificate of insurance for a load or a new contract? Request it and have it in your inbox the same business day.",
     href: "/get-a-coi/",
     linkText: "Get a COI",
+    image: "/images/coverage/coi.jpg",
   },
   {
     key: "agents",
-    icon: Headset,
+    tag: "Your agent",
     title: "A named agent who answers",
     detail:
       "Your account has one dedicated agent who knows your fleet, picks up the phone, and calls you before renewal, not after.",
     href: "/contact-us/",
     linkText: "Talk to an agent",
+    image: "/images/coverage/agents.jpg",
   },
 ];
 
+const AUTOPLAY_MS = 6000;
+
+export type CoverageExpanderProps = {
+  eyebrow?: string;
+  headline: string;
+  /** Gray continuation of the headline (Stripe black/gray two-tone). */
+  headlineMuted?: string;
+  subhead?: string;
+};
+
 /**
- * Horizontal expanding panels ("accordion cards"). The active panel grows
- * to reveal its detail while the rest collapse to slim columns with a
- * vertical title. On mobile the same interaction runs vertically.
+ * Stripe-style "What's happening" filmstrip carousel. The active card is a
+ * large image tile on the left; the remaining cards peek in, cropped, to its
+ * right. Prev/next arrows sit beside the heading, and the active card's full
+ * title, description, and CTA render in a detail row below the strip.
  */
-export function CoverageExpander() {
+export function CoverageExpander({
+  eyebrow,
+  headline,
+  headlineMuted,
+  subhead,
+}: CoverageExpanderProps) {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const count = PANELS.length;
+
+  const go = useCallback(
+    (dir: 1 | -1) => setActive((i) => (i + dir + count) % count),
+    [count],
+  );
+
+  // Gentle auto-advance, matching Stripe's rotation. Pauses on hover/focus and
+  // respects users who prefer reduced motion.
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (mq.matches) return;
+    }
+    const id = window.setInterval(() => {
+      if (!pausedRef.current) setActive((i) => (i + 1) % count);
+    }, AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [count]);
+
+  const activePanel = PANELS[active];
 
   return (
-    <div className="flex flex-col gap-3 lg:h-[460px] lg:flex-row">
-      {PANELS.map((panel, i) => {
-        const isActive = i === active;
-        const Icon = panel.icon;
-        return (
-          // div + role="button" (not <button>) because the expanded panel
-          // nests a real <Link>, and interactive elements cannot nest.
-          <div
-            key={panel.key}
-            role="button"
-            tabIndex={0}
-            onClick={() => setActive(i)}
-            onMouseEnter={() => setActive(i)}
-            onFocus={() => setActive(i)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setActive(i);
-              }
-            }}
-            aria-expanded={isActive}
-            className={cn(
-              "group relative overflow-hidden rounded-2xl text-left transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
-              // Mobile: vertical expansion via height. Desktop: horizontal via flex-grow.
-              isActive ? "h-[340px]" : "h-[76px]",
-              "lg:h-full lg:min-w-0",
-              isActive ? "lg:flex-[3.4]" : "lg:flex-[1]",
-              i % 2 === 0
-                ? "bg-gradient-to-br from-primary-dark via-primary-dark to-primary"
-                : "bg-gradient-to-br from-primary to-primary-dark",
+    <div
+      className="flex flex-col gap-8"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
+    >
+      {/* Header row: heading on the left, arrows on the right (Stripe layout) */}
+      <div className="flex items-start justify-between gap-6">
+        <div className="flex max-w-2xl flex-col gap-3">
+          {eyebrow && (
+            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
+              {eyebrow}
+            </p>
+          )}
+          <h2 className="type-h2 text-[32px] text-ink sm:text-[40px]">
+            {headline}
+            {headlineMuted && (
+              <> <span className="text-slate-muted">{headlineMuted}</span></>
             )}
-          >
-            {/* Oversized ghost number anchors each panel */}
-            <span
-              aria-hidden="true"
-              className={cn(
-                "pointer-events-none absolute -right-3 -top-6 select-none text-[120px] font-bold leading-none text-white/[0.06] transition-opacity duration-500",
-                isActive ? "opacity-100" : "opacity-0 lg:opacity-100",
-              )}
-            >
-              {String(i + 1).padStart(2, "0")}
-            </span>
+          </h2>
+          {subhead && (
+            <p className="type-sub text-[17px] text-slate sm:text-[18px]">
+              {subhead}
+            </p>
+          )}
+        </div>
+        <div className="hidden shrink-0 gap-3 pt-2 sm:flex">
+          <CarouselArrow
+            direction="prev"
+            onClick={() => go(-1)}
+            label="Previous coverage"
+          />
+          <CarouselArrow
+            direction="next"
+            onClick={() => go(1)}
+            label="Next coverage"
+          />
+        </div>
+      </div>
 
-            {/* Collapsed state: icon + vertical title (desktop) / slim row (mobile) */}
-            <div
+      {/* Filmstrip */}
+      <div className="flex flex-col gap-3 lg:h-[420px] lg:flex-row">
+        {PANELS.map((panel, i) => {
+          const isActive = i === active;
+          return (
+            <button
+              key={panel.key}
+              type="button"
+              onClick={() => setActive(i)}
+              aria-label={panel.title}
+              aria-current={isActive}
               className={cn(
-                "absolute inset-0 flex items-center gap-4 px-6 transition-opacity duration-300",
-                "lg:flex-col lg:items-center lg:justify-between lg:px-0 lg:py-7",
-                isActive ? "pointer-events-none opacity-0" : "opacity-100",
+                "group relative overflow-hidden rounded-2xl bg-primary-dark text-left outline-none transition-all duration-[600ms] ease-[cubic-bezier(0.32,0.72,0,1)]",
+                "focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                // Mobile: only the active card is shown, full width.
+                isActive ? "h-[300px]" : "hidden lg:block",
+                // Desktop: active grows wide, others shrink to thin peeking
+                // slivers (Stripe-style).
+                "lg:h-full lg:min-w-0",
+                isActive ? "lg:flex-[6]" : "lg:flex-[0.4]",
               )}
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cyan/15 text-cyan">
-                <Icon className="h-5 w-5" strokeWidth={1.75} />
-              </span>
-              <span className="min-w-0 truncate text-[16px] font-semibold text-white lg:[writing-mode:vertical-rl] lg:rotate-180 lg:truncate lg:text-[15px] lg:tracking-wide">
-                {panel.title}
-              </span>
-            </div>
+              {/* Background photo */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={panel.image}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
 
-            {/* Expanded state */}
-            <div
-              className={cn(
-                "absolute inset-0 flex flex-col justify-end gap-4 p-7 transition-opacity delay-150 duration-500 lg:p-9",
-                isActive ? "opacity-100" : "pointer-events-none opacity-0",
-              )}
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan text-primary-dark">
-                <Icon className="h-6 w-6" strokeWidth={1.75} />
-              </span>
-              <h3 className="max-w-md text-[24px] font-semibold leading-[1.15] text-white lg:text-[28px]">
-                {panel.title}
-              </h3>
-              <p className="max-w-md text-[15px] leading-[1.6] text-white/80 lg:text-[16px]">
-                {panel.detail}
-              </p>
-              <Link
-                href={panel.href}
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1.5 text-[15px] font-semibold text-cyan transition-colors hover:text-white"
+              {/* Bottom scrim so the label stays legible over any photo */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+
+              {/* Corner label (bottom-left) — same type treatment as the heading */}
+              <div
+                className={cn(
+                  "absolute bottom-0 left-0 p-6 transition-opacity duration-500 lg:p-7",
+                  isActive ? "opacity-100" : "opacity-0",
+                )}
               >
-                {panel.linkText}
-                <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
-              </Link>
-            </div>
-          </div>
-        );
-      })}
+                <span className="type-h2 text-[22px] text-white lg:text-[28px]">
+                  {panel.tag}
+                </span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Detail row below the strip (Stripe: copy left, CTA right) */}
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-10">
+        <p className="max-w-2xl text-[18px] leading-[1.6] text-gray-800 sm:text-[19px]">
+          <span className="font-semibold text-foreground">
+            {activePanel.title}.
+          </span>{" "}
+          {activePanel.detail}
+        </p>
+        <Link
+          href={activePanel.href}
+          className="btn btn-outline"
+        >
+          {activePanel.linkText}
+          <ArrowRight className="h-4 w-4" strokeWidth={2} />
+        </Link>
+      </div>
+
+      {/* Mobile arrows + progress dots */}
+      <div className="flex items-center justify-between sm:hidden">
+        <div className="flex gap-2" aria-hidden="true">
+          {PANELS.map((p, i) => (
+            <span
+              key={p.key}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                i === active ? "w-6 bg-primary" : "w-1.5 bg-gray-300",
+              )}
+            />
+          ))}
+        </div>
+        <div className="flex gap-3">
+          <CarouselArrow
+            direction="prev"
+            onClick={() => go(-1)}
+            label="Previous coverage"
+          />
+          <CarouselArrow
+            direction="next"
+            onClick={() => go(1)}
+            label="Next coverage"
+          />
+        </div>
+      </div>
     </div>
+  );
+}
+
+function CarouselArrow({
+  direction,
+  onClick,
+  label,
+}: {
+  direction: "prev" | "next";
+  onClick: () => void;
+  label: string;
+}) {
+  const Icon = direction === "prev" ? ArrowLeft : ArrowRight;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-primary shadow-sm outline-none transition-colors hover:border-primary hover:bg-primary hover:text-white focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2"
+    >
+      <Icon className="h-5 w-5" strokeWidth={2} />
+    </button>
   );
 }

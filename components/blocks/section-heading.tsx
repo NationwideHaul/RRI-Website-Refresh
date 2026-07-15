@@ -3,6 +3,9 @@ import { cn } from "@/lib/utils";
 export type SectionHeadingProps = {
   eyebrow?: string;
   headline: string;
+  /** Optional gray continuation of the headline, rendered inline after
+   *  `headline` in Stripe's muted slate — the black/gray two-tone effect. */
+  headlineMuted?: string;
   subhead?: string;
   align?: "left" | "center";
   variant?: "light" | "dark";
@@ -12,6 +15,7 @@ export type SectionHeadingProps = {
 export function SectionHeading({
   eyebrow,
   headline,
+  headlineMuted,
   subhead,
   align = "left",
   variant = "light",
@@ -38,17 +42,25 @@ export function SectionHeading({
       )}
       <h2
         className={cn(
-          "text-[32px] font-semibold leading-[1.15] tracking-[-0.01em] sm:text-[40px]",
-          isDark ? "text-white" : "text-foreground",
+          "type-h2 text-[32px] sm:text-[40px]",
+          isDark ? "text-white" : "text-ink",
         )}
       >
         {headline}
+        {headlineMuted && (
+          <>
+            {" "}
+            <span className={isDark ? "text-white/55" : "text-slate-muted"}>
+              {headlineMuted}
+            </span>
+          </>
+        )}
       </h2>
       {subhead && (
         <p
           className={cn(
-            "text-[17px] leading-[1.6] sm:text-[18px]",
-            isDark ? "text-white/80" : "text-gray-700",
+            "type-sub text-[17px] sm:text-[18px]",
+            isDark ? "text-white/80" : "text-slate",
           )}
         >
           {subhead}

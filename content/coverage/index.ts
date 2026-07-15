@@ -1,5 +1,5 @@
 /**
- * Coverage catalog — the 11 coverage types RRI places.
+ * Coverage catalog — the 11 coverage types Road Ready Insurance places.
  * Single source of truth for the homepage coverage grid, nav dropdown
  * data, footer links, and (later) individual coverage pages.
  *
@@ -27,6 +27,8 @@ export type Coverage = {
   name: string;
   short: string;
   icon: LucideIcon;
+  /** Illustration for the coverage card (falls back to `icon` if absent). */
+  image?: string;
 };
 
 export const COVERAGES: Coverage[] = [
@@ -37,6 +39,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "Foundational coverage protecting against claims from accidents involving bodily injury or property damage.",
     icon: Shield,
+    image: "/images/coverage-icons/commercial-trucking-liability.jpg",
   },
   {
     slug: "physical-damage-comprehensive-collision",
@@ -45,6 +48,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "Comprehensive and collision coverage for your trucks and trailers, regardless of who is at fault.",
     icon: Truck,
+    image: "/images/coverage-icons/physical-damage-comprehensive-collision.jpg",
   },
   {
     slug: "motor-truck-cargo",
@@ -53,6 +57,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "Protection for the freight you haul, often worth more than the truck itself.",
     icon: Package,
+    image: "/images/coverage-icons/motor-truck-cargo.jpg",
   },
   {
     slug: "trailer-interchange",
@@ -61,6 +66,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "When you use someone else's trailer, this covers damage while it is in your possession.",
     icon: RefreshCw,
+    image: "/images/coverage-icons/trailer-interchange.jpg",
   },
   {
     slug: "non-trucking-liability",
@@ -69,6 +75,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "Coverage when the truck is in use for non-business purposes. The bobtail you did not think you needed.",
     icon: ShieldAlert,
+    image: "/images/coverage-icons/non-trucking-liability.jpg",
   },
   {
     slug: "reefer-breakdown",
@@ -77,6 +84,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "Refrigerated haulers, covered when the unit fails and your load suffers.",
     icon: Thermometer,
+    image: "/images/coverage-icons/reefer-breakdown.jpg",
   },
   {
     slug: "truckers-workers-compensation",
@@ -85,6 +93,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "Protection for drivers and staff when they are injured on the job.",
     icon: HeartPulse,
+    image: "/images/coverage-icons/truckers-workers-compensation.jpg",
   },
   {
     slug: "trucking-transportation-bonds",

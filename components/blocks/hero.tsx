@@ -6,6 +6,8 @@ export type HeroCTA = { text: string; href: string };
 export type HeroProps = {
   eyebrow?: string;
   headline: string;
+  /** Gray continuation of the headline (black/gray two-tone). */
+  headlineMuted?: string;
   subhead?: string;
   primaryCTA?: HeroCTA;
   secondaryCTA?: HeroCTA;
@@ -17,6 +19,7 @@ export type HeroProps = {
 export function Hero({
   eyebrow,
   headline,
+  headlineMuted,
   subhead,
   primaryCTA,
   secondaryCTA,
@@ -48,11 +51,19 @@ export function Hero({
 
         <h1
           className={cn(
-            "max-w-4xl text-[40px] font-semibold leading-[1.05] tracking-[-0.01em] sm:text-[56px] lg:text-[72px]",
-            isDark ? "text-white" : "text-primary",
+            "max-w-4xl text-[40px] type-display sm:text-[56px] lg:text-[72px]",
+            isDark ? "text-white" : "text-ink",
           )}
         >
           {headline}
+          {headlineMuted && (
+            <>
+              {" "}
+              <span className={isDark ? "text-white/55" : "text-slate-muted"}>
+                {headlineMuted}
+              </span>
+            </>
+          )}
         </h1>
 
         {subhead && (
@@ -72,7 +83,7 @@ export function Hero({
               <Link
                 href={primaryCTA.href}
                 className={cn(
-                  "inline-flex h-[52px] items-center justify-center rounded-lg px-8 text-[17px] font-semibold transition-colors",
+                  "btn",
                   isDark
                     ? "bg-cyan text-primary-dark hover:bg-white"
                     : "bg-primary text-white hover:bg-primary-dark",
@@ -86,7 +97,7 @@ export function Hero({
               <Link
                 href={secondaryCTA.href}
                 className={cn(
-                  "inline-flex h-[52px] items-center justify-center rounded-lg border-[1.5px] bg-transparent px-8 text-[17px] font-semibold transition-colors",
+                  "btn border-[1.5px] bg-transparent",
                   isDark
                     ? "border-white/70 text-white hover:bg-white hover:text-primary-dark"
                     : "border-primary text-primary hover:bg-primary hover:text-white",

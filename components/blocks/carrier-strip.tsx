@@ -17,7 +17,8 @@ export function CarrierStrip() {
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
         <SectionHeading
           eyebrow="120+ carriers, carefully chosen"
-          headline="We work with the A-rated carriers that protect serious operations."
+          headline="We work with the A-rated carriers"
+          headlineMuted="that protect serious operations."
           subhead="Access to more than 120 commercial trucking insurance carriers, including premium A-rated markets most small brokers cannot place. When we say we will find you the best quote option, we mean it."
           align="center"
         />

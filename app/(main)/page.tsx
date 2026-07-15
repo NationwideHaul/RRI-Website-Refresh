@@ -35,24 +35,24 @@ const FAQS: FAQItem[] = [
       "We have appointments with 100+ commercial trucking insurance carriers, including premium A-rated markets that most small brokers cannot access. When we build your submission, we place you with the carriers that match your operation, not just the ones that respond fastest.",
   },
   {
-    question: "Does RRI work with new trucking authorities or only established fleets?",
+    question: "Does Road Ready Insurance work with new trucking authorities or only established fleets?",
     answer:
       "We specialize in fleets that are 2 years or more in business and growing steadily. For brand-new authorities, we can often help, but the best fit for our markets is an operator who has built some track record. If you are just starting, the Startup Guide is a good place to begin, and we can discuss your specific situation.",
   },
   {
-    question: "What states does RRI operate in?",
+    question: "What states does Road Ready Insurance operate in?",
     answer:
       "We are licensed in 48 states plus the District of Columbia. Our offices are in Boca Raton, Florida, and we work with fleets across the United States, including Florida, Georgia, Texas, New Jersey, North Carolina, and many more.",
   },
   {
-    question: "How does claim handling work at RRI?",
+    question: "How does claim handling work at Road Ready Insurance?",
     answer:
       "We have an in-house licensed claims adjuster on staff. When you file a claim, it is handled directly by our team, not routed to a call center or third-party administrator. Your named agent stays involved throughout the process.",
   },
   {
-    question: "How is RRI different from fast-quote digital brokers?",
+    question: "How is Road Ready Insurance different from fast-quote digital brokers?",
     answer:
-      "Fast-quote brokers work from a limited pool of secondary markets, which is how they return quotes in minutes. RRI places coverage with the premium A-rated carriers that serious fleet operators want. Those carriers do not quote in minutes. We are built for operators who prioritize correct coverage and carrier quality over turnaround speed.",
+      "Fast-quote brokers work from a limited pool of secondary markets, which is how they return quotes in minutes. Road Ready Insurance places coverage with the premium A-rated carriers that serious fleet operators want. Those carriers do not quote in minutes. We are built for operators who prioritize correct coverage and carrier quality over turnaround speed.",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-7 lg:col-span-6">
             <h1
               id="hero-heading"
-              className="text-[42px] font-bold leading-[1.12] tracking-[-0.015em] text-white sm:text-[54px] lg:text-[60px]"
+              className="text-[42px] type-display text-white sm:text-[54px] lg:text-[60px]"
             >
               Made for fleets
               <br />
@@ -206,22 +206,25 @@ export default function HomePage() {
       {/* All market logos, uniform white, on the dark blue band */}
       <MarketsBand />
 
-      {/* Expanding panels: what working with RRI actually gets you */}
+      {/* Everything from the coverages section through the policy-review CTA
+          lives inside a rounded, bordered white panel floating on a light gray
+          backdrop — Stripe's contained-page look. Footer sits below it. */}
+      <div className="bg-[#eef1f6] px-3 pb-3 pt-3 sm:px-5 sm:pb-5 sm:pt-5 lg:px-6 lg:pb-6 lg:pt-6">
+        <div className="overflow-hidden rounded-4xl border border-gray-200/80 bg-background shadow-[0_1px_2px_rgba(10,37,64,0.04),0_16px_40px_-16px_rgba(10,37,64,0.14)]">
+
+      {/* Expanding panels: what working with Road Ready Insurance actually gets you */}
       <section
         id="coverages"
         aria-labelledby="coverages-heading"
         className="bg-background"
       >
-        <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto flex max-w-7xl flex-col px-6 py-20 lg:px-8 lg:py-24">
           <Reveal>
-            <SectionHeading
-              eyebrow="Why fleets choose RRI"
-              headline="Every coverage a trucking operation needs."
-              subhead="Tap a panel to see how we work. From first quote to claim day, everything is built around fleet operators."
+            <CoverageExpander
+              headline="Every coverage"
+              headlineMuted="a trucking operation needs."
+              subhead="From first quote to claim day, everything is built around fleet operators."
             />
-          </Reveal>
-          <Reveal delay={120}>
-            <CoverageExpander />
           </Reveal>
         </div>
       </section>
@@ -229,21 +232,22 @@ export default function HomePage() {
       {/* Live Google Business Profile reviews */}
       <GoogleReviews />
 
-      {/* Creative About panel with animated stats */}
-      <AboutAgency />
-
-      {/* The 11 coverage types as a slider */}
+      {/* The coverage types as condensed light cards in a horizontal scroll.
+          White here divides it from the gray reviews section above. */}
       <section
         id="coverage-options"
         aria-labelledby="coverage-slider-heading"
-        className="bg-gray-50"
+        className="bg-background"
       >
-        <div className="mx-auto flex max-w-7xl flex-col px-6 py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto flex max-w-7xl flex-col px-6 pb-20 pt-28 lg:px-8 lg:pb-24 lg:pt-36">
           <Reveal>
             <CoverageSlider />
           </Reveal>
         </div>
       </section>
+
+      {/* About panel with the Road Ready Insurance team photo */}
+      <AboutAgency />
 
       {/* Stripe-style resource promos */}
       <ResourceCards />
@@ -251,13 +255,13 @@ export default function HomePage() {
       <section
         id="faq"
         aria-labelledby="faq-heading"
-        className="bg-gray-50"
+        className="bg-background"
       >
-        <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-20 lg:px-8 lg:py-24">
+        <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 lg:px-8 lg:py-16">
           <Reveal>
             <SectionHeading
-              eyebrow="Common questions"
-              headline="Straight answers to the questions fleet owners ask."
+              headline="Straight answers"
+              headlineMuted="to the questions fleet owners ask."
               align="left"
             />
           </Reveal>
@@ -267,6 +271,8 @@ export default function HomePage() {
 
       {/* Policy-review CTA (the "switch to us" moment) */}
       <PolicyReviewCta />
+        </div>
+      </div>
     </>
   );
 }

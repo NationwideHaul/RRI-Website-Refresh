@@ -34,9 +34,9 @@ export const CLIENT_RESOURCES: NavLink[] = [
 ];
 
 export const OUR_AGENCY: NavLink[] = [
-  { label: "The RRI Advantage", href: "/rri-advantage/", description: "What makes RRI different." },
+  { label: "The Road Ready Insurance Advantage", href: "/rri-advantage/", description: "What makes Road Ready Insurance different." },
   { label: "Who We Cover", href: "/who-we-cover/", description: "Our ideal fleet profile." },
-  { label: "Careers", href: "/careers/", description: "Join the RRI team." },
+  { label: "Careers", href: "/careers/", description: "Join the Road Ready Insurance team." },
 ];
 
 // Top nav follows Adriana's reference design: Coverage / Claims /
@@ -53,7 +53,7 @@ export const NAV_SECTIONS: NavSection[] = [
 export const FOOTER_COVERAGES: NavLink[] = INSURANCE_SOLUTIONS.slice(0, 8);
 
 export const FOOTER_COMPANY: NavLink[] = [
-  { label: "The RRI Advantage", href: "/rri-advantage/" },
+  { label: "The Road Ready Insurance Advantage", href: "/rri-advantage/" },
   { label: "Who We Cover", href: "/who-we-cover/" },
   { label: "Careers", href: "/careers/" },
   { label: "Contact", href: "/contact-us/" },

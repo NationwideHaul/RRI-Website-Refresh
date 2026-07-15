@@ -21,7 +21,7 @@ export function StatsSection() {
           </p>
           <h2
             id="stats-heading"
-            className="text-[32px] font-semibold leading-[1.15] tracking-[-0.01em] text-white sm:text-[40px]"
+            className="text-[32px] type-h2 text-white sm:text-[40px]"
           >
             Quick facts that matter when you are deciding who places your coverage.
           </h2>

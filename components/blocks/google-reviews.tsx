@@ -17,10 +17,11 @@ export async function GoogleReviews() {
 
   return (
     <section aria-labelledby="reviews-heading" className="bg-gray-50">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-20 lg:px-8 lg:py-24">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 lg:px-8 lg:py-16">
         <Reveal>
           <SectionHeading
-            headline="Backed by our loyal customers"
+            headline="Backed by"
+            headlineMuted="our loyal customers"
             align="center"
             className="[&>h2]:sm:text-[36px]"
           />

@@ -24,10 +24,10 @@ export function FAQ({ items, withSchema = true }: FAQProps) {
             value={String(index)}
             className="border-b border-gray-100"
           >
-            <AccordionTrigger className="py-6 text-left text-[18px] font-semibold leading-[1.35] text-foreground hover:no-underline sm:text-[20px] [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-primary">
+            <AccordionTrigger className="py-4 text-left text-[16px] font-semibold leading-[1.3] text-foreground hover:no-underline sm:text-[17px] [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-primary">
               {item.question}
             </AccordionTrigger>
-            <AccordionContent className="pb-6 text-[16px] leading-[1.65] text-gray-700 sm:text-[17px]">
+            <AccordionContent className="pb-5 text-[15px] leading-[1.6] text-gray-700 sm:text-[16px]">
               {item.answer}
             </AccordionContent>
           </AccordionItem>

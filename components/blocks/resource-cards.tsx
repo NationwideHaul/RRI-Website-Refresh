@@ -4,7 +4,7 @@ import { Reveal } from "@/components/blocks/reveal";
 
 /**
  * Stripe-promo-style resource cards: bold lead-in sentence, arrow link,
- * abstract diagonal gradient art on the right — rebuilt in RRI brand blues
+ * abstract diagonal gradient art on the right — rebuilt in Road Ready Insurance brand blues
  * and cyan.
  */
 const CARDS = [
@@ -28,8 +28,8 @@ const CARDS = [
 
 export function ResourceCards() {
   return (
-    <section aria-label="Client resources" className="bg-background">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 py-14 md:grid-cols-2 lg:px-8">
+    <section aria-label="Client resources" className="bg-gray-50">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 pb-16 pt-0 md:grid-cols-2 lg:px-8">
         {CARDS.map((card, i) => (
           <Reveal key={card.key} delay={i * 120}>
             <Link

@@ -163,7 +163,7 @@ export function QuoteForm({
         className={cn(
           "flex flex-col items-center gap-4 p-8 text-center",
           glass
-            ? "rounded-[28px] border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
+            ? "rounded-3xl border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
             : "rounded-2xl border border-gray-100 bg-white",
         )}
       >
@@ -187,7 +187,7 @@ export function QuoteForm({
       className={cn(
         "flex flex-col gap-5 p-6 lg:p-7",
         glass
-          ? "rounded-[28px] border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
+          ? "rounded-3xl border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
           : "rounded-2xl border border-gray-100 bg-white shadow-sm",
       )}
     >
@@ -485,7 +485,7 @@ export function QuoteForm({
         type="submit"
         disabled={isLoading}
         className={cn(
-          "inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 text-[17px] font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-primary/80",
+          "btn btn-primary w-full disabled:cursor-not-allowed disabled:bg-primary/80",
           glass && "hover:bg-cyan hover:text-primary-dark",
         )}
       >
@@ -554,7 +554,7 @@ function QuickAppDialog({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={onClose}
-          className="mt-6 inline-flex h-[48px] w-full items-center justify-center rounded-lg bg-primary px-8 text-[16px] font-semibold text-white transition-colors hover:bg-primary-dark"
+          className="btn btn-primary mt-6 w-full"
         >
           Got it
         </button>

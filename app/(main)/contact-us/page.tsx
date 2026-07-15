@@ -73,7 +73,7 @@ export default function ContactPage() {
               </p>
               <h2
                 id="contact-heading"
-                className="text-[28px] font-semibold leading-[1.2] tracking-[-0.01em] text-foreground sm:text-[32px]"
+                className="text-[28px] type-h2 text-foreground sm:text-[32px]"
               >
                 A named agent, not a call center queue.
               </h2>
@@ -128,7 +128,7 @@ export default function ContactPage() {
               <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
                 Start your quote
               </p>
-              <h2 className="mt-2 text-[28px] font-semibold leading-[1.2] tracking-[-0.01em] text-foreground sm:text-[32px]">
+              <h2 className="mt-2 text-[28px] type-h2 text-foreground sm:text-[32px]">
                 Tell us about your operation.
               </h2>
             </div>

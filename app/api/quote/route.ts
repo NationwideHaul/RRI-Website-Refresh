@@ -111,7 +111,7 @@ export async function POST(req: Request) {
     }
   }
 
-  // 2. Custom CRM webhook (RRI's own pipeline CRM).
+  // 2. Custom CRM webhook (Road Ready Insurance's own pipeline CRM).
   const crmUrl = process.env.CRM_WEBHOOK_URL;
   if (crmUrl) {
     try {

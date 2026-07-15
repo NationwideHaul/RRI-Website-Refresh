@@ -34,7 +34,7 @@ export const LICENSE_INFO = {
   statesLicensed: 48,
   plusDC: true,
   licensedDescription: "Licensed in 48 states plus the District of Columbia",
-  // RRI's Florida agency license. Per-state license numbers for other states
+  // Road Ready Insurance's Florida agency license. Per-state license numbers for other states
   // pending Derek confirmation (needed for state pages Phase 2).
   agencyLicenseNumber: "6003367",
   licenseNumbers: {
@@ -53,7 +53,9 @@ export const LICENSE_INFO = {
 export type DisplayCarrier = {
   name: string;
   slug: string;
-  logo: string; // path under /public
+  logo: string; // path under /public (white/monochrome version)
+  colorLogo?: string; // full-color version, revealed on hover
+  scale?: number; // per-logo optical size multiplier (defaults to 1)
 };
 
 export const CARRIERS_DISPLAY: DisplayCarrier[] = [
@@ -74,19 +76,18 @@ export const CARRIERS_COUNT_LABEL = "120+ carriers";
  * CARRIERS_DISPLAY applies to any name added here.
  */
 export const CARRIERS_MARKETS: DisplayCarrier[] = [
-  { name: "Great West Casualty Company", slug: "great-west", logo: "/images/carriers/white/great-west.png" },
-  { name: "QEO Insurance Group", slug: "qeo", logo: "/images/carriers/white/qeo.png" },
-  { name: "Lancer Insurance", slug: "lancer", logo: "/images/carriers/white/lancer.png" },
-  { name: "Sentry Insurance", slug: "sentry", logo: "/images/carriers/white/sentry.png" },
-  { name: "Berkshire Hathaway Homestate Companies", slug: "bhhc", logo: "/images/carriers/white/bhhc.png" },
-  { name: "Canal Insurance", slug: "canal", logo: "/images/carriers/white/canal.png" },
-  { name: "Cimarron Insurance Company", slug: "cimarron", logo: "/images/carriers/white/cimarron.png" },
-  { name: "Northland Insurance", slug: "northland", logo: "/images/carriers/white/northland.png" },
-  { name: "Berkley Prime Transportation", slug: "berkley-prime", logo: "/images/carriers/white/berkley-prime.png" },
-  { name: "GEICO Commercial", slug: "geico", logo: "/images/carriers/white/geico.png" },
-  { name: "Progressive Commercial", slug: "progressive", logo: "/images/carriers/white/progressive.png" },
-  { name: "Nirvana Insurance", slug: "nirvana", logo: "/images/carriers/white/nirvana.png" },
-  { name: "Benchmark Insurance Company", slug: "benchmark", logo: "/images/carriers/white/benchmark.png" },
+  { name: "Great West Casualty Company", slug: "great-west", logo: "/images/carriers/white/great-west.png", colorLogo: "/images/carriers/trimmed/great-west.png" },
+  { name: "QEO Insurance Group", slug: "qeo", logo: "/images/carriers/white/qeo.png", colorLogo: "/images/carriers/trimmed/qeo.png" },
+  { name: "Lancer Insurance", slug: "lancer", logo: "/images/carriers/white/lancer.png", colorLogo: "/images/carriers/trimmed/lancer.png" },
+  { name: "Sentry Insurance", slug: "sentry", logo: "/images/carriers/white/sentry.png", colorLogo: "/images/carriers/trimmed/sentry.png" },
+  { name: "Berkshire Hathaway Homestate Companies", slug: "bhhc", logo: "/images/carriers/white/bhhc.png", colorLogo: "/images/carriers/trimmed/bhhc.png" },
+  { name: "Canal Insurance", slug: "canal", logo: "/images/carriers/white/canal.png", colorLogo: "/images/carriers/trimmed/canal.png" },
+  { name: "Cimarron Insurance Company", slug: "cimarron", logo: "/images/carriers/white/cimarron.png", colorLogo: "/images/carriers/trimmed/cimarron.png" },
+  { name: "Northland Insurance", slug: "northland", logo: "/images/carriers/white/northland.png", colorLogo: "/images/carriers/trimmed/northland.png" },
+  { name: "Berkley Prime Transportation", slug: "berkley-prime", logo: "/images/carriers/white/berkley-prime.png", colorLogo: "/images/carriers/trimmed/berkley-prime.png" },
+  { name: "GEICO Commercial", slug: "geico", logo: "/images/carriers/white/geico.png", colorLogo: "/images/carriers/trimmed/geico.png" },
+  { name: "Progressive Commercial", slug: "progressive", logo: "/images/carriers/white/progressive.png", colorLogo: "/images/carriers/trimmed/progressive.png" },
+  { name: "Nirvana Insurance", slug: "nirvana", logo: "/images/carriers/white/nirvana.png", colorLogo: "/images/carriers/trimmed/nirvana.png" },
 ];
 
 export const STATS = {
@@ -155,7 +156,7 @@ export const SERVICE_TYPES = [
 ] as const;
 
 /**
- * Full list of US states + DC where RRI is licensed.
+ * Full list of US states + DC where Road Ready Insurance is licensed.
  * Used for InsuranceAgency `areaServed`. This is the 48-state list
  * (excludes Hawaii and Alaska, per strategy doc — confirm with Derek).
  */

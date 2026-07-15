@@ -8,7 +8,7 @@ import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
 export const metadata: Metadata = {
   title: "Who We Cover — Road Ready Insurance",
   description:
-    "RRI works best with established fleet owners running 2 to 9 units, 2 or more years in business, growing steadily. Not every fleet is a fit for every broker. Here is exactly who we are built for.",
+    "Road Ready Insurance works best with established fleet owners running 2 to 9 units, 2 or more years in business, growing steadily. Not every fleet is a fit for every broker. Here is exactly who we are built for.",
   alternates: { canonical: "/who-we-cover/" },
 };
 
@@ -40,8 +40,9 @@ export default function WhoWeCoverPage() {
 
       <Hero
         eyebrow="Who we work with"
-        headline="We are built for operators who are serious about their business."
-        subhead="Not every fleet is a fit for every broker. Here is exactly who RRI is built for, and who we can help most."
+        headline="We are built for operators"
+        headlineMuted="who are serious about their business."
+        subhead="Not every fleet is a fit for every broker. Here is exactly who Road Ready Insurance is built for, and who we can help most."
       />
 
       <section
@@ -52,7 +53,8 @@ export default function WhoWeCoverPage() {
         <div className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-20 lg:px-8 lg:py-24">
           <SectionHeading
             eyebrow="Our sweet spot"
-            headline="RRI works best with fleets that look like this."
+            headline="Road Ready Insurance works best with fleets"
+            headlineMuted="that look like this."
           />
           <ul className="flex flex-col gap-4">
             {SWEET_SPOT.map((item) => (
@@ -110,14 +112,15 @@ export default function WhoWeCoverPage() {
         <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-20 lg:px-8 lg:py-24">
           <SectionHeading
             eyebrow="Honest about fit"
-            headline="When we might not be your best fit."
+            headline="When we might not be"
+            headlineMuted="your best fit."
           />
           <div className="flex flex-col gap-5 text-[17px] leading-[1.65] text-gray-700 sm:text-[18px]">
             <p>
               If you are brand new, filing for DOT authority this week, about
               to buy your first truck, we can help, but you may find fast-quote
               brokers a better match for that specific moment. The premium
-              markets we access want to see some track record. Come back to RRI
+              markets we access want to see some track record. Come back to Road Ready Insurance
               when you are 2 years in and growing. We will be here.
             </p>
             <p>
@@ -132,7 +135,8 @@ export default function WhoWeCoverPage() {
       </section>
 
       <CTABanner
-        headline="Sound like a fit? Let's talk."
+        headline="Sound like a fit?"
+        headlineMuted="Let's talk."
         subhead="Share a few details about your operation. An agent responds within 2 business hours."
         primaryCTA={{ text: "Start Your Quote", href: "/#quote-form" }}
         variant="dark"

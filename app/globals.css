@@ -11,11 +11,20 @@
 
   --color-cyan: #00fffc;
 
+  /* Stripe-style text hierarchy: near-black navy "ink" for headings, a
+     blue-tinted slate for body, a lighter slate for the two-tone gray that
+     Stripe uses on the tail of a headline. */
+  --color-ink: #0a2540;
+  --color-slate: #425466;
+  --color-slate-muted: #647591;
+
+  /* Grays retuned to Stripe's blue-tinted slate scale (was neutral gray). */
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-300: #d1d5db;
-  --color-gray-500: #6b7280;
-  --color-gray-700: #374151;
+  --color-gray-500: #647591;
+  --color-gray-700: #425466;
+  --color-gray-800: #33445b;
 
   --color-success: #10b981;
 
@@ -56,20 +65,24 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Stripe-style radius scale — one consistent system across the whole site:
+     4px on controls (buttons/inputs — they use rounded-sm/md/lg here),
+     8px on surfaces (cards/images use rounded-xl/2xl),
+     12–16px on feature + page-level panels (rounded-3xl/4xl). */
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 8px;
+  --radius-2xl: 8px;
+  --radius-3xl: 12px;
+  --radius-4xl: 16px;
 }
 
 /* ---------- :root overrides — RRI brand applied to shadcn semantics ---------- */
 :root {
-  /* RRI brand surfaces + text */
+  /* RRI brand surfaces + text — foreground is Stripe's near-black navy ink */
   --background: #ffffff;
-  --foreground: #333333;
+  --foreground: #0a2540;
 
   /* Primary = RRI Deep Blue */
   --primary: #225296;
@@ -92,9 +105,9 @@
 
   /* Surfaces */
   --card: #ffffff;
-  --card-foreground: #333333;
+  --card-foreground: #0a2540;
   --popover: #ffffff;
-  --popover-foreground: #333333;
+  --popover-foreground: #0a2540;
 
   /* Borders / inputs / ring */
   --border: #f3f4f6;
@@ -162,9 +175,62 @@
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Stripe-style: a hair of negative tracking on everything, so body copy
+       and UI read tight the way Söhne/Inter are meant to. */
+    letter-spacing: -0.011em;
   }
   html {
     @apply font-sans;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* ---------- Stripe-style type system ----------
+   One place to tune the whole site's headings. Sizes stay inline per usage;
+   these classes carry the weight, line-height, and letter-spacing that give
+   Stripe its look: large text is thin and tightly tracked, leading is snug. */
+@layer components {
+  /* Hero / oversized display text — thin and tight. */
+  .type-display {
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+  }
+  /* Section headings (h2). */
+  .type-h2 {
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.021em;
+  }
+  /* Smaller headings (h3 / card titles). */
+  .type-h3 {
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.017em;
+  }
+  /* Lead paragraphs / subheads under a heading. */
+  .type-sub {
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: -0.011em;
+  }
+
+  /* ---------- Consistent button system ----------
+     One pill shape, one size, one text scale for every button on the site.
+     Variants only change color: filled primary (blue), filled cyan (on dark
+     panels), and outline (white pill with border — the reference style). */
+  .btn {
+    @apply inline-flex h-12 w-fit shrink-0 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold whitespace-nowrap transition-colors;
+  }
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark;
+  }
+  .btn-cyan {
+    @apply bg-cyan text-primary-dark hover:bg-white;
+  }
+  .btn-outline {
+    @apply border border-gray-200 bg-white text-primary shadow-sm hover:border-primary hover:bg-primary hover:text-white;
   }
 }
 
@@ -240,6 +306,38 @@
   animation: rri-draw-circle 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.45s forwards;
 }
 
+/* ------- Carrier marquee: two rows scrolling in opposite directions ------- */
+/* Each track renders its logos twice; translating by -50% moves exactly one
+   copy, so the loop is seamless. The whole row pauses while hovered so a logo
+   can be moused onto (and colorized). */
+
+@keyframes rri-marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes rri-marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.rri-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: rri-marquee-left var(--marquee-duration, 46s) linear infinite;
+}
+.rri-marquee-track.is-reverse {
+  animation-name: rri-marquee-right;
+}
+.rri-marquee:hover .rri-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rri-marquee-track {
+    animation: none;
+  }
+}
+
 /* ------- Slider: hide scrollbar but keep scrollability ------- */
 
 .rri-no-scrollbar {
@@ -248,38 +346,6 @@
 }
 .rri-no-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-/* ------- Brand touch: semi-truck cursor ------- */
-/* Small navy semi with a cyan cab window. Interactive elements get the
-   same truck with a cyan trailer so "pointer" state stays readable.
-   Falls back to the OS cursor wherever SVG cursors are unsupported. */
-
-body {
-  cursor:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='24' viewBox='0 0 34 24'><g><rect x='1' y='3' width='19' height='12' rx='2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><path d='M20 7h6.2c.6 0 1.2.3 1.6.8l3.4 4.4c.3.4.4.8.4 1.3V15c0 .8-.7 1.5-1.5 1.5H20z' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><rect x='22' y='8.5' width='4.5' height='3.5' rx='0.8' fill='%2300fffc'/><circle cx='7' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='7' cy='18' r='1.1' fill='white'/><circle cx='25' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='25' cy='18' r='1.1' fill='white'/></g></svg>")
-      4 12,
-    auto;
-}
-
-a,
-button,
-[role="button"],
-label,
-select,
-summary,
-input[type="checkbox"],
-input[type="radio"] {
-  cursor:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='24' viewBox='0 0 34 24'><g><rect x='1' y='3' width='19' height='12' rx='2' fill='%2300fffc' stroke='%230f1e3d' stroke-width='1.4'/><path d='M20 7h6.2c.6 0 1.2.3 1.6.8l3.4 4.4c.3.4.4.8.4 1.3V15c0 .8-.7 1.5-1.5 1.5H20z' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><rect x='22' y='8.5' width='4.5' height='3.5' rx='0.8' fill='%2300fffc'/><circle cx='7' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='7' cy='18' r='1.1' fill='white'/><circle cx='25' cy='18' r='3.2' fill='%230f1e3d' stroke='white' stroke-width='1.4'/><circle cx='25' cy='18' r='1.1' fill='white'/></g></svg>")
-      4 12,
-    pointer;
-}
-
-/* Text fields keep the native I-beam so typing targets stay precise. */
-input:not([type="checkbox"]):not([type="radio"]),
-textarea {
-  cursor: text;
 }
 
 @media (prefers-reduced-motion: reduce) {

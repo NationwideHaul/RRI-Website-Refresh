@@ -5,7 +5,7 @@ import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "The RRI Advantage — Why fleet owners choose Road Ready Insurance",
+  title: "The Road Ready Insurance Advantage — Why fleet owners choose us",
   description:
     "Most brokers sell the same thing. The difference is how we place it, who we place it with, and what happens when you need us. Licensed in 48 states, 120+ carriers, in-house claims.",
   alternates: { canonical: "/rri-advantage/" },
@@ -33,7 +33,7 @@ const SECTIONS: AdvantageSection[] = [
     eyebrow: "In-house licensed claims",
     headline: "When something happens, someone who knows trucking answers.",
     paragraphs: [
-      "The single most common complaint from clients who come to RRI from another agency: their previous agent stopped responding, especially when there was a claim. That is not how this works at RRI. We have an in-house licensed claims adjuster on staff. When you call about a claim, you reach a real person who understands trucking, not a call center script, not a third-party administrator routing you through tiered support.",
+      "The single most common complaint from clients who come to Road Ready Insurance from another agency: their previous agent stopped responding, especially when there was a claim. That is not how this works at Road Ready Insurance. We have an in-house licensed claims adjuster on staff. When you call about a claim, you reach a real person who understands trucking, not a call center script, not a third-party administrator routing you through tiered support.",
       "Your named agent stays involved throughout the claim process. They know your operation. They know what questions to ask. And they stay with you until it is resolved.",
     ],
   },
@@ -42,7 +42,7 @@ const SECTIONS: AdvantageSection[] = [
     eyebrow: "Agents who answer",
     headline: "You get a named agent. Not a ticket number.",
     paragraphs: [
-      "Every RRI client is assigned a named agent. That agent knows your fleet, your operation, your history. They pick up when you call. They remember you at renewal and reach out before you have to chase them. They tell you the truth about the market, when rates are going up, why, and what to do about it.",
+      "Every Road Ready Insurance client is assigned a named agent. That agent knows your fleet, your operation, your history. They pick up when you call. They remember you at renewal and reach out before you have to chase them. They tell you the truth about the market, when rates are going up, why, and what to do about it.",
       "This is not a service promise. It is how the agency is operationally built. No call center, no account routing, no handoffs.",
     ],
   },
@@ -51,7 +51,7 @@ const SECTIONS: AdvantageSection[] = [
     eyebrow: "Built for growth",
     headline: "We work best with fleets that are built to last.",
     paragraphs: [
-      "RRI's sweet-spot client runs 2 to 9 units, has been in business 2 or more years, and is growing 1 to 2 units per year. This is not an arbitrary profile. It is the profile underwriters reward, operations that show discipline, stability, and sustainable growth. When we bring your submission to premium carriers, that profile opens doors that are closed to brand-new authorities.",
+      "Road Ready Insurance's sweet-spot client runs 2 to 9 units, has been in business 2 or more years, and is growing 1 to 2 units per year. This is not an arbitrary profile. It is the profile underwriters reward, operations that show discipline, stability, and sustainable growth. When we bring your submission to premium carriers, that profile opens doors that are closed to brand-new authorities.",
       "As your fleet grows, your coverage evolves with you. We are built for the long-term partnership, not the one-year transaction.",
     ],
   },
@@ -60,7 +60,7 @@ const SECTIONS: AdvantageSection[] = [
     eyebrow: "The client portal",
     headline: "Self-service when you want it. An agent when you need it.",
     paragraphs: [
-      "The RRI client portal gives you direct access to your certificates of insurance, policy documents, and account details, any time, without calling anyone. Need a specific COI for a customer? Request it online and your agent handles it same-day. Payment due? Pay it from the portal.",
+      "The Road Ready Insurance client portal gives you direct access to your certificates of insurance, policy documents, and account details, any time, without calling anyone. Need a specific COI for a customer? Request it online and your agent handles it same-day. Payment due? Pay it from the portal.",
       "But when you need to actually talk through something, a new unit, a claim question, a renewal concern, your agent is still there. Self-service is a convenience, not a replacement for the human side of insurance.",
     ],
   },
@@ -72,13 +72,14 @@ export default function RRIAdvantagePage() {
       <BreadcrumbListSchema
         items={[
           { name: "Home", href: "/" },
-          { name: "The RRI Advantage", href: "/rri-advantage/" },
+          { name: "The Road Ready Insurance Advantage", href: "/rri-advantage/" },
         ]}
       />
 
       <Hero
-        eyebrow="The RRI advantage"
-        headline="Why fleet owners who have shopped before end up at RRI."
+        eyebrow="The Road Ready Insurance advantage"
+        headline="Why fleet owners who have shopped before"
+        headlineMuted="end up at Road Ready Insurance."
         subhead="Most brokers sell the same thing. The difference is how we place it, who we place it with, and what happens when you need us."
       />
 
@@ -95,7 +96,7 @@ export default function RRIAdvantagePage() {
             </p>
             <h2
               id={`${section.id}-heading`}
-              className="text-[32px] font-semibold leading-[1.15] tracking-[-0.01em] text-foreground sm:text-[40px]"
+              className="text-[32px] type-h2 text-foreground sm:text-[40px]"
             >
               {section.headline}
             </h2>
@@ -114,7 +115,8 @@ export default function RRIAdvantagePage() {
       ))}
 
       <CTABanner
-        headline="Ready to see what this looks like for your fleet?"
+        headline="Ready to see what this looks like"
+        headlineMuted="for your fleet?"
         subhead="Talk to an agent who specializes in trucking. No pressure, no 5-minute sales pitch. Just a real conversation about your operation."
         primaryCTA={{ text: "Start Your Quote", href: "/#quote-form" }}
         variant="dark"

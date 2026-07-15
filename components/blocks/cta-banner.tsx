@@ -34,7 +34,7 @@ export function CTABanner({
     >
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 px-6 py-20 text-center lg:py-24">
         <div className="flex flex-col gap-4">
-          <h2 className="text-[32px] font-semibold leading-[1.15] tracking-[-0.01em] text-white sm:text-[40px]">
+          <h2 className="text-[32px] type-h2 text-white sm:text-[40px]">
             {headline}
           </h2>
           {subhead && (
@@ -48,7 +48,7 @@ export function CTABanner({
           <Link
             href={primaryCTA.href}
             className={cn(
-              "inline-flex h-[52px] items-center justify-center rounded-lg px-8 text-[17px] font-semibold transition-colors",
+              "btn",
               isDark
                 ? "bg-cyan text-primary-dark hover:bg-white"
                 : "bg-white text-primary hover:bg-cyan hover:text-primary-dark",

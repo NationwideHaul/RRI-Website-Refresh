@@ -1,7 +1,7 @@
 /**
  * Google reviews — static fallback data.
  *
- * These are the real reviews visible on RRI's Google Business Profile
+ * These are the real reviews visible on Road Ready Insurance's Google Business Profile
  * (captured from the existing homepage widget). They render whenever the
  * live Places API is not configured. To go fully live, set in .env.local:
  *
@@ -25,7 +25,7 @@ export const REVIEWS_SUMMARY = {
   count: 103,
 };
 
-/** RRI's Google Business Profile review link (provided by Adriana). */
+/** Road Ready Insurance's Google Business Profile review link (provided by Adriana). */
 export const REVIEWS_URL = "https://g.page/r/CdPp7siXKtrhEAE/review";
 
 export const REVIEWS: Review[] = [

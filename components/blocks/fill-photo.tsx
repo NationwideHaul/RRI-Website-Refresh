@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -27,9 +27,17 @@ export function FillPhoto({
   className?: string;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const ref = useRef<HTMLImageElement>(null);
+
+  // If the image is already cached/complete before React attaches onLoad, the
+  // load event never fires — check on mount so it doesn't stay invisible.
+  useEffect(() => {
+    if (ref.current?.complete) setLoaded(true);
+  }, []);
 
   return (
     <Image
+      ref={ref}
       src={src}
       alt={alt}
       fill
@@ -37,7 +45,7 @@ export function FillPhoto({
       sizes={sizes}
       onLoad={() => setLoaded(true)}
       className={cn(
-        "object-cover object-center transition-opacity duration-500",
+        "object-cover transition-opacity duration-500",
         loaded ? "opacity-100" : "opacity-0",
         className,
       )}
