@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { WordReveal } from "@/components/blocks/word-reveal";
 
 type Panel = {
   key: string;
@@ -136,10 +137,14 @@ export function CoverageExpander({
             </p>
           )}
           <h2 className="type-h2 text-[32px] text-ink sm:text-[40px]">
-            {headline}
-            {headlineMuted && (
-              <> <span className="text-slate-muted">{headlineMuted}</span></>
-            )}
+            <WordReveal
+              segments={[
+                { text: headline },
+                ...(headlineMuted
+                  ? [{ text: headlineMuted, className: "text-slate-muted" }]
+                  : []),
+              ]}
+            />
           </h2>
           {subhead && (
             <p className="type-sub text-[17px] text-slate sm:text-[18px]">

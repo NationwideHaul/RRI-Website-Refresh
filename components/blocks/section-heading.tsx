@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { WordReveal } from "@/components/blocks/word-reveal";
 
 export type SectionHeadingProps = {
   eyebrow?: string;
@@ -46,15 +47,19 @@ export function SectionHeading({
           isDark ? "text-white" : "text-ink",
         )}
       >
-        {headline}
-        {headlineMuted && (
-          <>
-            {" "}
-            <span className={isDark ? "text-white/55" : "text-slate-muted"}>
-              {headlineMuted}
-            </span>
-          </>
-        )}
+        <WordReveal
+          segments={[
+            { text: headline },
+            ...(headlineMuted
+              ? [
+                  {
+                    text: headlineMuted,
+                    className: isDark ? "text-white/55" : "text-slate-muted",
+                  },
+                ]
+              : []),
+          ]}
+        />
       </h2>
       {subhead && (
         <p

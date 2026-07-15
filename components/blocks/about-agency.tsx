@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/blocks/reveal";
 import { FluidGradient } from "@/components/blocks/fluid-gradient";
+import { WordReveal } from "@/components/blocks/word-reveal";
 
 const STATS: { value: number; prefix?: string; suffix: string; label: string }[] = [
   { value: 12, prefix: "$", suffix: "M+", label: "Premium written" },
@@ -47,10 +48,15 @@ export function AboutAgency() {
                   id="about-heading"
                   className="type-h2 text-[34px] text-white sm:text-[44px]"
                 >
-                  Better coverage and a better rate,{" "}
-                  <span className="text-white/55">
-                    from people who get trucking.
-                  </span>
+                  <WordReveal
+                    segments={[
+                      { text: "Better coverage and a better rate," },
+                      {
+                        text: "from people who get trucking.",
+                        className: "text-white/55",
+                      },
+                    ]}
+                  />
                 </h2>
                 <p className="max-w-xl text-[17px] leading-[1.65] text-white/80">
                   Because we work exclusively with fleets, we know how to spot

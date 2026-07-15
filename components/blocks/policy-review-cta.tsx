@@ -1,6 +1,7 @@
 import { FillPhoto } from "@/components/blocks/fill-photo";
 import Link from "next/link";
 import { Reveal } from "@/components/blocks/reveal";
+import { WordReveal } from "@/components/blocks/word-reveal";
 
 /**
  * Policy-review CTA — a short, wide photo banner. Heading + button sit
@@ -25,8 +26,13 @@ export function PolicyReviewCta() {
                 id="policy-review-heading"
                 className="type-h2 text-balance text-[32px] text-white sm:text-[40px]"
               >
-                Get the stronger protection your operation needs without the
-                bigger bill.
+                <WordReveal
+                  segments={[
+                    {
+                      text: "Get the stronger protection your operation needs without the bigger bill.",
+                    },
+                  ]}
+                />
               </h2>
               <Link
                 href="/contact-us/"

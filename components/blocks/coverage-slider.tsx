@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { COVERAGES } from "@/content/coverage";
+import { WordReveal } from "@/components/blocks/word-reveal";
 
 /**
  * "Find out the coverage option your fleet needs" — wide horizontal cards in a
@@ -55,8 +56,12 @@ export function CoverageSlider() {
             id="coverage-slider-heading"
             className="type-h2 text-[32px] text-ink sm:text-[40px]"
           >
-            Find out the coverage{" "}
-            <span className="text-slate-muted">your fleet needs</span>
+            <WordReveal
+              segments={[
+                { text: "Find out the coverage" },
+                { text: "your fleet needs", className: "text-slate-muted" },
+              ]}
+            />
           </h2>
         </div>
         <div className="hidden shrink-0 gap-2 sm:flex">
