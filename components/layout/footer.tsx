@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { NAP, LICENSE_INFO, SITE, SOCIALS } from "@/lib/constants";
+import { NAP, LICENSE_INFO, SOCIALS } from "@/lib/constants";
 import {
-  FOOTER_COVERAGES,
   FOOTER_COMPANY,
   FOOTER_SUPPORT,
   FOOTER_LEGAL,
@@ -87,9 +86,6 @@ export function Footer() {
                 className="h-14 w-auto"
               />
             </Link>
-            <p className="max-w-sm text-[14px] leading-[1.6] text-white/60">
-              {SITE.tagline}
-            </p>
           </div>
 
           <div className="flex flex-col gap-3 lg:items-end">
@@ -104,7 +100,7 @@ export function Footer() {
         </div>
 
         {/* Link columns + contact */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-14 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-14 sm:grid-cols-3 lg:grid-cols-4">
           {/* Contact — spans wider */}
           <div className="col-span-2 flex flex-col gap-5 sm:col-span-3 lg:col-span-2">
             <h4 className="text-[13px] font-semibold text-white">Get in touch</h4>
@@ -152,13 +148,21 @@ export function Footer() {
             </ul>
           </div>
 
-          <FooterColumn title="Coverage" links={FOOTER_COVERAGES} />
           <FooterColumn title="Company" links={FOOTER_COMPANY} />
           <FooterColumn title="Support" links={FOOTER_SUPPORT} />
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-4 border-t border-white/10 py-6 text-[12px] text-white/55 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-6 border-t border-white/10 py-6 text-[12px] text-white/55">
+          {/* MCIEF membership */}
+          <Image
+            src="/images/partners/mcief.webp"
+            alt="MCIEF"
+            width={800}
+            height={356}
+            className="h-11 w-auto self-start opacity-90"
+          />
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-1.5 md:flex-row md:items-center md:gap-4">
             <span>
               &copy; {year} {NAP.legalName}. All rights reserved.
@@ -177,6 +181,7 @@ export function Footer() {
               </li>
             ))}
           </ul>
+          </div>
         </div>
       </div>
     </footer>

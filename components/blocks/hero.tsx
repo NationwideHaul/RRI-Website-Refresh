@@ -20,6 +20,8 @@ export type HeroProps = {
   image?: { src: string; alt: string };
   /** Optional transparent illustration, floats on the right with no card frame. */
   illustration?: { src: string; alt: string };
+  /** Center all header copy (only applies to the no-image layout). */
+  centered?: boolean;
   className?: string;
 };
 
@@ -39,10 +41,11 @@ export function Hero({
   trustLine,
   image,
   illustration,
+  centered,
   className,
 }: HeroProps) {
   const copy = (
-    <div className="flex flex-col gap-5">
+    <div className={cn("flex flex-col gap-5", centered && "items-center text-center")}>
       {eyebrow && (
         <p className="text-[13px] font-semibold capitalize tracking-normal text-cyan">
           {eyebrow}
@@ -60,13 +63,13 @@ export function Hero({
       </h1>
 
       {subhead && (
-        <p className="max-w-xl text-[16px] leading-[1.6] text-white/85 sm:text-[17px] lg:text-[18px]">
+        <p className={cn("max-w-xl text-[16px] leading-[1.6] text-white/85 sm:text-[17px] lg:text-[18px]", centered && "mx-auto")}>
           {subhead}
         </p>
       )}
 
       {(primaryCTA || secondaryCTA) && (
-        <div className="mt-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <div className={cn("mt-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4", centered && "sm:justify-center")}>
           {primaryCTA && (
             <Link href={primaryCTA.href} className="btn bg-cyan text-primary-dark hover:bg-white">
               {primaryCTA.text}
@@ -138,7 +141,7 @@ export function Hero({
               </div>
             </div>
           ) : (
-            <div className="relative z-10 max-w-3xl px-7 py-14 sm:px-10 sm:py-16 lg:px-14 lg:py-20">
+            <div className={cn("relative z-10 max-w-3xl px-7 py-14 sm:px-10 sm:py-16 lg:px-14 lg:py-20", centered && "mx-auto")}>
               {copy}
             </div>
           )}

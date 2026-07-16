@@ -10,6 +10,7 @@ import { GoogleReviews } from "@/components/blocks/google-reviews";
 import { AboutAgency } from "@/components/blocks/about-agency";
 import { CoverageSlider } from "@/components/blocks/coverage-slider";
 import { ResourceCards } from "@/components/blocks/resource-cards";
+import { RecognitionBand } from "@/components/blocks/recognition-band";
 import { PolicyReviewCta } from "@/components/blocks/policy-review-cta";
 import { Reveal } from "@/components/blocks/reveal";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
@@ -251,6 +252,9 @@ export default function HomePage() {
 
       {/* Stripe-style resource promos */}
       <ResourceCards />
+
+      {/* Third-party recognition band (BusinessRate 2026) */}
+      <RecognitionBand />
 
       <section
         id="faq"

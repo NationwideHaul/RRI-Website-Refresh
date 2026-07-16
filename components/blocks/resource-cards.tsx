@@ -34,7 +34,7 @@ export function ResourceCards() {
           <Reveal key={card.key} delay={i * 120}>
             <Link
               href={card.href}
-              className="group flex h-full items-stretch justify-between gap-4 overflow-hidden rounded-2xl bg-primary-soft ring-1 ring-gray-100 transition-shadow hover:shadow-lg"
+              className="group flex h-full items-stretch justify-between gap-4 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-lg"
             >
               <div className="flex flex-col justify-center gap-3 py-8 pl-8 pr-2 sm:py-10 sm:pl-10">
                 <p className="text-[16px] leading-[1.55] text-gray-700">

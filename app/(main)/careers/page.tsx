@@ -52,7 +52,7 @@ export default function CareersPage() {
         headline="Build a career where"
         headlineMuted="expertise is the product."
         subhead="Road Ready Insurance is a specialist trucking agency built on knowing our craft and standing behind our clients. If that is how you want to work, we should talk."
-        image={{ src: "/images/photos/agent-driver.webp", alt: "The Road Ready Insurance team at work" }}
+        image={{ src: "/images/photos/careers.webp", alt: "The Road Ready Insurance team at work" }}
       />
 
       {/* Values */}

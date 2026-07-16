@@ -50,9 +50,8 @@ export const NAV_SECTIONS: NavSection[] = [
   { kind: "link", label: "Contact Us", href: "/contact-us/" },
 ];
 
-export const FOOTER_COVERAGES: NavLink[] = INSURANCE_SOLUTIONS.slice(0, 8);
-
 export const FOOTER_COMPANY: NavLink[] = [
+  { label: "Coverage", href: "/coverage/" },
   { label: "The Road Ready Insurance Advantage", href: "/rri-advantage/" },
   { label: "Who We Cover", href: "/who-we-cover/" },
   { label: "Careers", href: "/careers/" },

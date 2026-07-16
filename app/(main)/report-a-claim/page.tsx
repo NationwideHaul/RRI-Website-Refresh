@@ -64,7 +64,7 @@ export default function ReportClaimPage() {
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
           {/* Disclaimer, sits above everything */}
           <Reveal>
-            <div className="mb-10 flex items-start gap-3.5 rounded-2xl border border-gray-200 border-l-4 border-l-cyan bg-white p-5 lg:p-6">
+            <div className="mb-10 flex items-start gap-3.5 rounded-2xl border border-border border-l-4 border-l-cyan bg-white p-5 shadow-sm lg:p-6">
               <Info className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" strokeWidth={1.75} />
               <p className="text-[14px] leading-[1.6] text-gray-700 sm:text-[15px]">
                 While Road Ready Insurance does not adjust or settle claims on behalf of any

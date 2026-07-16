@@ -57,28 +57,20 @@ export function PortalCapabilities() {
       ref={rootRef}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="relative isolate overflow-hidden rounded-3xl bg-primary"
+      className="relative isolate overflow-hidden rounded-3xl border border-border bg-white shadow-sm"
     >
-      {/* Brand gradient + dotted texture */}
+      {/* Subtle dotted texture */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.5]"
         style={{
-          background:
-            "radial-gradient(60% 100% at 85% 10%, rgba(0,255,252,0.16), transparent 60%), linear-gradient(135deg, #225296 0%, #2f6ac0 100%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.10]"
-        style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(34,82,150,0.10) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
         }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-5 px-6 py-9 text-center sm:flex-row sm:justify-between sm:gap-8 sm:px-10 sm:text-left">
-        <p className="max-w-[200px] text-[13px] font-semibold capitalize tracking-normal text-cyan">
+        <p className="max-w-[200px] text-[13px] font-semibold capitalize tracking-normal text-primary">
           Everything you can do from the portal
         </p>
 
@@ -87,12 +79,12 @@ export function PortalCapabilities() {
           key={active}
           className="flex flex-1 animate-in items-center justify-center gap-4 fade-in slide-in-from-bottom-1 duration-500 sm:justify-start"
         >
-          <span className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
-            <Icon className="h-6 w-6 text-cyan" strokeWidth={1.75} />
+          <span className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/15">
+            <Icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
           </span>
           <div className="flex flex-col">
-            <span className="text-[17px] font-semibold text-white">{item.title}</span>
-            <span className="text-[14px] leading-snug text-white/70">{item.body}</span>
+            <span className="text-[17px] font-semibold text-foreground">{item.title}</span>
+            <span className="text-[14px] leading-snug text-muted-foreground">{item.body}</span>
           </div>
         </div>
 
@@ -104,7 +96,7 @@ export function PortalCapabilities() {
               type="button"
               onClick={() => setActive(i)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === active ? "w-6 bg-cyan" : "w-1.5 bg-white/25 hover:bg-white/50"
+                i === active ? "w-6 bg-primary" : "w-1.5 bg-primary/20 hover:bg-primary/40"
               }`}
               aria-label={`Show ${c.title}`}
             />

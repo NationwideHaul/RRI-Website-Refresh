@@ -48,7 +48,7 @@ export const PORTAL = {
     "https://identity.nowcerts.com/Account/Login?ReturnUrl=/Account/LoginRedirectUrl",
   progressiveUrl:
     "https://account.apps.progressive.com/access/login?flowId=oRxOi2DaKz",
-  paymentsUrl: "/contact-us/",
+  paymentsUrl: "https://roadreadyinsurance.epaypolicy.com/",
   howToVideos: {
     en: "qiIZIf5P2kM",
     es: "_qiKR0p00QQ",

@@ -41,10 +41,13 @@ export function AboutAgency() {
               className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-cyan/20 blur-3xl"
             />
             {/* Lift the fluid gradient's naturally dark bottom edge so it does
-                not read as a shadow band inside this compact panel. */}
+                not read as a shadow band inside this compact panel. Full-height
+                so it fades smoothly to nothing by the middle — no hard seam —
+                and tinted with the panel's own mid-blue so it evens the tone
+                instead of darkening it. */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#2a5ea6]/70 via-[#2a5ea6]/20 to-transparent"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2f6ac0]/55 via-transparent to-transparent"
             />
 
             <div className="relative grid grid-cols-1 gap-12 p-8 sm:p-12 lg:grid-cols-2 lg:gap-8 lg:p-16">

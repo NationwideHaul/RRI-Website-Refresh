@@ -161,6 +161,9 @@ export default function ClientPortalPage() {
               <Reveal key={item.title} delay={(i % 4) * 70} className="h-full">
                 <Link
                   href={item.href}
+                  {...(item.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="group flex h-full flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
                 >
                   <h3 className="text-[17px] font-semibold text-foreground">{item.title}</h3>

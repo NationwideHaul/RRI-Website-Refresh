@@ -125,6 +125,7 @@ export default function PartnerNetworkPage() {
       />
 
       <Hero
+        centered
         eyebrow="Partner network"
         headline="More than a policy,"
         headlineMuted="a network behind your fleet."
