@@ -2,9 +2,12 @@ import Link from "next/link";
 import { Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAP } from "@/lib/constants";
+import { WordReveal } from "@/components/blocks/word-reveal";
 
 export type CTABannerProps = {
   headline: string;
+  /** Optional gray continuation of the headline (two-tone, like SectionHeading). */
+  headlineMuted?: string;
   subhead?: string;
   primaryCTA: { text: string; href: string };
   showPhone?: boolean;
@@ -14,6 +17,7 @@ export type CTABannerProps = {
 
 export function CTABanner({
   headline,
+  headlineMuted,
   subhead,
   primaryCTA,
   showPhone = true,
@@ -35,7 +39,14 @@ export function CTABanner({
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 px-6 py-20 text-center lg:py-24">
         <div className="flex flex-col gap-4">
           <h2 className="text-[32px] type-h2 text-white sm:text-[40px]">
-            {headline}
+            <WordReveal
+              segments={[
+                { text: headline },
+                ...(headlineMuted
+                  ? [{ text: headlineMuted, className: "text-white/55" }]
+                  : []),
+              ]}
+            />
           </h2>
           {subhead && (
             <p className="text-[17px] leading-[1.6] text-white/85 sm:text-[18px]">
