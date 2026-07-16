@@ -4,7 +4,7 @@ import { Reveal } from "@/components/blocks/reveal";
 
 /**
  * Stripe-promo-style resource cards: bold lead-in sentence, arrow link,
- * abstract diagonal gradient art on the right — rebuilt in Road Ready Insurance brand blues
+ * abstract diagonal gradient art on the right, rebuilt in Road Ready Insurance brand blues
  * and cyan.
  */
 const CARDS = [

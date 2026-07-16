@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/blocks/section-heading";
 import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
 
 export const metadata: Metadata = {
-  title: "Who We Cover — Road Ready Insurance",
+  title: "Who We Cover",
   description:
     "Road Ready Insurance works best with established fleet owners running 2 to 9 units, 2 or more years in business, growing steadily. Not every fleet is a fit for every broker. Here is exactly who we are built for.",
   alternates: { canonical: "/who-we-cover/" },
@@ -23,7 +23,7 @@ const SWEET_SPOT = [
 
 const BEYOND = [
   "Larger fleets up to 50 units",
-  "Specialty operations — hotshot, reefer, dump, tow, heavy haul, cargo",
+  "Specialty operations, hotshot, reefer, dump, tow, heavy haul, cargo",
   "Single-owner operators with multiple trucks",
   "Fleets transitioning from owner-operator to fleet structure",
 ];
@@ -43,6 +43,7 @@ export default function WhoWeCoverPage() {
         headline="We are built for operators"
         headlineMuted="who are serious about their business."
         subhead="Not every fleet is a fit for every broker. Here is exactly who Road Ready Insurance is built for, and who we can help most."
+        image={{ src: "/images/photos/who-we-cover.webp", alt: "A fleet operator Road Ready Insurance works with" }}
       />
 
       <section
@@ -139,7 +140,7 @@ export default function WhoWeCoverPage() {
         headlineMuted="Let's talk."
         subhead="Share a few details about your operation. An agent responds within 2 business hours."
         primaryCTA={{ text: "Start Your Quote", href: "/#quote-form" }}
-        variant="dark"
+        variant="primary"
       />
     </>
   );

@@ -5,7 +5,7 @@ import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "The Road Ready Insurance Advantage — Why fleet owners choose us",
+  title: "The Road Ready Advantage",
   description:
     "Most brokers sell the same thing. The difference is how we place it, who we place it with, and what happens when you need us. Licensed in 48 states, 120+ carriers, in-house claims.",
   alternates: { canonical: "/rri-advantage/" },
@@ -81,6 +81,7 @@ export default function RRIAdvantagePage() {
         headline="Why fleet owners who have shopped before"
         headlineMuted="end up at Road Ready Insurance."
         subhead="Most brokers sell the same thing. The difference is how we place it, who we place it with, and what happens when you need us."
+        image={{ src: "/images/photos/agent-driver.webp", alt: "A Road Ready agent going over coverage with a fleet driver" }}
       />
 
       {SECTIONS.map((section, index) => (
@@ -91,7 +92,7 @@ export default function RRIAdvantagePage() {
           className={cn(index % 2 === 0 ? "bg-background" : "bg-gray-50")}
         >
           <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-20 lg:px-8 lg:py-24">
-            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
+            <p className="text-[13px] font-semibold capitalize tracking-normal text-primary">
               {section.eyebrow}
             </p>
             <h2
@@ -119,7 +120,7 @@ export default function RRIAdvantagePage() {
         headlineMuted="for your fleet?"
         subhead="Talk to an agent who specializes in trucking. No pressure, no 5-minute sales pitch. Just a real conversation about your operation."
         primaryCTA={{ text: "Start Your Quote", href: "/#quote-form" }}
-        variant="dark"
+        variant="primary"
       />
     </>
   );

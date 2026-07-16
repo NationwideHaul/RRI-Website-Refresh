@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     return bad("Invalid request.");
   }
 
-  // Honeypot — silently accept bot submissions without forwarding.
+  // Honeypot, silently accept bot submissions without forwarding.
   if (body.companyWebsite && body.companyWebsite.trim().length > 0) {
     return ok();
   }
@@ -178,17 +178,17 @@ function renderLeadEmail(lead: LeadForEmail) {
 
   return `<!doctype html><html><body style="font-family:Arial,Helvetica,sans-serif;background:#f3f4f6;padding:24px;">
   <table style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
-    <tr><td style="background:#225296;color:#ffffff;padding:18px 24px;font-size:18px;font-weight:700;">New quote request — ${NAP.shortName}</td></tr>
+    <tr><td style="background:#225296;color:#ffffff;padding:18px 24px;font-size:18px;font-weight:700;">New quote request, ${NAP.shortName}</td></tr>
     <tr><td style="padding:16px 12px;">
       <table style="width:100%;border-collapse:collapse;">${rows}</table>
     </td></tr>
-    <tr><td style="padding:12px 24px;background:#f9fafb;color:#6b7280;font-size:12px;">Submitted via ${SITE.url} — reply directly to contact the lead.</td></tr>
+    <tr><td style="padding:12px 24px;background:#f9fafb;color:#6b7280;font-size:12px;">Submitted via ${SITE.url}, reply directly to contact the lead.</td></tr>
   </table>
 </body></html>`;
 }
 
 function renderLeadText(lead: LeadForEmail) {
-  return `New quote request — ${NAP.shortName}
+  return `New quote request, ${NAP.shortName}
 
 Name: ${lead.fullName}
 Company: ${lead.company}

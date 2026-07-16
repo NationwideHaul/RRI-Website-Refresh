@@ -30,9 +30,20 @@ export function FillPhoto({
   const ref = useRef<HTMLImageElement>(null);
 
   // If the image is already cached/complete before React attaches onLoad, the
-  // load event never fires — check on mount so it doesn't stay invisible.
+  // load event never fires, check on mount so it doesn't stay invisible. A
+  // short re-check catches the race where the image completes in the gap
+  // between first paint and this effect without ever firing onLoad.
   useEffect(() => {
-    if (ref.current?.complete) setLoaded(true);
+    const img = ref.current;
+    if (!img) return;
+    if (img.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+      return;
+    }
+    const id = setTimeout(() => {
+      if (ref.current?.complete && ref.current.naturalWidth > 0) setLoaded(true);
+    }, 150);
+    return () => clearTimeout(id);
   }, []);
 
   return (

@@ -8,7 +8,7 @@ import { COVERAGES } from "@/content/coverage";
 import { WordReveal } from "@/components/blocks/word-reveal";
 
 /**
- * "Find out the coverage option your fleet needs" — wide horizontal cards in a
+ * "Find out the coverage option your fleet needs", wide horizontal cards in a
  * scroll-snap track: title + short subheading on the left, a soft visual panel
  * with the coverage icon on the right (like a website-builder picker).
  */

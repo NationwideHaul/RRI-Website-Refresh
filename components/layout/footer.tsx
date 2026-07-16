@@ -1,11 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { NAP, LICENSE_INFO, SOCIALS } from "@/lib/constants";
-import { FOOTER_LEGAL } from "@/lib/nav-config";
+import { NAP, LICENSE_INFO, SITE, SOCIALS } from "@/lib/constants";
+import {
+  FOOTER_COVERAGES,
+  FOOTER_COMPANY,
+  FOOTER_SUPPORT,
+  FOOTER_LEGAL,
+  type NavLink,
+} from "@/lib/nav-config";
 import { NewsletterForm } from "@/components/blocks/newsletter-form";
 
-// Brand glyphs inlined — lucide no longer ships social brand icons.
+// Brand glyphs inlined, lucide no longer ships social brand icons.
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className={className} aria-hidden="true">
@@ -15,7 +21,6 @@ function InstagramIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
 function FacebookIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -23,7 +28,6 @@ function FacebookIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
 function LinkedinIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -38,105 +42,136 @@ const SOCIAL_LINKS = [
   { label: "LinkedIn", href: SOCIALS.linkedin || "#", icon: LinkedinIcon },
 ];
 
+function FooterColumn({ title, links }: { title: string; links: NavLink[] }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <h4 className="text-[13px] font-semibold text-white">{title}</h4>
+      <ul className="flex flex-col gap-2.5">
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              className="text-[14px] leading-snug text-white/65 transition-colors hover:text-cyan"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
   const addr = NAP.address;
 
   return (
-    <footer className="bg-primary-dark text-white/90">
-      {/* Top row: logo + newsletter signup */}
-      <div className="border-b border-white/10">
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-          <Link href="/" aria-label="Road Ready Insurance home">
-            <Image
-              src="/images/rr-white-logo.png"
-              alt="Road Ready Insurance"
-              width={500}
-              height={110}
-              className="h-20 w-auto"
-            />
-          </Link>
+    <footer className="relative isolate overflow-hidden border-t border-white/12 bg-primary-dark text-white/80">
+      {/* Soft brand glow, echoing the hero panels */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 right-0 z-0 h-80 w-80 rounded-full bg-cyan/10 blur-3xl"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Top: brand + newsletter */}
+        <div className="grid grid-cols-1 gap-10 border-b border-white/10 py-12 lg:grid-cols-2 lg:items-center">
+          <div className="flex flex-col gap-4">
+            <Link href="/" aria-label="Road Ready Insurance home" className="w-fit">
+              <Image
+                src="/images/rr-white-logo.png"
+                alt="Road Ready Insurance"
+                width={500}
+                height={110}
+                className="h-14 w-auto"
+              />
+            </Link>
+            <p className="max-w-sm text-[14px] leading-[1.6] text-white/60">
+              {SITE.tagline}
+            </p>
+          </div>
+
           <div className="flex flex-col gap-3 lg:items-end">
-            <div>
-              <h4 className="text-[15px] font-semibold text-white">
-                Join our newsletter
-              </h4>
-              <p className="text-sm text-white/60">
-                Industry news and important updates, no spam.
-              </p>
+            <div className="lg:text-right">
+              <h4 className="text-[15px] font-semibold text-white">Join our newsletter</h4>
+              <p className="text-[13px] text-white/55">Industry news and important updates, no spam.</p>
             </div>
-            <NewsletterForm />
+            <div className="w-full max-w-sm">
+              <NewsletterForm />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Contact + socials */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:px-8">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          <div className="flex flex-col gap-4">
+        {/* Link columns + contact */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-14 sm:grid-cols-3 lg:grid-cols-5">
+          {/* Contact — spans wider */}
+          <div className="col-span-2 flex flex-col gap-5 sm:col-span-3 lg:col-span-2">
+            <h4 className="text-[13px] font-semibold text-white">Get in touch</h4>
             <a
               href={`tel:${NAP.phone}`}
-              className="whitespace-nowrap text-[32px] font-bold tracking-[-0.01em] text-white transition-colors hover:text-cyan sm:text-[36px]"
+              className="w-fit text-[28px] font-bold tracking-[-0.01em] text-white transition-colors hover:text-cyan"
             >
               {NAP.phoneDisplay}
             </a>
-            <a
-              href={`mailto:${NAP.email}`}
-              className="inline-flex items-center gap-2 text-sm text-white/90 transition-colors hover:text-cyan"
-            >
-              <Mail className="h-4 w-4" strokeWidth={1.5} />
-              {NAP.email}
-            </a>
+            <div className="flex flex-col gap-2.5 text-[14px]">
+              <a
+                href={`mailto:${NAP.email}`}
+                className="inline-flex items-center gap-2.5 text-white/70 transition-colors hover:text-cyan"
+              >
+                <Mail className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
+                {NAP.email}
+              </a>
+              <span className="inline-flex items-start gap-2.5 text-white/70">
+                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
+                <span>
+                  {addr.street}
+                  <br />
+                  {addr.city}, {addr.state} {addr.zip}
+                </span>
+              </span>
+              <span className="inline-flex items-center gap-2.5 text-white/70">
+                <Phone className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
+                {NAP.hours}
+              </span>
+            </div>
+
+            <ul className="mt-1 flex gap-2.5">
+              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    {...(href !== "#" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    aria-label={`Road Ready Insurance on ${label}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/10 transition-colors hover:bg-cyan hover:text-primary-dark"
+                  >
+                    <Icon className="h-[17px] w-[17px]" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <ul className="flex flex-col gap-2.5 text-sm">
-            <li className="flex items-start gap-2 text-white/75">
-              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
-              <span>
-                {addr.street}
-                <br />
-                {addr.city}, {addr.state} {addr.zip}
-              </span>
-            </li>
-            <li className="flex items-center gap-2 text-white/75">
-              <Phone className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
-              <span>{NAP.hours}</span>
-            </li>
-          </ul>
-
-          <ul className="flex gap-3">
-            {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  {...(href !== "#"
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  aria-label={`Road Ready Insurance on ${label}`}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-cyan hover:text-primary-dark"
-                >
-                  <Icon className="h-[18px] w-[18px]" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <FooterColumn title="Coverage" links={FOOTER_COVERAGES} />
+          <FooterColumn title="Company" links={FOOTER_COMPANY} />
+          <FooterColumn title="Support" links={FOOTER_SUPPORT} />
         </div>
-      </div>
 
-      <div className="border-t border-white/20">
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 text-xs text-white/70 md:flex-row md:items-center md:justify-between lg:px-8">
-          <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
-            <span>&copy; {year} {NAP.legalName}. All rights reserved.</span>
-            <span className="hidden md:inline text-white/40">&middot;</span>
+        {/* Bottom bar */}
+        <div className="flex flex-col gap-4 border-t border-white/10 py-6 text-[12px] text-white/55 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-1.5 md:flex-row md:items-center md:gap-4">
+            <span>
+              &copy; {year} {NAP.legalName}. All rights reserved.
+            </span>
+            <span className="hidden text-white/30 md:inline">&middot;</span>
+            <span>{LICENSE_INFO.licensedDescription}</span>
+            <span className="hidden text-white/30 md:inline">&middot;</span>
             <span>FL License #{LICENSE_INFO.agencyLicenseNumber}</span>
           </div>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {FOOTER_LEGAL.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="transition-colors hover:text-cyan"
-                >
+                <Link href={link.href} className="transition-colors hover:text-cyan">
                   {link.label}
                 </Link>
               </li>

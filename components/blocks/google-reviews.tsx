@@ -7,7 +7,7 @@ import { getReviews } from "@/lib/reviews";
 import { REVIEWS_URL } from "@/content/reviews";
 
 /**
- * "Backed by our loyal customers" — Google Business Profile reviews in the
+ * "Backed by our loyal customers", Google Business Profile reviews in the
  * native Google-widget look: rating summary bar + review cards. Data comes
  * from lib/reviews.ts (live Places API when configured, static otherwise).
  */

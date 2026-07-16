@@ -73,6 +73,8 @@ const PANELS: Panel[] = [
 ];
 
 const AUTOPLAY_MS = 6000;
+// The opening "Trucking specialists" panel is the key message, let it linger.
+const AUTOPLAY_MS_FIRST = 9500;
 
 export type CoverageExpanderProps = {
   eyebrow?: string;
@@ -96,6 +98,8 @@ export function CoverageExpander({
 }: CoverageExpanderProps) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
   const count = PANELS.length;
 
   const go = useCallback(
@@ -103,25 +107,37 @@ export function CoverageExpander({
     [count],
   );
 
-  // Gentle auto-advance, matching Stripe's rotation. Pauses on hover/focus and
-  // respects users who prefer reduced motion.
-  const pausedRef = useRef(paused);
-  pausedRef.current = paused;
+  // Only auto-advance once the section is actually on screen.
   useEffect(() => {
+    const node = rootRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.4 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  // Gentle auto-advance, matching Stripe's rotation. Runs only while the
+  // section is in view; pauses on hover/focus, respects reduced motion, and
+  // holds the first panel a little longer.
+  useEffect(() => {
+    if (paused || !inView) return;
     if (typeof window !== "undefined") {
       const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
       if (mq.matches) return;
     }
-    const id = window.setInterval(() => {
-      if (!pausedRef.current) setActive((i) => (i + 1) % count);
-    }, AUTOPLAY_MS);
-    return () => window.clearInterval(id);
-  }, [count]);
+    const delay = active === 0 ? AUTOPLAY_MS_FIRST : AUTOPLAY_MS;
+    const id = window.setTimeout(() => setActive((i) => (i + 1) % count), delay);
+    return () => window.clearTimeout(id);
+  }, [active, paused, inView, count]);
 
   const activePanel = PANELS[active];
 
   return (
     <div
+      ref={rootRef}
       className="flex flex-col gap-8"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -132,7 +148,7 @@ export function CoverageExpander({
       <div className="flex items-start justify-between gap-6">
         <div className="flex max-w-2xl flex-col gap-3">
           {eyebrow && (
-            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
+            <p className="text-[13px] font-semibold capitalize tracking-normal text-primary">
               {eyebrow}
             </p>
           )}
@@ -200,7 +216,7 @@ export function CoverageExpander({
               {/* Bottom scrim so the label stays legible over any photo */}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
 
-              {/* Corner label (bottom-left) — same type treatment as the heading */}
+              {/* Corner label (bottom-left), same type treatment as the heading */}
               <div
                 className={cn(
                   "absolute bottom-0 left-0 p-6 transition-opacity duration-500 lg:p-7",

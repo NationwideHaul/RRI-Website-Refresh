@@ -1,5 +1,5 @@
 /**
- * Coverage catalog — the 11 coverage types Road Ready Insurance places.
+ * Coverage catalog, the 11 coverage types Road Ready Insurance places.
  * Single source of truth for the homepage coverage grid, nav dropdown
  * data, footer links, and (later) individual coverage pages.
  *
@@ -120,6 +120,7 @@ export const COVERAGES: Coverage[] = [
     short:
       "Inland marine and specialty coverage for fleets carrying or operating heavy equipment.",
     icon: Wrench,
+    image: "/images/coverage-illustrations/construction-equipment.webp",
   },
   {
     slug: "additional-coverages",

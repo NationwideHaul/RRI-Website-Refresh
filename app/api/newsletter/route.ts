@@ -4,7 +4,7 @@ import { NAP, SITE } from "@/lib/constants";
 export const runtime = "nodejs";
 
 /**
- * Newsletter signup — same forwarding strategy as /api/quote: email via
+ * Newsletter signup, same forwarding strategy as /api/quote: email via
  * Resend when configured, CRM webhook when configured, always logged
  * server-side so no signup is silently dropped.
  */
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
-  // Honeypot — silently accept bot submissions without forwarding.
+  // Honeypot, silently accept bot submissions without forwarding.
   if (body.companyWebsite && body.companyWebsite.trim().length > 0) {
     return NextResponse.json({ ok: true });
   }

@@ -1,5 +1,5 @@
 /**
- * HeroShield — protection pulse rings behind the homepage quote form.
+ * HeroShield, protection pulse rings behind the homepage quote form.
  *
  * Sized to sit on the right side of the hero section so the pulsing
  * rings extend BEYOND the form card edges (the form card's white fill

@@ -49,7 +49,7 @@ export function FluidGradient({ className }: { className?: string }) {
           depth: false,
         });
       } catch {
-        return; // WebGL unavailable — CSS fallback stays
+        return; // WebGL unavailable, CSS fallback stays
       }
 
       const gl = renderer.gl;
@@ -257,7 +257,7 @@ float gauss(vec2 uv, vec2 c, float r, float aspect) {
 }
 
 // Smooth mesh gradient in the brand-blue family (ramp.com style): a few
-// soft color anchors orbit slowly and blend with gaussian weights — no
+// soft color anchors orbit slowly and blend with gaussian weights, no
 // fbm noise and no per-frame grain, so the motion reads buttery-smooth.
 // A gentle sinusoidal warp adds life; the cursor flowmap adds a soft
 // liquid displacement + specular sheen on top. Static film grain lives in

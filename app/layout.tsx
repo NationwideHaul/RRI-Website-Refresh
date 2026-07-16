@@ -5,7 +5,7 @@ import { OrganizationSchema } from "@/components/schema/organization";
 import { SITE } from "@/lib/constants";
 
 // Site-wide typeface per Adriana (Jul 2026): Inter everywhere.
-// (Circular Std was tried and rejected — the .ttf still lives in app/fonts.)
+// (Circular Std was tried and rejected, the .ttf still lives in app/fonts.)
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -15,7 +15,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Commercial Trucking Insurance Specialist`,
+    default: `${SITE.name}, Commercial Trucking Insurance Specialist`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: `${SITE.name} — Commercial Trucking Insurance Specialist`,
+    title: `${SITE.name}, Commercial Trucking Insurance Specialist`,
     description: SITE.description,
     url: SITE.url,
     images: [SITE.logoPath],
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — Commercial Trucking Insurance Specialist`,
+    title: `${SITE.name}, Commercial Trucking Insurance Specialist`,
     description: SITE.description,
     images: [SITE.logoPath],
   },

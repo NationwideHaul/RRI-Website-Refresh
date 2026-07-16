@@ -19,7 +19,8 @@
   --color-slate-muted: #647591;
 
   /* Grays retuned to Stripe's blue-tinted slate scale (was neutral gray). */
-  --color-gray-50: #f9fafb;
+  /* gray-50 nudged a touch darker so section bands read with more definition. */
+  --color-gray-50: #eef1f6;
   --color-gray-100: #f3f4f6;
   --color-gray-300: #d1d5db;
   --color-gray-500: #647591;
@@ -65,8 +66,8 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  /* Stripe-style radius scale — one consistent system across the whole site:
-     4px on controls (buttons/inputs — they use rounded-sm/md/lg here),
+  /* Stripe-style radius scale, one consistent system across the whole site:
+     4px on controls (buttons/inputs, they use rounded-sm/md/lg here),
      8px on surfaces (cards/images use rounded-xl/2xl),
      12–16px on feature + page-level panels (rounded-3xl/4xl). */
   --radius-sm: 4px;
@@ -78,9 +79,9 @@
   --radius-4xl: 16px;
 }
 
-/* ---------- :root overrides — RRI brand applied to shadcn semantics ---------- */
+/* ---------- :root overrides, RRI brand applied to shadcn semantics ---------- */
 :root {
-  /* RRI brand surfaces + text — foreground is Stripe's near-black navy ink */
+  /* RRI brand surfaces + text, foreground is Stripe's near-black navy ink */
   --background: #ffffff;
   --foreground: #0a2540;
 
@@ -96,7 +97,7 @@
   --muted: #f3f4f6;
   --muted-foreground: #6b7280;
 
-  /* Accent = soft hover surface (NOT the RRI cyan — cyan is for pops only) */
+  /* Accent = soft hover surface (NOT the RRI cyan, cyan is for pops only) */
   --accent: #f9fafb;
   --accent-foreground: #225296;
 
@@ -114,7 +115,7 @@
   --input: #d1d5db;
   --ring: #225296;
 
-  /* Chart placeholders (shadcn default scale — unused for now) */
+  /* Chart placeholders (shadcn default scale, unused for now) */
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -123,7 +124,7 @@
 
   --radius: 0.75rem;
 
-  /* Sidebar (unused for now — kept so shadcn components don't 404) */
+  /* Sidebar (unused for now, kept so shadcn components don't 404) */
   --sidebar: #ffffff;
   --sidebar-foreground: #333333;
   --sidebar-primary: #225296;
@@ -191,7 +192,7 @@
    these classes carry the weight, line-height, and letter-spacing that give
    Stripe its look: large text is thin and tightly tracked, leading is snug. */
 @layer components {
-  /* Hero / oversized display text — thin and tight. */
+  /* Hero / oversized display text, thin and tight. */
   .type-display {
     font-weight: 300;
     line-height: 1.05;
@@ -219,7 +220,7 @@
   /* ---------- Consistent button system ----------
      One pill shape, one size, one text scale for every button on the site.
      Variants only change color: filled primary (blue), filled cyan (on dark
-     panels), and outline (white pill with border — the reference style). */
+     panels), and outline (white pill with border, the reference style). */
   .btn {
     @apply inline-flex h-12 w-fit shrink-0 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold whitespace-nowrap transition-colors;
   }

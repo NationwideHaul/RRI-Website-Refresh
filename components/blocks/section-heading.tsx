@@ -5,7 +5,7 @@ export type SectionHeadingProps = {
   eyebrow?: string;
   headline: string;
   /** Optional gray continuation of the headline, rendered inline after
-   *  `headline` in Stripe's muted slate — the black/gray two-tone effect. */
+   *  `headline` in Stripe's muted slate, the black/gray two-tone effect. */
   headlineMuted?: string;
   subhead?: string;
   align?: "left" | "center";
@@ -34,7 +34,7 @@ export function SectionHeading({
       {eyebrow && (
         <p
           className={cn(
-            "text-[13px] font-semibold uppercase tracking-[0.18em]",
+            "text-[13px] font-semibold capitalize tracking-normal",
             isDark ? "text-cyan" : "text-primary",
           )}
         >

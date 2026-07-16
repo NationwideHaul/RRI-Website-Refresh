@@ -5,9 +5,9 @@ import { CTABanner } from "@/components/blocks/cta-banner";
 import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
 
 export const metadata: Metadata = {
-  title: "Coverage Options — Commercial Trucking Insurance",
+  title: "Coverage Options",
   description:
-    "Every commercial trucking coverage Road Ready Insurance places — from liability and physical damage to cargo, trailer interchange, and more.",
+    "Every commercial trucking coverage Road Ready Insurance places, from liability and physical damage to cargo, trailer interchange, and more.",
   alternates: { canonical: "/coverage/" },
 };
 
@@ -25,10 +25,11 @@ export default function CoveragePage() {
         eyebrow="Coverage"
         headline="Every coverage"
         headlineMuted="your operation needs."
-        subhead="One agency for the whole policy — from the foundational coverages every authority carries to the specialized protection serious fleets depend on."
+        subhead="One agency for the whole policy, from the foundational coverages every authority carries to the specialized protection serious fleets depend on."
+        image={{ src: "/images/photos/highway.webp", alt: "A commercial truck on the highway" }}
       />
 
-      <section aria-label="All coverage options" className="bg-gray-50">
+      <section aria-label="All coverage options" className="bg-background">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
           <CoverageGrid />
         </div>
@@ -39,7 +40,7 @@ export default function CoveragePage() {
         headlineMuted="your operation needs?"
         subhead="Talk to an agent who specializes in trucking. We will review your operation and build a policy with no gaps and no padding."
         primaryCTA={{ text: "Talk to an agent", href: "/contact-us/" }}
-        variant="dark"
+        variant="primary"
       />
     </>
   );

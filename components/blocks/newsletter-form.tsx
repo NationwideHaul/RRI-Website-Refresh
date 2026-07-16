@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-/** Footer newsletter signup — posts to /api/newsletter. */
+/** Footer newsletter signup, posts to /api/newsletter. */
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
@@ -30,7 +30,7 @@ export function NewsletterForm() {
   if (status === "done") {
     return (
       <p className="text-sm font-medium text-cyan">
-        You are in. Watch your inbox for trucking news and client perks.
+        You are in. Watch your inbox for trucking news and partner offers.
       </p>
     );
   }

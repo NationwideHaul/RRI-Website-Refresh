@@ -4,7 +4,7 @@ import { Reveal } from "@/components/blocks/reveal";
 import { WordReveal } from "@/components/blocks/word-reveal";
 
 /**
- * Policy-review CTA — a short, wide photo banner. Heading + button sit
+ * Policy-review CTA, a short, wide photo banner. Heading + button sit
  * top-left over a left-weighted navy gradient; the photo stays visible on the
  * right. Photo: /public/images/policy-review.jpg.
  */

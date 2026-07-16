@@ -1,5 +1,5 @@
 /**
- * Google reviews — static fallback data.
+ * Google reviews, static fallback data.
  *
  * These are the real reviews visible on Road Ready Insurance's Google Business Profile
  * (captured from the existing homepage widget). They render whenever the

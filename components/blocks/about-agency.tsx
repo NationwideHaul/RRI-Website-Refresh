@@ -15,7 +15,7 @@ const STATS: { value: number; prefix?: string; suffix: string; label: string }[]
 ];
 
 /**
- * "About Our Agency" — dark blue panel: copy + count-up stats on the left,
+ * "About Our Agency", dark blue panel: copy + count-up stats on the left,
  * the Road Ready Insurance team photo on the right. Count-ups respect prefers-reduced-motion.
  */
 export function AboutAgency() {
@@ -24,7 +24,7 @@ export function AboutAgency() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 pb-8 pt-20 lg:px-8 lg:pb-8 lg:pt-24">
         <Reveal>
           <div className="relative isolate overflow-hidden rounded-3xl bg-primary text-white">
-            {/* Animated fluid gradient — same as the hero backdrop */}
+            {/* Animated fluid gradient, same as the hero backdrop */}
             <FluidGradient />
             {/* Dotted texture + soft cyan glow */}
             <div
@@ -39,6 +39,12 @@ export function AboutAgency() {
             <div
               aria-hidden="true"
               className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-cyan/20 blur-3xl"
+            />
+            {/* Lift the fluid gradient's naturally dark bottom edge so it does
+                not read as a shadow band inside this compact panel. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#2a5ea6]/70 via-[#2a5ea6]/20 to-transparent"
             />
 
             <div className="relative grid grid-cols-1 gap-12 p-8 sm:p-12 lg:grid-cols-2 lg:gap-8 lg:p-16">

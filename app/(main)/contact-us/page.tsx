@@ -7,7 +7,7 @@ import { LocalBusinessSchema } from "@/components/schema/local-business";
 import { NAP } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Road Ready Insurance",
+  title: "Contact Us",
   description:
     "Start a quote, ask a question, or talk through your situation. Our agents answer the phone. Based in Boca Raton, FL. Licensed in 48 states plus DC.",
   alternates: { canonical: "/contact-us/" },
@@ -58,17 +58,18 @@ export default function ContactPage() {
         eyebrow="Contact"
         headline="Ready when you are."
         subhead="Start a quote, ask a question, or just talk through your situation. Our agents answer the phone."
+        image={{ src: "/images/photos/your-agent.webp", alt: "A Road Ready agent ready to help" }}
       />
 
       <section
         id="contact"
         aria-labelledby="contact-heading"
-        className="bg-gray-50"
+        className="bg-background"
       >
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-20 lg:grid-cols-5 lg:gap-16 lg:px-8 lg:py-24">
           <div className="flex flex-col gap-10 lg:col-span-2">
             <div className="flex flex-col gap-3">
-              <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
+              <p className="text-[13px] font-semibold capitalize tracking-normal text-primary">
                 How to reach us
               </p>
               <h2
@@ -95,7 +96,7 @@ export default function ContactPage() {
                       />
                     </span>
                     <div className="flex flex-1 flex-col gap-1">
-                      <span className="text-[12px] font-semibold uppercase tracking-[0.15em] text-gray-500">
+                      <span className="text-[12px] font-semibold capitalize tracking-normal text-gray-500">
                         {method.label}
                       </span>
                       <PrimaryEl
@@ -125,7 +126,7 @@ export default function ContactPage() {
 
           <div className="lg:col-span-3">
             <div className="mb-6">
-              <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-primary">
+              <p className="text-[13px] font-semibold capitalize tracking-normal text-primary">
                 Start your quote
               </p>
               <h2 className="mt-2 text-[28px] type-h2 text-foreground sm:text-[32px]">

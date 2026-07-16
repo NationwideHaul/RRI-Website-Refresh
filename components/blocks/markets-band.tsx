@@ -1,7 +1,7 @@
 import { CARRIERS_MARKETS, type DisplayCarrier } from "@/lib/constants";
 
 /**
- * "Top A-Rated Markets Access" — a centered heading over two rows of carrier
+ * "Top A-Rated Markets Access", a centered heading over two rows of carrier
  * logos that scroll continuously in opposite directions (infinite marquee).
  * Logos sit grayscale + muted; the hovered row pauses and the logo under the
  * cursor animates to full brand color. Edges fade out via a mask gradient.
@@ -59,7 +59,7 @@ function MarqueeRow({
 }) {
   // Render the set twice so the -50% translation loops seamlessly. A plain
   // <img> at a fixed height keeps every logo the SAME height with its aspect
-  // ratio intact — no fragile per-logo scaling.
+  // ratio intact, no fragile per-logo scaling.
   const items = [...carriers, ...carriers];
   return (
     <div className="rri-marquee overflow-hidden">

@@ -221,7 +221,7 @@ export function QuoteForm({
         </div>
       )}
 
-      {/* Honeypot — not visible to humans, bots will fill it. */}
+      {/* Honeypot, not visible to humans, bots will fill it. */}
       <div className="hidden" aria-hidden="true">
         <label>
           Company website
@@ -373,13 +373,13 @@ export function QuoteForm({
         </div>
       </div>
 
-      {/* Optional deeper application — some people only want to leave
+      {/* Optional deeper application, some people only want to leave
           contact info, others have time for more steps. "Yes" opens the
           quick-quote popup (question set TBD from Adriana). */}
       <div
         className={cn(
           "flex flex-wrap items-center justify-between gap-x-4 gap-y-3 rounded-lg border px-4 py-3",
-          glass ? "border-white/20 bg-white/5" : "border-gray-200 bg-gray-50",
+          glass ? "border-white/20 bg-white/5" : "border-gray-200 bg-background",
         )}
       >
         <span
@@ -504,7 +504,7 @@ export function QuoteForm({
 
 /**
  * Popup for the deeper quick-quote application. The question set is
- * pending from Adriana — until it lands, this explains the next step so
+ * pending from Adriana, until it lands, this explains the next step so
  * the "Yes" path never dead-ends.
  */
 function QuickAppDialog({ onClose }: { onClose: () => void }) {
@@ -547,7 +547,7 @@ function QuickAppDialog({ onClose }: { onClose: () => void }) {
           Quick quote application
         </h3>
         <p className="mt-3 text-[15px] leading-[1.6] text-gray-700">
-          Great — a few extra details help us place you with the right market
+          Great, a few extra details help us place you with the right market
           faster. Submit your request and this application will continue with
           your licensed agent.
         </p>

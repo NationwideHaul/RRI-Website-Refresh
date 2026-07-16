@@ -108,13 +108,13 @@ export function Nav() {
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* Right actions — ghost Client Portal + white "Call Now" pill */}
+        {/* Right actions, ghost Client Portal + white "Call Now" pill */}
         <div className="flex shrink-0 items-center gap-2">
           <Link
             href="/customer-service/"
             className="hidden rounded-full border border-gray-300 px-5 py-2 text-[14px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary lg:inline-flex"
           >
-            Client Portal
+            Manage Your Policy
           </Link>
           <a
             href={`tel:${NAP.phone}`}

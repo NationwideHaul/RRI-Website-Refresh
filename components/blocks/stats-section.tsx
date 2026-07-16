@@ -16,7 +16,7 @@ export function StatsSection() {
     >
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <div className="flex max-w-3xl flex-col gap-4">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-cyan">
+          <p className="text-[13px] font-semibold capitalize tracking-normal text-cyan">
             The numbers behind the broker
           </p>
           <h2
@@ -34,7 +34,7 @@ export function StatsSection() {
                 {stat.value}
               </dt>
               <dd className="flex flex-col gap-1.5">
-                <span className="text-[13px] font-semibold uppercase tracking-[0.15em] text-white">
+                <span className="text-[13px] font-semibold tracking-normal text-white">
                   {stat.label}
                 </span>
                 <span className="text-[14px] leading-[1.5] text-white/80">

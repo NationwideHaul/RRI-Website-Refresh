@@ -1,7 +1,7 @@
 /**
- * Road Ready Insurance — canonical business constants.
+ * Road Ready Insurance, canonical business constants.
  *
- * PLACEHOLDERS MARKED WITH `PLACEHOLDER_` — confirm with Derek before launch.
+ * PLACEHOLDERS MARKED WITH `PLACEHOLDER_`, confirm with Derek before launch.
  * See docs/RRI_03_Technical_Build_Prompts.docx §11 pre-launch checklist.
  */
 
@@ -11,6 +11,13 @@ export const NAP = {
   phone: "+19549534845",
   phoneDisplay: "(954) 953-4845",
   email: "info@roadreadyinsurance.com",
+  // Public claims intake address, clients send claim details here (or via
+  // the claim form), and Road Ready responds with the correct instructions
+  // to report the claim to the carrier / claims handler.
+  claimsEmail: "claims@roadreadyinsurance.com",
+  // Public COI request address, clients email certificate requests here (or
+  // use the form); processed within business days.
+  coiEmail: "coi@roadreadyinsurance.com",
   // Internal lead-routing destination (form submissions). Kept here so
   // schema-builder never ships it publicly but form API can reference it.
   leadsEmail: "agents@roadreadyinsurance.com",
@@ -23,10 +30,28 @@ export const NAP = {
   },
   hours: "Monday-Friday, 9am-6pm ET",
   geo: {
-    // 101 Plaza Real S, Boca Raton — approximate Plaza Real centroid.
+    // 101 Plaza Real S, Boca Raton, approximate Plaza Real centroid.
     // Refine to exact office coordinates if needed for LocalBusiness geo.
     latitude: 26.3487,
     longitude: -80.0843,
+  },
+} as const;
+
+/**
+ * Client self-service portal links + how-to videos. NowCerts is the primary
+ * account portal (view policies, issue COIs, update info, download docs);
+ * Progressive is a secondary carrier portal. Payments are handled through the
+ * contact page for now.
+ */
+export const PORTAL = {
+  nowcertsUrl:
+    "https://identity.nowcerts.com/Account/Login?ReturnUrl=/Account/LoginRedirectUrl",
+  progressiveUrl:
+    "https://account.apps.progressive.com/access/login?flowId=oRxOi2DaKz",
+  paymentsUrl: "/contact-us/",
+  howToVideos: {
+    en: "qiIZIf5P2kM",
+    es: "_qiKR0p00QQ",
   },
 } as const;
 
@@ -69,7 +94,7 @@ export const CARRIERS_DISPLAY: DisplayCarrier[] = [
 export const CARRIERS_COUNT_LABEL = "120+ carriers";
 
 /**
- * Markets band ("Top A-Rated Markets Access") — uniform all-white logo
+ * Markets band ("Top A-Rated Markets Access"), uniform all-white logo
  * treatment on the dark blue band. White PNGs are generated from the
  * originals in /Insurance Companies (see session notes) into
  * /public/images/carriers/white/. Same Derek-confirmation caveat as
@@ -158,7 +183,7 @@ export const SERVICE_TYPES = [
 /**
  * Full list of US states + DC where Road Ready Insurance is licensed.
  * Used for InsuranceAgency `areaServed`. This is the 48-state list
- * (excludes Hawaii and Alaska, per strategy doc — confirm with Derek).
+ * (excludes Hawaii and Alaska, per strategy doc, confirm with Derek).
  */
 export const AREA_SERVED_STATES = [
   "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA",

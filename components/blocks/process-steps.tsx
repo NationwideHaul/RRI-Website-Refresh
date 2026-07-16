@@ -24,7 +24,7 @@ export function ProcessSteps({ steps }: { steps: ProcessStep[] }) {
               <span className="relative z-10 inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary-soft text-[18px] font-bold text-primary md:h-11 md:w-11">
                 {index + 1}
               </span>
-              <span className="text-[12px] font-semibold uppercase tracking-[0.15em] text-primary">
+              <span className="text-[12px] font-semibold capitalize tracking-normal text-primary">
                 {step.duration}
               </span>
             </div>

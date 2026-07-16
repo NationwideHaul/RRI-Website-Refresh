@@ -63,7 +63,7 @@ export function MobileNav() {
             onClick={() => setOpen(false)}
             className="flex items-center justify-center rounded-full border-[1.5px] border-gray-300 px-5 py-3 text-[15px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
           >
-            Client Portal
+            Manage Your Policy
           </Link>
         </div>
 

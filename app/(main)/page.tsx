@@ -72,7 +72,7 @@ export default function HomePage() {
       >
         <FluidGradient />
 
-        {/* Film-grain overlay on top of the fluid gradient — fine fractal
+        {/* Film-grain overlay on top of the fluid gradient, fine fractal
             noise blended so it reads as a subtle textured surface, not flat. */}
         <div
           aria-hidden="true"
@@ -125,7 +125,7 @@ export default function HomePage() {
               fleet operators.
             </p>
 
-            {/* Trust row — two symmetric columns, all-white on the photo:
+            {/* Trust row, two symmetric columns, all-white on the photo:
                 left = live Google rating (links to the GBP so it reads
                 legit), right = 48+ states with Premium Customer Service
                 stacked beneath. */}
@@ -135,7 +135,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col justify-between gap-3"
-                aria-label={`${REVIEWS_SUMMARY.rating.toFixed(1)} stars from ${REVIEWS_SUMMARY.count} Google reviews — read them on Google`}
+                aria-label={`${REVIEWS_SUMMARY.rating.toFixed(1)} stars from ${REVIEWS_SUMMARY.count} Google reviews, read them on Google`}
               >
                 <div className="flex items-center gap-2">
                   <GoogleG className="h-4 w-4 drop-shadow" />
@@ -208,7 +208,7 @@ export default function HomePage() {
 
       {/* Everything from the coverages section through the policy-review CTA
           lives inside a rounded, bordered white panel floating on a light gray
-          backdrop — Stripe's contained-page look. Footer sits below it. */}
+          backdrop, Stripe's contained-page look. Footer sits below it. */}
       <div className="bg-[#eef1f6] px-3 pb-3 pt-3 sm:px-5 sm:pb-5 sm:pt-5 lg:px-6 lg:pb-6 lg:pt-6">
         <div id="coverage-panel" className="overflow-hidden rounded-4xl border border-gray-200/80 bg-background shadow-[0_1px_2px_rgba(10,37,64,0.04),0_16px_40px_-16px_rgba(10,37,64,0.14)]">
 

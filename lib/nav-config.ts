@@ -29,7 +29,7 @@ export const CLIENT_RESOURCES: NavLink[] = [
   { label: "Policy Change", href: "/policy-change/", description: "Add or remove units and endorsements." },
   { label: "Report a Claim", href: "/report-a-claim/", description: "Reach our in-house claims team." },
   { label: "Customer Service", href: "/customer-service/", description: "Client portal access." },
-  { label: "Client Perks", href: "/client-perks/", description: "Benefits for existing accounts." },
+  { label: "Partner Network", href: "/client-perks/", description: "Vetted trucking partners for our clients." },
   { label: "Road Ready Blog", href: "/road-ready-blog/", description: "Industry insight and guidance." },
 ];
 
@@ -46,7 +46,7 @@ export const NAV_SECTIONS: NavSection[] = [
   { kind: "group", label: "Coverage", children: INSURANCE_SOLUTIONS },
   { kind: "link", label: "Claims", href: "/report-a-claim/" },
   { kind: "group", label: "About Us", children: OUR_AGENCY },
-  { kind: "link", label: "Client Perks", href: "/client-perks/" },
+  { kind: "link", label: "Partner Network", href: "/client-perks/" },
   { kind: "link", label: "Contact Us", href: "/contact-us/" },
 ];
 
@@ -65,7 +65,7 @@ export const FOOTER_SUPPORT: NavLink[] = [
   { label: "Policy Change", href: "/policy-change/" },
   { label: "Report a Claim", href: "/report-a-claim/" },
   { label: "Customer Portal", href: "/customer-service/" },
-  { label: "Client Perks", href: "/client-perks/" },
+  { label: "Partner Network", href: "/client-perks/" },
 ];
 
 export const FOOTER_LEGAL: NavLink[] = [

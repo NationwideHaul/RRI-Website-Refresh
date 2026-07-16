@@ -1,5 +1,5 @@
 /**
- * HeroHighway — animated perspective grid for the homepage hero.
+ * HeroHighway, animated perspective grid for the homepage hero.
  *
  * Six lines radiate from a vanishing point just above center down through
  * the bottom edge, evoking a highway at speed. A cyan dashed center-lane
@@ -73,7 +73,7 @@ export function HeroHighway() {
         strokeWidth={1.75}
       />
 
-      {/* Animated lane markers — cyan dashes scrolling toward viewer */}
+      {/* Animated lane markers, cyan dashes scrolling toward viewer */}
       <line
         x1="600"
         y1="720"
