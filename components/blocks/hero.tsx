@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { FillPhoto } from "@/components/blocks/fill-photo";
@@ -17,6 +18,8 @@ export type HeroProps = {
   variant?: "light" | "dark";
   /** Optional supporting photo, renders a two-column header. */
   image?: { src: string; alt: string };
+  /** Optional transparent illustration, floats on the right with no card frame. */
+  illustration?: { src: string; alt: string };
   className?: string;
 };
 
@@ -35,6 +38,7 @@ export function Hero({
   secondaryCTA,
   trustLine,
   image,
+  illustration,
   className,
 }: HeroProps) {
   const copy = (
@@ -112,7 +116,21 @@ export function Hero({
             className="pointer-events-none absolute -right-24 -top-24 z-0 h-72 w-72 rounded-full bg-cyan/15 blur-3xl"
           />
 
-          {image ? (
+          {illustration ? (
+            <div className="relative z-10 grid grid-cols-1 items-center gap-9 px-7 py-12 sm:px-10 sm:py-14 lg:grid-cols-2 lg:gap-12 lg:px-14 lg:py-16">
+              {copy}
+              <div className="flex justify-center lg:justify-center">
+                <Image
+                  src={illustration.src}
+                  alt={illustration.alt}
+                  width={760}
+                  height={760}
+                  priority
+                  className="h-auto w-full max-w-[480px] lg:-ml-6"
+                />
+              </div>
+            </div>
+          ) : image ? (
             <div className="relative z-10 grid grid-cols-1 items-center gap-9 px-7 py-12 sm:px-10 sm:py-14 lg:grid-cols-2 lg:gap-12 lg:px-14 lg:py-16">
               {copy}
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
