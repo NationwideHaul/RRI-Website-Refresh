@@ -41,14 +41,6 @@ const PARTNERS: Partner[] = [
     linkLabel: "nfitrucksales.com",
   },
   {
-    name: "Cherry Trader",
-    logo: "/images/partners/cherry-trader.webp",
-    description: "A trusted digital marketplace built for buying and selling commercial trucks and equipment with transparency and confidence.",
-    href: "https://www.cherrytrader.com",
-    external: true,
-    linkLabel: "cherrytrader.com",
-  },
-  {
     name: "Nationwide Equipment Finance",
     logo: "/images/partners/nef.webp",
     description: "Flexible financing to acquire the equipment that drives your business forward.",
@@ -87,6 +79,14 @@ const PARTNERS: Partner[] = [
     href: "/tips/",
     external: false,
     linkLabel: "Learn more",
+  },
+  {
+    name: "Cherry Trader",
+    logo: "/images/partners/cherry-trader.webp",
+    description: "A trusted digital marketplace built for buying and selling commercial trucks and equipment with transparency and confidence.",
+    href: "https://www.cherrytrader.com",
+    external: true,
+    linkLabel: "cherrytrader.com",
   },
 ];
 
