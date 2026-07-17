@@ -43,7 +43,7 @@ export default function ClientPortalPage() {
         subhead="Road Ready clients manage everything from the portal: view policies, issue certificates, update your info, download documents, and pay, any time, without calling anyone."
         primaryCTA={{ text: "Log in to your portal", href: "#login" }}
         secondaryCTA={{ text: "How it works", href: "#how-to" }}
-        illustration={{ src: "/images/manage-your-policy-3.png", alt: "Manage your policy in the Road Ready client portal", unoptimized: true }}
+        illustration={{ src: "/images/manage-your-policy-4.png", alt: "Manage your policy in the Road Ready client portal", unoptimized: true }}
       />
 
       {/* ---------- Login: the focal point ---------- */}

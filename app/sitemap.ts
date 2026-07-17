@@ -13,9 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" },
     { path: "/coverage/", priority: 0.9, changeFrequency: "monthly" },
-    { path: "/rri-advantage/", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/who-we-are/", priority: 0.8, changeFrequency: "monthly" },
     { path: "/who-we-cover/", priority: 0.7, changeFrequency: "monthly" },
     { path: "/client-perks/", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/free-fuel-card/", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/tips/", priority: 0.6, changeFrequency: "monthly" },
     { path: "/how-to-start-a-trucking-company/", priority: 0.8, changeFrequency: "monthly" },
     { path: "/report-a-claim/", priority: 0.7, changeFrequency: "monthly" },
     { path: "/get-a-coi/", priority: 0.6, changeFrequency: "monthly" },

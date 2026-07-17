@@ -145,7 +145,7 @@ export default async function CoverageDetailPage({
                 Start Your Quote
               </Link>
               <Link
-                href="/rri-advantage/"
+                href="/who-we-are/"
                 className="btn border-[1.5px] border-white/60 bg-transparent text-white hover:bg-white hover:text-primary-dark"
               >
                 See what sets us apart

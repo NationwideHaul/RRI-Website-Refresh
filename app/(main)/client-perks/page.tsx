@@ -41,6 +41,14 @@ const PARTNERS: Partner[] = [
     linkLabel: "nfitrucksales.com",
   },
   {
+    name: "Cherry Trader",
+    logo: "/images/partners/cherry-trader.webp",
+    description: "A trusted digital marketplace built for buying and selling commercial trucks and equipment with transparency and confidence.",
+    href: "https://www.cherrytrader.com",
+    external: true,
+    linkLabel: "cherrytrader.com",
+  },
+  {
     name: "Nationwide Equipment Finance",
     logo: "/images/partners/nef.webp",
     description: "Flexible financing to acquire the equipment that drives your business forward.",
@@ -52,9 +60,9 @@ const PARTNERS: Partner[] = [
     name: "TCS Fuel Card",
     logo: "/images/partners/tcs-card.webp",
     description: "Save on diesel at 2,000+ locations with zero fees and real-time discounts.",
-    href: "/contact-us/",
+    href: "/free-fuel-card/",
     external: false,
-    linkLabel: "Ask your agent",
+    linkLabel: "Learn more",
   },
   {
     name: "Roadside Masters",
@@ -76,9 +84,9 @@ const PARTNERS: Partner[] = [
     name: "Total Insight Professional Services",
     logo: "/images/partners/tips.webp",
     description: "State & federal compliance solutions for motor carriers nationwide.",
-    href: "/contact-us/",
+    href: "/tips/",
     external: false,
-    linkLabel: "Ask your agent",
+    linkLabel: "Learn more",
   },
 ];
 

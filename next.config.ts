@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
     // are unaffected and stay optimized.
     unoptimized: process.env.NODE_ENV === "development",
   },
+  async redirects() {
+    return [
+      // /rri-advantage was renamed to /who-we-are (keep old links + SEO).
+      { source: "/rri-advantage", destination: "/who-we-are", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

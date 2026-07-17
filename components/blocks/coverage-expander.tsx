@@ -26,8 +26,8 @@ const PANELS: Panel[] = [
     title: "Trucking specialists, not general insurance",
     detail:
       "We only write commercial trucking, not home, auto, or general business. That focus is why we know your risks, your carriers, and your filings better than any generalist agency ever could.",
-    href: "/rri-advantage/",
-    linkText: "The Road Ready Insurance advantage",
+    href: "/who-we-are/",
+    linkText: "Who we are",
     image: "/images/coverage/fleets.jpg",
   },
   {

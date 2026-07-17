@@ -64,3 +64,6 @@ next-env.d.ts
 
 # Root-level source video (compressed copy lives in public/videos/)
 /Home Video 1.mp4
+
+# Root-level source favicon (real one is app/icon.png)
+/favicon.png

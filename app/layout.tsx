@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  icons: { icon: "/favicon.ico" },
+  // Favicon is auto-detected from app/icon.png (Next App Router).
 };
 
 export default function RootLayout({
