@@ -81,7 +81,13 @@ export function FluidGradient({ className }: { className?: string }) {
 
       let aspect = 1;
       const resize = () => {
-        const { width, height } = container.getBoundingClientRect();
+        // offsetWidth/Height (not getBoundingClientRect) so a CSS transform on
+        // an ancestor — e.g. the .rri-reveal scale(0.97) intro — does not shrink
+        // the measured size. A ResizeObserver never fires when that transform
+        // settles back to none, so a scaled measurement would leave the canvas
+        // permanently undersized, exposing the dark fallback at the right/bottom.
+        const width = container.offsetWidth;
+        const height = container.offsetHeight;
         if (width === 0 || height === 0) return;
         renderer.setSize(width, height);
         aspect = width / height;

@@ -41,13 +41,13 @@ const PANELS: Panel[] = [
     image: "/images/coverage/claims.jpg",
   },
   {
-    key: "specialists",
-    tag: "Who we cover",
-    title: "Fleets of all sizes, including high-risk",
+    key: "ecosystem",
+    tag: "More than just insurance",
+    title: "A whole trucking ecosystem behind you",
     detail:
-      "From a 2-truck operation to a 50-unit fleet, and the hard-to-place, high-risk accounts other brokers turn away. If you run trucks, we have a market for you.",
-    href: "/who-we-cover/",
-    linkText: "See who we cover",
+      "You're not a client, we're your partner. Insurance is where we start, but through our sister companies you get more benefits on equipment sales, financing, fuel discounts, roadside assistance, and more. One network built for trucking.",
+    href: "/client-perks/",
+    linkText: "Explore the partner network",
     image: "/images/coverage/specialists.jpg",
   },
   {

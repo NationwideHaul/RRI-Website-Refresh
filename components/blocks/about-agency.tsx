@@ -11,7 +11,7 @@ import { WordReveal } from "@/components/blocks/word-reveal";
 const STATS: { value: number; prefix?: string; suffix: string; label: string }[] = [
   { value: 12, prefix: "$", suffix: "M+", label: "Premium written" },
   { value: 100, suffix: "+", label: "Carriers compared" },
-  { value: 1, suffix: "K+", label: "Fleets switched" },
+  { value: 984, suffix: "+", label: "Fleets switched" },
 ];
 
 /**

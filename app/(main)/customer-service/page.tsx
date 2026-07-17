@@ -43,7 +43,7 @@ export default function ClientPortalPage() {
         subhead="Road Ready clients manage everything from the portal: view policies, issue certificates, update your info, download documents, and pay, any time, without calling anyone."
         primaryCTA={{ text: "Log in to your portal", href: "#login" }}
         secondaryCTA={{ text: "How it works", href: "#how-to" }}
-        illustration={{ src: "/images/client-portal.webp", alt: "Client portal login screen" }}
+        illustration={{ src: "/images/manage-your-policy-3.png", alt: "Manage your policy in the Road Ready client portal", unoptimized: true }}
       />
 
       {/* ---------- Login: the focal point ---------- */}
@@ -92,15 +92,15 @@ export default function ClientPortalPage() {
             {/* Progressive, secondary */}
             <Reveal delay={100}>
               <div className="flex h-full flex-col justify-between gap-6 rounded-3xl border border-gray-200 bg-white p-8">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/logo-progressive.svg"
                     alt="Progressive Commercial"
-                    className="h-6 w-auto"
+                    className="h-7 w-auto self-start"
                   />
-                  <h3 className="text-[20px] type-h3 text-ink">Insured with Progressive?</h3>
-                  <p className="text-[15px] leading-[1.6] text-gray-700">
+                  <h3 className="mt-8 text-[20px] type-h3 text-ink">Insured with Progressive?</h3>
+                  <p className="mt-2 text-[15px] leading-[1.6] text-gray-700">
                     Manage your Progressive Commercial policy directly through their portal.
                   </p>
                 </div>
@@ -164,11 +164,11 @@ export default function ClientPortalPage() {
                   {...(item.href.startsWith("http")
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
-                  className="group flex h-full flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
+                  className="group flex h-full flex-col gap-3 rounded-2xl bg-gradient-to-br from-primary to-primary-dark p-6 shadow-sm ring-1 ring-white/10 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-lg hover:ring-white/25"
                 >
-                  <h3 className="text-[17px] font-semibold text-foreground">{item.title}</h3>
-                  <p className="flex-1 text-[14px] leading-[1.55] text-gray-700">{item.body}</p>
-                  <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-primary group-hover:text-primary-dark">
+                  <h3 className="text-[17px] font-semibold text-white">{item.title}</h3>
+                  <p className="flex-1 text-[14px] leading-[1.55] text-white/70">{item.body}</p>
+                  <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-cyan group-hover:text-white">
                     Start
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={1.75} />
                   </span>

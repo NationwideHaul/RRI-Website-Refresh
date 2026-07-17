@@ -26,7 +26,7 @@ export function MarketsBand() {
             <span className="text-ink">Access</span>
           </h2>
           <p className="type-sub text-[16px] text-slate">
-            When we say we will give you the best rate, we mean it.
+            When we say we&apos;ll give you the best coverage, we mean it.
           </p>
         </div>
 

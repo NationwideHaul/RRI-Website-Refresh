@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { OrganizationSchema } from "@/components/schema/organization";
+import { IntercomWidget } from "@/components/intercom-widget";
 import { SITE } from "@/lib/constants";
 
 // Site-wide typeface per Adriana (Jul 2026): Inter everywhere.
@@ -53,6 +54,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <OrganizationSchema />
         {children}
+        <IntercomWidget />
       </body>
     </html>
   );

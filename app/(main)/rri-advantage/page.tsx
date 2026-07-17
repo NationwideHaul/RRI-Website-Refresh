@@ -49,9 +49,9 @@ const SECTIONS: AdvantageSection[] = [
   {
     id: "growth",
     eyebrow: "Built for growth",
-    headline: "We work best with fleets that are built to last.",
+    headline: "We grow with fleets that are built to last.",
     paragraphs: [
-      "Road Ready Insurance's sweet-spot client runs 2 to 9 units, has been in business 2 or more years, and is growing 1 to 2 units per year. This is not an arbitrary profile. It is the profile underwriters reward, operations that show discipline, stability, and sustainable growth. When we bring your submission to premium carriers, that profile opens doors that are closed to brand-new authorities.",
+      "From brand-new authorities getting their first trucks on the road to large, established fleets, we work with operations at every size and stage. We get to know how your business runs and build a submission that tells that story to underwriters, so you are placed with carriers that fit where you are today and where you are headed.",
       "As your fleet grows, your coverage evolves with you. We are built for the long-term partnership, not the one-year transaction.",
     ],
   },

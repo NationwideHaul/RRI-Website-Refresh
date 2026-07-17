@@ -8,24 +8,26 @@ import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
 export const metadata: Metadata = {
   title: "Who We Cover",
   description:
-    "Road Ready Insurance works best with established fleet owners running 2 to 9 units, 2 or more years in business, growing steadily. Not every fleet is a fit for every broker. Here is exactly who we are built for.",
+    "Road Ready Insurance works with trucking operations of every size and stage, from brand-new authorities to large, established fleets. Whoever you are and wherever you are in your growth, we build coverage around your operation.",
   alternates: { canonical: "/who-we-cover/" },
 };
 
-const SWEET_SPOT = [
-  "Fleet owners running 2 to 9 units (we serve up to 50)",
-  "Operations in business 2 or more years",
-  "Owner-operators or owner/fleet managers making their own decisions",
-  "Fleets growing steadily, typically 1 to 2 units per year",
-  "Authority-held operations, not leased-on drivers",
-  "Operators who value carrier quality and responsive service over quote speed",
+const WHO_WE_COVER = [
+  "Brand-new authorities getting their first trucks on the road",
+  "Owner-operators and owner/fleet managers making their own decisions",
+  "Small and mid-size fleets scaling unit by unit",
+  "Large, established fleets running dozens of trucks",
+  "Fleets transitioning from owner-operator to a full fleet structure",
+  "Operators who value carrier quality and responsive service",
 ];
 
-const BEYOND = [
-  "Larger fleets up to 50 units",
-  "Specialty operations, hotshot, reefer, dump, tow, heavy haul, cargo",
-  "Single-owner operators with multiple trucks",
-  "Fleets transitioning from owner-operator to fleet structure",
+const SPECIALTY = [
+  "Tractor trailer and straight truck operations",
+  "Hotshot and pickup truck operations",
+  "Dump, tow, and heavy haul",
+  "Reefer, dry van, and cargo",
+  "Hazmat and tanker operations",
+  "Last-mile and intermodal (UIIA) operations",
 ];
 
 export default function WhoWeCoverPage() {
@@ -40,25 +42,25 @@ export default function WhoWeCoverPage() {
 
       <Hero
         eyebrow="Who we work with"
-        headline="We are built for operators"
-        headlineMuted="who are serious about their business."
-        subhead="Not every fleet is a fit for every broker. Here is exactly who Road Ready Insurance is built for, and who we can help most."
+        headline="We work with trucking operations"
+        headlineMuted="of every size and stage."
+        subhead="From brand-new authorities getting their first trucks on the road to large, established fleets, Road Ready Insurance builds coverage around your operation, wherever you are in your growth."
         image={{ src: "/images/photos/who-we-cover.webp", alt: "A fleet operator Road Ready Insurance works with" }}
       />
 
       <section
-        id="sweet-spot"
-        aria-labelledby="sweet-spot-heading"
+        id="who-we-cover"
+        aria-labelledby="who-we-cover-heading"
         className="bg-background"
       >
         <div className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-20 lg:px-8 lg:py-24">
           <SectionHeading
-            eyebrow="Our sweet spot"
-            headline="Road Ready Insurance works best with fleets"
-            headlineMuted="that look like this."
+            eyebrow="Who we cover"
+            headline="Whoever you are,"
+            headlineMuted="we build coverage around your operation."
           />
           <ul className="flex flex-col gap-4">
-            {SWEET_SPOT.map((item) => (
+            {WHO_WE_COVER.map((item) => (
               <li
                 key={item}
                 className="flex items-start gap-3 text-[17px] leading-[1.55] text-gray-700 sm:text-[18px]"
@@ -77,17 +79,18 @@ export default function WhoWeCoverPage() {
       </section>
 
       <section
-        id="beyond"
-        aria-labelledby="beyond-heading"
+        id="specialty"
+        aria-labelledby="specialty-heading"
         className="bg-gray-50"
       >
         <div className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-20 lg:px-8 lg:py-24">
           <SectionHeading
-            eyebrow="Beyond our sweet spot"
-            headline="We also regularly work with."
+            eyebrow="Operations we cover"
+            headline="Whatever you haul,"
+            headlineMuted="whatever you run."
           />
           <ul className="flex flex-col gap-4">
-            {BEYOND.map((item) => (
+            {SPECIALTY.map((item) => (
               <li
                 key={item}
                 className="flex items-start gap-3 text-[17px] leading-[1.55] text-gray-700 sm:text-[18px]"
@@ -106,30 +109,28 @@ export default function WhoWeCoverPage() {
       </section>
 
       <section
-        id="honest-about-fit"
-        aria-labelledby="honest-about-fit-heading"
+        id="new-authorities"
+        aria-labelledby="new-authorities-heading"
         className="bg-background"
       >
         <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-20 lg:px-8 lg:py-24">
           <SectionHeading
-            eyebrow="Honest about fit"
-            headline="When we might not be"
-            headlineMuted="your best fit."
+            eyebrow="New authorities welcome"
+            headline="Just getting started?"
+            headlineMuted="We are here for that too."
           />
           <div className="flex flex-col gap-5 text-[17px] leading-[1.65] text-gray-700 sm:text-[18px]">
             <p>
-              If you are brand new, filing for DOT authority this week, about
-              to buy your first truck, we can help, but you may find fast-quote
-              brokers a better match for that specific moment. The premium
-              markets we access want to see some track record. Come back to Road Ready Insurance
-              when you are 2 years in and growing. We will be here.
+              If you are filing for your DOT authority this week or about to
+              put your first truck on the road, we can help. New authorities are
+              welcome here, and getting your coverage right from day one sets you
+              up to grow.
             </p>
             <p>
-              If your primary driver in shopping is getting the cheapest
-              possible quote in 5 minutes, we are not built for that either.
-              Our process takes longer because the carriers we place with take
-              longer. That is a feature, not a bug, but only if it matches
-              what you are looking for.
+              And as your operation grows, from your first unit to a large,
+              established fleet, your coverage grows with you. We are built for
+              the long-term partnership: the same team, the same named agent,
+              at every stage of your business.
             </p>
           </div>
         </div>

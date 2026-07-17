@@ -1,7 +1,7 @@
 import { Award } from "lucide-react";
 
 /**
- * Recognition ticker — a slim white bar with an infinite, seamlessly looping
+ * Recognition ticker — a slim off-white bar with an infinite, seamlessly looping
  * marquee of the BusinessRate recognition. Pure CSS animation (rri-marquee),
  * pauses on hover, and freezes under prefers-reduced-motion.
  */
@@ -28,7 +28,7 @@ export function RecognitionBand() {
   const base = Array.from({ length: 4 });
 
   return (
-    <section aria-label="Recognition" className="border-y border-border bg-white">
+    <section aria-label="Recognition" className="border-y border-border bg-[#f5f7fa]">
       <div
         className="rri-marquee overflow-hidden py-3.5"
         style={{

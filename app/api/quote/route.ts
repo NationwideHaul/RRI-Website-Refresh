@@ -12,7 +12,58 @@ type QuoteLead = {
   authority?: string;
   consent?: boolean;
   companyWebsite?: string; // honeypot
+  quickApp?: string;
+  application?: Record<string, unknown>;
 };
+
+// Quick-quote application fields, in display order. Keys match the client's
+// AppState; the redundant *Other keys are folded into their arrays client-side.
+const APPLICATION_LABELS: [string, string][] = [
+  ["statusOfAuthority", "Status of Authority"],
+  ["knowEin", "Knows company EIN"],
+  ["addr1", "Address Line 1"],
+  ["addr2", "Address Line 2"],
+  ["city", "City"],
+  ["state", "State"],
+  ["zip", "Zip"],
+  ["numberOfTrucks", "Number of Trucks"],
+  ["truckTypes", "Type of Trucks"],
+  ["autoLiability", "Auto Liability Required"],
+  ["cargoCoverage", "Cargo Coverage Amount"],
+  ["generalLiability", "General Liability Required"],
+  ["commodities", "Commodities to be Hauled"],
+  ["numberOfDrivers", "Number of Drivers"],
+  ["ownerIsDriver", "Is the Owner a Driver"],
+  ["ownerFirst", "Owner First Name"],
+  ["ownerLast", "Owner Last Name"],
+  ["ownerDob", "Owner Date of Birth"],
+  ["ownerDl", "Driver's License #"],
+  ["cdl", "CDL"],
+  ["homeSameAsBusiness", "Home address same as business"],
+  ["truckInfoAvailable", "Truck Info Available"],
+  ["submittedBy", "Information Submitted by"],
+  ["hearAboutUs", "How did you hear about us"],
+  ["comments", "Comments"],
+  ["smsConsent", "SMS Terms agreed"],
+];
+
+/** Flatten an application value into a printable string. */
+function appValue(value: unknown): string {
+  if (Array.isArray(value)) return value.join(", ");
+  if (typeof value === "boolean") return value ? "Yes" : "No";
+  return String(value ?? "").trim();
+}
+
+/** [label, value] pairs for the application, skipping empties. */
+function applicationRows(app: Record<string, unknown> | undefined): [string, string][] {
+  if (!app) return [];
+  const out: [string, string][] = [];
+  for (const [key, label] of APPLICATION_LABELS) {
+    const v = appValue(app[key]);
+    if (v) out.push([label, v]);
+  }
+  return out;
+}
 
 const AUTHORITY_LABELS: Record<string, string> = {
   "new-authority": "New Authority",
@@ -68,6 +119,8 @@ export async function POST(req: Request) {
   if (!AUTHORITY_LABELS[authority]) return bad("Invalid authority value.");
   if (!consent) return bad("Consent required.");
 
+  const hasApplication = body.quickApp === "yes" && !!body.application;
+
   const lead = {
     fullName,
     company,
@@ -77,6 +130,7 @@ export async function POST(req: Request) {
     authority,
     authorityLabel: AUTHORITY_LABELS[authority],
     consent,
+    application: hasApplication ? body.application : undefined,
     submittedAt: new Date().toISOString(),
     source: SITE.url,
   };
@@ -100,7 +154,7 @@ export async function POST(req: Request) {
           from: formFrom,
           to: formTo.split(",").map((s) => s.trim()),
           reply_to: email,
-          subject: `New quote request from ${fullName} (${company})`,
+          subject: `New quote request${hasApplication ? " + application" : ""} from ${fullName} (${company})`,
           html: renderLeadEmail(lead),
           text: renderLeadText(lead),
         }),
@@ -156,25 +210,36 @@ type LeadForEmail = {
   authority: string;
   authorityLabel: string;
   consent: boolean;
+  application?: Record<string, unknown>;
   submittedAt: string;
 };
 
 function renderLeadEmail(lead: LeadForEmail) {
-  const rows = [
-    ["Name", lead.fullName],
-    ["Company", lead.company],
-    ["Email", lead.email],
-    ["Phone", lead.phone],
-    ["USDOT", lead.dot],
-    ["Authority", lead.authorityLabel],
-    ["Consent", lead.consent ? "Yes" : "No"],
-    ["Submitted", lead.submittedAt],
-  ]
-    .map(
-      ([label, value]) =>
-        `<tr><td style="padding:8px 12px;font-weight:600;color:#225296;white-space:nowrap;">${label}</td><td style="padding:8px 12px;color:#333333;">${escapeHtml(String(value))}</td></tr>`,
-    )
+  const row = ([label, value]: [string, string]) =>
+    `<tr><td style="padding:8px 12px;font-weight:600;color:#225296;white-space:nowrap;vertical-align:top;">${escapeHtml(label)}</td><td style="padding:8px 12px;color:#333333;">${escapeHtml(value)}</td></tr>`;
+
+  const contactRows = (
+    [
+      ["Name", lead.fullName],
+      ["Company", lead.company],
+      ["Email", lead.email],
+      ["Phone", lead.phone],
+      ["USDOT", lead.dot],
+      ["Authority", lead.authorityLabel],
+      ["Consent", lead.consent ? "Yes" : "No"],
+      ["Submitted", lead.submittedAt],
+    ] as [string, string][]
+  )
+    .map(row)
     .join("");
+
+  const appPairs = applicationRows(lead.application);
+  const applicationSection = appPairs.length
+    ? `<tr><td colspan="2" style="padding:16px 12px 4px;font-size:13px;font-weight:700;color:#225296;text-transform:uppercase;letter-spacing:0.04em;">Quick quote application</td></tr>${appPairs
+        .map(row)
+        .join("")}`
+    : "";
+  const rows = contactRows + applicationSection;
 
   return `<!doctype html><html><body style="font-family:Arial,Helvetica,sans-serif;background:#f3f4f6;padding:24px;">
   <table style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
@@ -188,6 +253,11 @@ function renderLeadEmail(lead: LeadForEmail) {
 }
 
 function renderLeadText(lead: LeadForEmail) {
+  const appPairs = applicationRows(lead.application);
+  const applicationSection = appPairs.length
+    ? `\n\nQuick quote application\n${appPairs.map(([l, v]) => `${l}: ${v}`).join("\n")}`
+    : "";
+
   return `New quote request, ${NAP.shortName}
 
 Name: ${lead.fullName}
@@ -197,7 +267,7 @@ Phone: ${lead.phone}
 USDOT: ${lead.dot}
 Authority: ${lead.authorityLabel}
 Consent: ${lead.consent ? "Yes" : "No"}
-Submitted: ${lead.submittedAt}
+Submitted: ${lead.submittedAt}${applicationSection}
 
 Submitted via ${SITE.url}`;
 }

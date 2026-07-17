@@ -132,9 +132,9 @@ export const STATS = {
     detail: "Licensed professional on staff",
   },
   sweetSpot: {
-    value: "2-9",
-    label: "Units, our sweet spot",
-    detail: "Small-to-mid fleets, 2+ years in business",
+    value: "All",
+    label: "Fleet sizes covered",
+    detail: "From new authorities to large, established fleets",
   },
 } as const;
 

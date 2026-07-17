@@ -19,7 +19,7 @@ export type HeroProps = {
   /** Optional supporting photo, renders a two-column header. */
   image?: { src: string; alt: string };
   /** Optional transparent illustration, floats on the right with no card frame. */
-  illustration?: { src: string; alt: string };
+  illustration?: { src: string; alt: string; unoptimized?: boolean };
   /** Center all header copy (only applies to the no-image layout). */
   centered?: boolean;
   className?: string;
@@ -129,6 +129,7 @@ export function Hero({
                   width={760}
                   height={760}
                   priority
+                  unoptimized={illustration.unoptimized}
                   className="h-auto w-full max-w-[480px] lg:-ml-6"
                 />
               </div>
