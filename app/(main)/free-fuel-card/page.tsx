@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Check, Smartphone, MapPin, Globe } from "lucide-react";
 import { Hero } from "@/components/blocks/hero";
@@ -116,6 +117,7 @@ export default function FuelCardPage() {
         subhead="Fuel eats up a huge share of what it costs to run a trucking company. The TCS Fuel Card gives you real diesel discounts and the tools to find the best prices at 2,000+ in-network locations across the US and Canada."
         primaryCTA={{ text: "Start saving", href: APPLY_URL }}
         secondaryCTA={{ text: "Talk to us", href: "/contact-us/" }}
+        image={{ src: "/images/tcs-fuel-card-art.jpg", alt: "TCS Fuel Card" }}
       />
 
       {/* Benefits */}
@@ -143,6 +145,13 @@ export default function FuelCardPage() {
             Average savings of $0.51 per gallon are based on actual in-network TCS
             client transactions for Q1 of 2026.
           </p>
+          <Image
+            src="/images/tcs-fuel-savings.jpg"
+            alt="Save an average of 51 cents per gallon when you use the TCS Fuel Card"
+            width={800}
+            height={300}
+            className="h-auto w-full max-w-[800px] rounded-2xl shadow-sm"
+          />
           <Link href={APPLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-fit">
             Start saving
           </Link>
