@@ -118,7 +118,7 @@ export default function HomePage() {
                   className="pointer-events-none absolute left-[47%] top-1/2 z-0 h-[165%] w-[124%] -translate-x-1/2 -translate-y-1/2 overflow-visible text-cyan"
                 >
                   <path
-                    d="M42 78 C18 46 92 22 168 23 C252 24 300 50 288 80 C278 106 190 118 116 112 C52 107 16 88 30 58 C37 43 54 35 82 31 C40 28 16 56 52 86"
+                    d="M46 84 C14 52 96 20 172 22 C252 24 304 50 286 82 C270 108 176 118 104 110 C44 104 18 84 34 58"
                     pathLength={1}
                     fill="none"
                     stroke="currentColor"

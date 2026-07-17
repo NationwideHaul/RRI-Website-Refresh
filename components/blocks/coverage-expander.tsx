@@ -73,8 +73,9 @@ const PANELS: Panel[] = [
 ];
 
 const AUTOPLAY_MS = 6000;
-// The opening "Trucking specialists" panel is the key message, let it linger.
-const AUTOPLAY_MS_FIRST = 9500;
+// The opening "Trucking specialists" panel is the key message, let it linger
+// just slightly longer than the rest.
+const AUTOPLAY_MS_FIRST = 7000;
 
 export type CoverageExpanderProps = {
   eyebrow?: string;
