@@ -41,8 +41,8 @@ export default function ClientPortalPage() {
         headline="Your policies, documents,"
         headlineMuted="and COIs, all in one place."
         subhead="Road Ready clients manage everything from the portal: view policies, issue certificates, update your info, download documents, and pay, any time, without calling anyone."
-        primaryCTA={{ text: "Log in to your portal", href: "#login" }}
-        secondaryCTA={{ text: "How it works", href: "#how-to" }}
+        primaryCTA={{ text: "Log in to your portal", href: PORTAL.nowcertsUrl }}
+        secondaryCTA={{ text: "Talk to someone", href: "#handle" }}
         illustration={{ src: "/images/manage-your-policy-4.png", alt: "Manage your policy in the Road Ready client portal", unoptimized: true }}
       />
 
@@ -147,7 +147,7 @@ export default function ClientPortalPage() {
       </section>
 
       {/* ---------- Prefer we handle it? ---------- */}
-      <section aria-labelledby="handle-heading" className="bg-background">
+      <section id="handle" aria-labelledby="handle-heading" className="scroll-mt-28 bg-background">
         <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
           <Reveal>
             <SectionHeading

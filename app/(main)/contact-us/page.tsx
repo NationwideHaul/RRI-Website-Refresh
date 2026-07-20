@@ -33,7 +33,7 @@ const CONTACT_METHODS = [
     label: "Office",
     primary: `${NAP.address.street}`,
     secondary: `${NAP.address.city}, ${NAP.address.state} ${NAP.address.zip}`,
-    detail: "Our agents work Eastern time.",
+    detail: "",
   },
   {
     icon: Clock,
@@ -114,9 +114,11 @@ export default function ContactPage() {
                           {method.secondary}
                         </span>
                       )}
-                      <span className="text-[14px] leading-[1.5] text-gray-500">
-                        {method.detail}
-                      </span>
+                      {method.detail && (
+                        <span className="text-[14px] leading-[1.5] text-gray-500">
+                          {method.detail}
+                        </span>
+                      )}
                     </div>
                   </li>
                 );

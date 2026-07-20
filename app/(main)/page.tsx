@@ -108,31 +108,9 @@ export default function HomePage() {
               className="text-[42px] type-display text-white sm:text-[54px] lg:text-[60px]"
             >
               You keep the fleet on the road. We keep the risk{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10">off your back.</span>
-                {/* Marker-circle annotation, drawn in on load. A real ellipse
-                    (not a hand path) so it is always symmetric, centered and
-                    closed. */}
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 320 130"
-                  preserveAspectRatio="none"
-                  className="pointer-events-none absolute left-1/2 top-[52%] z-0 h-[150%] w-[132%] -translate-x-1/2 -translate-y-1/2 overflow-visible text-cyan"
-                >
-                  <ellipse
-                    cx="160"
-                    cy="65"
-                    rx="150"
-                    ry="45"
-                    pathLength={1}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={3.5}
-                    strokeLinecap="round"
-                    vectorEffect="non-scaling-stroke"
-                    className="rri-draw-circle"
-                  />
-                </svg>
+              {/* Accent phrase in the brand light-blue gradient */}
+              <span className="bg-gradient-to-r from-[#d6fdff] via-[#9bf6ff] to-cyan bg-clip-text text-transparent">
+                off your back.
               </span>
             </h1>
 

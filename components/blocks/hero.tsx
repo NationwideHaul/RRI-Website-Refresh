@@ -5,6 +5,13 @@ import { FillPhoto } from "@/components/blocks/fill-photo";
 
 export type HeroCTA = { text: string; href: string };
 
+/** Open http(s) CTAs in a new tab; internal anchors/routes stay in-page. */
+function externalProps(href: string) {
+  return href.startsWith("http")
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+}
+
 export type HeroProps = {
   eyebrow?: string;
   headline: string;
@@ -71,13 +78,18 @@ export function Hero({
       {(primaryCTA || secondaryCTA) && (
         <div className={cn("mt-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4", centered && "sm:justify-center")}>
           {primaryCTA && (
-            <Link href={primaryCTA.href} className="btn bg-cyan text-primary-dark hover:bg-white">
+            <Link
+              href={primaryCTA.href}
+              {...externalProps(primaryCTA.href)}
+              className="btn bg-cyan text-primary-dark hover:bg-white"
+            >
               {primaryCTA.text}
             </Link>
           )}
           {secondaryCTA && (
             <Link
               href={secondaryCTA.href}
+              {...externalProps(secondaryCTA.href)}
               className="btn border-[1.5px] border-white/60 bg-transparent text-white hover:bg-white hover:text-primary-dark"
             >
               {secondaryCTA.text}
@@ -130,7 +142,7 @@ export function Hero({
                   height={760}
                   priority
                   unoptimized={illustration.unoptimized}
-                  className="h-auto w-full max-w-[480px] lg:-ml-6"
+                  className="h-auto w-full max-w-[620px] lg:-ml-10"
                 />
               </div>
             </div>
