@@ -110,15 +110,20 @@ export default function HomePage() {
               You keep the fleet on the road. We keep the risk{" "}
               <span className="relative inline-block">
                 <span className="relative z-10">off your back.</span>
-                {/* Hand-drawn circle annotation, drawn in on load */}
+                {/* Marker-circle annotation, drawn in on load. A real ellipse
+                    (not a hand path) so it is always symmetric, centered and
+                    closed. */}
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 320 130"
                   preserveAspectRatio="none"
-                  className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[150%] w-[116%] -translate-x-1/2 -translate-y-1/2 overflow-visible text-cyan"
+                  className="pointer-events-none absolute left-1/2 top-[52%] z-0 h-[150%] w-[132%] -translate-x-1/2 -translate-y-1/2 overflow-visible text-cyan"
                 >
-                  <path
-                    d="M40 70 C36 42 118 27 170 28 C244 29 300 47 291 71 C283 98 190 110 116 105 C56 101 26 88 42 62"
+                  <ellipse
+                    cx="160"
+                    cy="65"
+                    rx="150"
+                    ry="45"
                     pathLength={1}
                     fill="none"
                     stroke="currentColor"
