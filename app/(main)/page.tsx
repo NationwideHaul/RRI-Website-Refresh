@@ -115,14 +115,14 @@ export default function HomePage() {
                   aria-hidden="true"
                   viewBox="0 0 320 130"
                   preserveAspectRatio="none"
-                  className="pointer-events-none absolute left-[47%] top-1/2 z-0 h-[165%] w-[124%] -translate-x-1/2 -translate-y-1/2 overflow-visible text-cyan"
+                  className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[150%] w-[116%] -translate-x-1/2 -translate-y-1/2 overflow-visible text-cyan"
                 >
                   <path
-                    d="M46 84 C14 52 96 20 172 22 C252 24 304 50 286 82 C270 108 176 118 104 110 C44 104 18 84 34 58"
+                    d="M40 70 C36 42 118 27 170 28 C244 29 300 47 291 71 C283 98 190 110 116 105 C56 101 26 88 42 62"
                     pathLength={1}
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth={4}
+                    strokeWidth={3.5}
                     strokeLinecap="round"
                     vectorEffect="non-scaling-stroke"
                     className="rri-draw-circle"
