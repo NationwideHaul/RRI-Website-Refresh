@@ -114,7 +114,6 @@ export async function POST(req: Request) {
   if (!isValidEmail(email)) return bad("Invalid email.");
   if (!phone) return bad("Missing phone.");
   if (!isValidPhone(phone)) return bad("Invalid phone.");
-  if (!dot) return bad("Missing USDOT number.");
   if (!authority) return bad("Missing authority.");
   if (!AUTHORITY_LABELS[authority]) return bad("Invalid authority value.");
   if (!consent) return bad("Consent required.");
