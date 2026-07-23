@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 
 type Partner = {
   name: string;
-  logo: string;
+  /** Logo under /public. When omitted, the name renders as a text wordmark. */
+  logo?: string;
   description: string;
   href: string;
   external: boolean;
@@ -88,6 +89,14 @@ const PARTNERS: Partner[] = [
     external: true,
     linkLabel: "cherrytrader.com",
   },
+  {
+    name: "Oakwood Equipment Finance",
+    logo: "/images/partners/oakwood.png",
+    description: "A direct transportation lender with flexible terms, dedicated to semi-trailer loans and leases across the country.",
+    href: "https://www.oakwoodef.com",
+    external: true,
+    linkLabel: "oakwoodef.com",
+  },
 ];
 
 function PartnerCard({ partner, delay }: { partner: Partner; delay: number }) {
@@ -102,12 +111,18 @@ function PartnerCard({ partner, delay }: { partner: Partner; delay: number }) {
         className="group flex h-full flex-col gap-4 rounded-2xl border border-white/70 bg-white/55 p-6 shadow-[0_10px_30px_-12px_rgba(10,37,64,0.18)] ring-1 ring-black/[0.04] backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 hover:bg-white/75 hover:shadow-[0_18px_44px_-14px_rgba(10,37,64,0.26)]"
       >
         <div className="flex h-14 items-center justify-between gap-3">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={partner.logo}
-            alt={partner.name}
-            className="max-h-12 w-auto max-w-[180px] object-contain object-left"
-          />
+          {partner.logo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              className="max-h-12 w-auto max-w-[180px] object-contain object-left"
+            />
+          ) : (
+            <span className="text-[19px] font-bold leading-tight text-primary">
+              {partner.name}
+            </span>
+          )}
           <ArrowUpRight
             className="h-5 w-5 shrink-0 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary"
             strokeWidth={2}
@@ -152,6 +167,14 @@ export default function PartnerNetworkPage() {
               headline="Trusted partners,"
               headlineMuted="one call away."
             />
+          </Reveal>
+          <Reveal>
+            <p className="max-w-3xl text-[17px] leading-[1.65] text-slate sm:text-[18px]">
+              Our goal at Road Ready is not just to sell or place insurance. It is
+              to make sure you are operating your company to its fullest potential.
+              That is why we have built a vetted network of industry partners, so
+              the people we send you to are ones we would trust with our own fleet.
+            </p>
           </Reveal>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PARTNERS.map((p, i) => (

@@ -10,7 +10,7 @@ import { NAP } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Careers",
   description:
-    "Join a specialist commercial trucking insurance agency built on expertise and long-term client partnerships. See what it's like to work at Road Ready Insurance in Boca Raton, FL.",
+    "Join a specialist commercial trucking insurance agency built on expertise and long-term client partnerships. See what it's like to work at Road Ready Insurance, with regional locations in FL, GA, PA, and NJ.",
   alternates: { canonical: "/careers/" },
 };
 
@@ -23,7 +23,7 @@ const VALUES = [
   {
     icon: HeartHandshake,
     title: "Named agents, real relationships",
-    body: "Our people own their books and their client relationships. No call-center scripts, no anonymous ticket queues.",
+    body: "Our people manage their own books and their client relationships. No call-center scripts, no anonymous ticket queues.",
   },
   {
     icon: TrendingUp,
@@ -103,13 +103,13 @@ export default function CareersPage() {
                 Life at Road Ready
               </p>
               <h2 id="culture-heading" className="text-[30px] type-h2 text-foreground sm:text-[38px]">
-                Boca Raton based. Trucking focused.
+                Regionally based. Trucking focused.
               </h2>
               <p className="text-[17px] leading-[1.65] text-gray-700 sm:text-[18px]">
-                We are a tight, specialist team working out of Boca Raton, Florida,
-                serving fleet operators across 48 states. You will learn commercial
-                trucking insurance from people who do it at a high level, and you
-                will be trusted to own your work from early on.
+                We are a tight, specialist team with locations in Florida, Georgia,
+                Pennsylvania, and New Jersey, serving fleet operators across 48 states.
+                You will learn commercial trucking insurance from people who do it at a
+                high level, and you will be trusted to manage your work from early on.
               </p>
               <p className="text-[17px] leading-[1.65] text-gray-700 sm:text-[18px]">
                 We hire for curiosity, straight talk, and a genuine interest in the
@@ -136,6 +136,12 @@ export default function CareersPage() {
             We are always glad to hear from licensed agents, CSRs, and claims
             professionals who want to do trucking insurance the right way. Send us
             your resume and a note about what you are looking for.
+          </p>
+          <p className="text-[15px] leading-[1.6] text-white/75 sm:text-[16px]">
+            To apply or inquire, you must have 5+ years of trucking industry and
+            insurance experience. We are fully capable and willing to train, but we
+            only staff our team with people who bring years of relevant experience,
+            because that is what our clients expect and require.
           </p>
           <a
             href={`mailto:${NAP.email}?subject=Careers%20at%20Road%20Ready%20Insurance`}

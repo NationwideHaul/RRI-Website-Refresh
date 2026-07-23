@@ -33,9 +33,9 @@ const PANELS: Panel[] = [
   {
     key: "claims",
     tag: "Claims & filings",
-    title: "Faster claims and filings",
+    title: "Claims oversight and guidance",
     detail:
-      "An in-house licensed claims adjuster handles your claim directly. No call centers, no third-party administrators, no waiting weeks for a callback.",
+      "When a claim hits, we stay in it with you, oversight and guidance from people who know your policy and your carrier. We make sure it is reported the right way and moves the way it should. No call centers, no getting passed around.",
     href: "/report-a-claim/",
     linkText: "How claims work",
     image: "/images/coverage/claims.jpg",
@@ -53,9 +53,9 @@ const PANELS: Panel[] = [
   {
     key: "coi",
     tag: "Certificates",
-    title: "Same-day COIs and certificates",
+    title: "On-demand, instant COIs",
     detail:
-      "Need a certificate of insurance for a load or a new contract? Request it and have it in your inbox the same business day.",
+      "Need a certificate of insurance for a load or a new contract? Pull it on demand from your client portal, instantly, any time, or send us a request and we will issue it for you.",
     href: "/get-a-coi/",
     linkText: "Get a COI",
     image: "/images/coverage/coi.jpg",

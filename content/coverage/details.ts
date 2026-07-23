@@ -64,7 +64,7 @@ export const COVERAGE_DETAILS: Record<string, CoverageDetail> = {
       "Note that commercial trucking liability is not the same as general liability for your business. General liability covers accidents that happen off the road, a visitor slipping in your yard, for example. Serious operations carry both.",
     ],
     whyRRI: [
-      "Liability placement is where carrier access matters most. Secondary markets often cap at $1M or impose tight terms. The premium A-rated markets Road Ready works with, Great West, Sentry, QBE, Lancer, write higher limits with better terms and more consistent underwriting.",
+      "Liability placement is where carrier access matters most. Secondary markets often cap at $1M or impose tight terms. The premium A-rated markets Road Ready works with write higher limits with better terms and more consistent underwriting.",
       "When a claim happens, the quality of the carrier directly affects how it is handled. A 5-minute quote is almost always coming from the same handful of secondary markets. We build your submission for the carriers that actually protect an operation your size.",
     ],
     faqs: [
@@ -166,23 +166,29 @@ export const COVERAGE_DETAILS: Record<string, CoverageDetail> = {
       "The cargo limits shippers and brokers require to book your loads",
     ],
     whoNeedsIt: [
-      "Any authority hauling freight for hire. Most brokers and shippers require proof of cargo coverage, commonly $100,000, before they will tender a load. Because policies carry a value limit, you want enough coverage for the most valuable load you realistically haul before you take off.",
-      "Standard cargo policies exclude high-risk commodities such as alcohol, tobacco, coins, explosives, and radioactive material. If you move those, or reefer, high-value, or specialized freight, the commodity schedule matters as much as the limit.",
+      "Any authority hauling freight for hire. Most brokers and shippers require proof of cargo coverage, commonly $100,000, before they will tender a load. Because policies carry a value limit, you want enough coverage for the most valuable load you realistically haul before you take off. $100,000 is the standard baseline, but we can write higher limits, $250,000, $500,000, and above, whenever the freight you move calls for it.",
+      "Standard cargo policies exclude high-risk commodities such as alcohol, tobacco, coins, explosives, and radioactive material. Those exclusions are not the final word, though: if alcohol, tobacco, or another normally-excluded commodity is a regular part of what you haul, we can often schedule it onto your policy so it is actually covered. If you move reefer, high-value, or specialized freight, the commodity schedule matters as much as the limit.",
     ],
     whyRRI: [
       "Cargo claims get denied on the fine print, excluded commodities, refrigeration warranties, unattended-vehicle clauses. We read that fine print before you sign, so the coverage matches what you actually haul.",
+      "Need more coverage for one specific load? We can add a single-trip cargo increase, endorsing the extra limit onto your policy for that one haul. If your policy covers $100,000 and a load requires $150,000, we bind the additional $50,000 for that single trip and turn the quote around quickly, so you can secure the opportunity for your company without disturbing your annual policy.",
       "We also turn certificates around fast. When a broker needs proof of cargo coverage to release a load, your agent issues the COI the same day rather than leaving you sitting.",
     ],
     faqs: [
       {
         question: "How much motor truck cargo coverage do I need?",
         answer:
-          "$100,000 is the common baseline brokers require, but the right limit is the value of the most valuable load you realistically haul. Cargo policies carry a value limit, so undervaluing leaves you exposed on your highest-stakes freight.",
+          "$100,000 is the common baseline brokers require, but the right limit is the value of the most valuable load you realistically haul. When your freight calls for it, we can write higher limits, $250,000, $500,000, and above. Cargo policies carry a value limit, so undervaluing leaves you exposed on your highest-stakes freight.",
+      },
+      {
+        question: "Can I get more cargo coverage for a single high-value load?",
+        answer:
+          "Yes, that is a single-trip cargo increase. If your policy covers $100,000 and one load needs $150,000, we endorse the additional $50,000 onto your cargo coverage for that single trip. We can do this quickly and get a quote back fast, so you can secure the load opportunity for your company without changing your annual policy.",
       },
       {
         question: "What commodities are excluded from motor truck cargo insurance?",
         answer:
-          "Standard policies typically exclude high-risk items like alcohol, tobacco, coins, explosives, and radioactive material, these need specialized coverage. Electronics, pharmaceuticals, and similar commodities are often limited too. We make sure what you haul is actually scheduled on the policy.",
+          "Standard policies typically exclude high-risk items like alcohol, tobacco, coins, explosives, and radioactive material. Those are excluded most of the time, but not always: if a commodity like alcohol or tobacco is a regular part of what you haul, we can often add it onto your policy so it is covered. Electronics, pharmaceuticals, and similar commodities are often limited too. We make sure what you haul is actually scheduled on the policy.",
       },
       {
         question: "What is a refrigeration (reefer) breakdown exclusion?",
@@ -294,7 +300,7 @@ export const COVERAGE_DETAILS: Record<string, CoverageDetail> = {
     heroSubhead:
       "Reefer Breakdown covers cargo spoilage caused by refrigeration unit failure, the exact loss that a standard cargo policy usually excludes.",
     quickAnswer:
-      "Reefer Breakdown insurance covers spoilage of refrigerated freight caused by a mechanical failure of the truck's refrigeration unit, a loss standard Motor Truck Cargo policies normally exclude. It is essential for carriers hauling temperature-sensitive produce, fruit, and dairy on a regular basis.",
+      "Reefer Breakdown insurance covers spoilage of refrigerated freight caused by a mechanical failure of the truck or trailer's refrigeration unit, a loss standard Motor Truck Cargo policies normally exclude. It is essential for carriers hauling temperature-sensitive produce, fruit, and dairy on a regular basis.",
     metaDescription:
       "Reefer Breakdown insurance covers cargo spoilage from refrigeration unit failure, the exclusion standard cargo policies leave open. Placed by trucking specialists.",
     illustration: "/images/coverage-illustrations/reefer-breakdown.webp",

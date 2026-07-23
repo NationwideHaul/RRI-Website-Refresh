@@ -33,7 +33,7 @@ const FAQS: FAQItem[] = [
   {
     question: "What carriers does Road Ready Insurance work with?",
     answer:
-      "We have appointments with 100+ commercial trucking insurance carriers, including premium A-rated markets that most small brokers cannot access. When we build your submission, we place you with the carriers that match your operation, not just the ones that respond fastest.",
+      "We have appointments and access to over 100+ commercial trucking insurance carriers, including premium A-rated markets that most small brokers cannot access. When we build your submission, we place you with the carriers that match your operation, not just the ones that respond fastest.",
   },
   {
     question: "Does Road Ready Insurance work with new trucking authorities or only established fleets?",
@@ -43,7 +43,7 @@ const FAQS: FAQItem[] = [
   {
     question: "What states does Road Ready Insurance operate in?",
     answer:
-      "We are licensed in 48 states plus the District of Columbia. Our offices are in Boca Raton, Florida, and we work with fleets across the United States, including Florida, Georgia, Texas, New Jersey, North Carolina, and many more.",
+      "We are a national agency, licensed in 48 states plus the District of Columbia, with teams working across the country. We insure fleets nationwide, from Florida, Georgia, and the Carolinas to Texas, New Jersey, Pennsylvania, and beyond. Wherever your trucks run, we can place your coverage.",
   },
   {
     question: "How does claim handling work at Road Ready Insurance?",

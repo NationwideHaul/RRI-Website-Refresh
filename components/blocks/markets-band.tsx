@@ -1,7 +1,7 @@
 import { CARRIERS_MARKETS, type DisplayCarrier } from "@/lib/constants";
 
 /**
- * "Top A-Rated Markets Access", a centered heading over two rows of carrier
+ * "Top Rated Market Access", a centered heading over two rows of carrier
  * logos that scroll continuously in opposite directions (infinite marquee).
  * Logos sit grayscale + muted; the hovered row pauses and the logo under the
  * cursor animates to full brand color. Edges fade out via a mask gradient.
@@ -22,7 +22,7 @@ export function MarketsBand() {
             id="markets-heading"
             className="type-h2 text-[28px] sm:text-[34px]"
           >
-            <span className="rri-gradient-text">Top A-Rated Markets</span>{" "}
+            <span className="rri-gradient-text">Top Rated Market</span>{" "}
             <span className="text-ink">Access</span>
           </h2>
           <p className="type-sub text-[16px] text-slate">

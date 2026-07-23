@@ -19,7 +19,7 @@ const CARDS = [
   {
     key: "get-a-coi",
     lead: "Get a COI.",
-    body: "Request a certificate of insurance and have it in your inbox the same business day.",
+    body: "Pull a certificate of insurance on demand from your client portal, instantly, any time, or send us a request.",
     linkText: "Request your certificate",
     href: "/get-a-coi/",
     art: "coi" as const,

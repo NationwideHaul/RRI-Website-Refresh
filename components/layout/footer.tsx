@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import { NAP, LICENSE_INFO, SOCIALS } from "@/lib/constants";
 import {
   FOOTER_COMPANY,
@@ -63,7 +63,6 @@ function FooterColumn({ title, links }: { title: string; links: NavLink[] }) {
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const addr = NAP.address;
 
   return (
     <footer className="relative isolate overflow-hidden border-t border-white/12 bg-primary-dark text-white/80">
@@ -118,18 +117,6 @@ export function Footer() {
                 <Mail className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
                 {NAP.email}
               </a>
-              <span className="inline-flex items-start gap-2.5 text-white/70">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
-                <span>
-                  {addr.street}
-                  <br />
-                  {addr.city}, {addr.state} {addr.zip}
-                </span>
-              </span>
-              <span className="inline-flex items-center gap-2.5 text-white/70">
-                <Phone className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
-                {NAP.hours}
-              </span>
             </div>
 
             <ul className="mt-1 flex gap-2.5">
@@ -169,8 +156,6 @@ export function Footer() {
             </span>
             <span className="hidden text-white/30 md:inline">&middot;</span>
             <span>{LICENSE_INFO.licensedDescription}</span>
-            <span className="hidden text-white/30 md:inline">&middot;</span>
-            <span>FL License #{LICENSE_INFO.agencyLicenseNumber}</span>
           </div>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {FOOTER_LEGAL.map((link) => (

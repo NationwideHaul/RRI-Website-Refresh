@@ -16,7 +16,7 @@ const WHO_WE_COVER = [
   "Brand-new authorities getting their first trucks on the road",
   "Owner-operators and owner/fleet managers making their own decisions",
   "Small and mid-size fleets scaling unit by unit",
-  "Large, established fleets running dozens of trucks",
+  "Large, established fleets running hundreds of trucks",
   "Fleets transitioning from owner-operator to a full fleet structure",
   "Operators who value carrier quality and responsive service",
 ];

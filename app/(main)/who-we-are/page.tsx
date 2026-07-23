@@ -41,12 +41,6 @@ const ECOSYSTEM = [
   { name: "RouteMate", logo: "/images/partners/routemate.webp" },
 ];
 
-const AWARDS = [
-  { src: "/images/awards/businessrate-best-of-2026.webp", alt: "BusinessRate Best of 2026" },
-  { src: "/images/awards/businessrate-ranking-2026.webp", alt: "BusinessRate top-ranked insurance agency 2026" },
-  { src: "/images/awards/geico-truck-partner.webp", alt: "GEICO commercial trucking partner" },
-];
-
 export default function WhoWeArePage() {
   return (
     <>
@@ -62,37 +56,57 @@ export default function WhoWeArePage() {
         headline="Built by trucking people,"
         headlineMuted="for trucking people."
         subhead="We're not a call center that happens to sell trucking policies. Trucking is the only thing we do, which is exactly why we know the carriers, the filings, and what one bad claim can do to a growing operation."
-        image={{ src: "/images/rri-team.jpg", alt: "The Road Ready Insurance team" }}
+        image={{ src: "/images/team/team-group.jpg", alt: "The Road Ready Insurance team" }}
       />
 
-      {/* Recognition, up top and with a little personality */}
-      <section aria-labelledby="awards-heading" className="bg-background">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 px-6 py-16 lg:px-8 lg:py-20">
-          <div className="flex max-w-2xl flex-col items-center gap-3 text-center">
+      {/* Real people, not a call center. Candid shots of the team at work,
+          no names by design (Adriana: keeps agents from getting poached). */}
+      <section aria-labelledby="team-heading" className="bg-background">
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
+          <div className="flex max-w-2xl flex-col gap-4">
             <p className="text-[13px] font-semibold capitalize tracking-normal text-primary">
-              We&apos;ve got a little hardware
+              The people behind your policy
             </p>
-            <h2 id="awards-heading" className="text-[28px] type-h2 text-ink sm:text-[34px]">
-              We don&apos;t lead with awards. But since you&apos;re here&hellip;
+            <h2 id="team-heading" className="text-[28px] type-h2 text-ink sm:text-[34px]">
+              Real people, not a call center.
             </h2>
-            <p className="text-[16px] leading-[1.6] text-slate">
-              BusinessRate ranked us, our partners have recognized us for years,
-              and our clients keep the five-star reviews coming. We&apos;ll take it.
+            <p className="text-[16px] leading-[1.65] text-slate sm:text-[17px]">
+              When you call Road Ready, you reach a real person who takes the time
+              and the effort to fully protect your business, not a script, not a
+              ticket queue, not a chatbot. This is the team that actually handles
+              your account, the same faces at every renewal.
             </p>
           </div>
-          <div className="grid grid-cols-1 items-center justify-items-center gap-8 sm:grid-cols-3">
-            {AWARDS.map((a, i) => (
+
+          {/* Bento gallery: one wide collaboration shot + two candids */}
+          <div className="grid grid-cols-2 gap-4 lg:h-[540px] lg:grid-cols-3 lg:grid-rows-2">
+            <div className="relative col-span-2 aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_18px_40px_-20px_rgba(10,37,64,0.35)] lg:col-span-2 lg:row-span-2 lg:aspect-auto lg:h-full">
               <Image
-                key={a.src}
-                src={a.src}
-                alt={a.alt}
-                width={320}
-                height={320}
-                className={`h-auto w-full object-contain transition-transform duration-200 hover:-translate-y-1 hover:scale-105 ${
-                  i === 1 ? "max-w-[300px]" : "max-w-[150px]"
-                }`}
+                src="/images/team/team-collaboration.jpg"
+                alt="Road Ready Insurance agents reviewing a policy together"
+                fill
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="object-cover"
               />
-            ))}
+            </div>
+            <div className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_18px_40px_-20px_rgba(10,37,64,0.35)] lg:aspect-auto lg:h-full">
+              <Image
+                src="/images/team/team-review.jpg"
+                alt="A Road Ready agent reviewing a client's paperwork"
+                fill
+                sizes="(min-width: 1024px) 30vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_18px_40px_-20px_rgba(10,37,64,0.35)] lg:aspect-auto lg:h-full">
+              <Image
+                src="/images/team/team-service.jpg"
+                alt="A Road Ready customer service specialist helping a client"
+                fill
+                sizes="(min-width: 1024px) 30vw, 50vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 const QUICK_ACTIONS = [
-  { title: "Request a COI", body: "Need us to issue it? Send a request and we'll handle it.", href: "/get-a-coi/" },
+  { title: "Request a COI", body: "Send a request and we'll issue it for you.", href: "/get-a-coi/" },
   { title: "Change your policy", body: "Add or remove a unit or driver, or update your account.", href: "/policy-change/" },
   { title: "Make a payment", body: "Pay a policy premium or ask us about billing.", href: PORTAL.paymentsUrl },
   { title: "Report a claim", body: "Send your claim details and we'll guide the rest.", href: "/report-a-claim/" },
@@ -45,6 +45,61 @@ export default function ClientPortalPage() {
         secondaryCTA={{ text: "Talk to someone", href: "#handle" }}
         illustration={{ src: "/images/manage-your-policy-4.png", alt: "Manage your policy in the Road Ready client portal", unoptimized: true }}
       />
+
+      {/* ---------- Talk to our customer service team ---------- */}
+      <section id="handle" aria-labelledby="handle-heading" className="scroll-mt-28 bg-background">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Talk to our customer service team"
+              headline="Send it to us"
+              headlineMuted="and we'll take care of it."
+            />
+          </Reveal>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {QUICK_ACTIONS.map((item, i) => (
+              <Reveal key={item.title} delay={(i % 4) * 70} className="h-full">
+                <Link
+                  href={item.href}
+                  {...(item.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="group flex h-full flex-col gap-3 rounded-2xl bg-gradient-to-br from-primary to-primary-dark p-6 shadow-sm ring-1 ring-white/10 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-lg hover:ring-white/25"
+                >
+                  <h3 className="text-[17px] font-semibold text-white">{item.title}</h3>
+                  <p className="flex-1 text-[14px] leading-[1.55] text-white/70">{item.body}</p>
+                  <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-cyan group-hover:text-white">
+                    Start
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={1.75} />
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+
+          {hasRealPhone && (
+            <Reveal>
+              <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:flex-row sm:items-center">
+                <div>
+                  <p className="text-[15px] font-semibold text-foreground">Talk to a real person.</p>
+                  <p className="text-[14px] text-gray-600">
+                    Your named agent is a call or email away.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <a href={`tel:${NAP.phone}`} className="btn btn-primary">
+                    <Phone className="h-4 w-4" strokeWidth={2} />
+                    {NAP.phoneDisplay}
+                  </a>
+                  <a href={`mailto:${NAP.email}`} className="btn btn-outline">
+                    {NAP.email}
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          )}
+        </div>
+      </section>
 
       {/* ---------- Login: the focal point ---------- */}
       <section id="login" aria-labelledby="login-heading" className="scroll-mt-28 bg-background">
@@ -146,60 +201,6 @@ export default function ClientPortalPage() {
         </div>
       </section>
 
-      {/* ---------- Prefer we handle it? ---------- */}
-      <section id="handle" aria-labelledby="handle-heading" className="scroll-mt-28 bg-background">
-        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Rather we handle it?"
-              headline="Send it to us"
-              headlineMuted="and we'll take care of it."
-            />
-          </Reveal>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {QUICK_ACTIONS.map((item, i) => (
-              <Reveal key={item.title} delay={(i % 4) * 70} className="h-full">
-                <Link
-                  href={item.href}
-                  {...(item.href.startsWith("http")
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="group flex h-full flex-col gap-3 rounded-2xl bg-gradient-to-br from-primary to-primary-dark p-6 shadow-sm ring-1 ring-white/10 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-lg hover:ring-white/25"
-                >
-                  <h3 className="text-[17px] font-semibold text-white">{item.title}</h3>
-                  <p className="flex-1 text-[14px] leading-[1.55] text-white/70">{item.body}</p>
-                  <span className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-cyan group-hover:text-white">
-                    Start
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={1.75} />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-
-          {hasRealPhone && (
-            <Reveal>
-              <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:flex-row sm:items-center">
-                <div>
-                  <p className="text-[15px] font-semibold text-foreground">Prefer to talk to someone?</p>
-                  <p className="text-[14px] text-gray-600">
-                    Your named agent is a call or email away, {NAP.hours}.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <a href={`tel:${NAP.phone}`} className="btn btn-primary">
-                    <Phone className="h-4 w-4" strokeWidth={2} />
-                    {NAP.phoneDisplay}
-                  </a>
-                  <a href={`mailto:${NAP.email}`} className="btn btn-outline">
-                    {NAP.email}
-                  </a>
-                </div>
-              </div>
-            </Reveal>
-          )}
-        </div>
-      </section>
     </>
   );
 }

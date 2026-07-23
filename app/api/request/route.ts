@@ -117,12 +117,16 @@ export async function POST(req: Request) {
 
   const resendKey = process.env.RESEND_API_KEY;
   // Route to the dedicated inbox per kind; everything else to leads.
+  // Existing-client / customer-service inquiries go to the general inbox so
+  // they land somewhere different from new-business quote leads (agents@).
   const defaultTo =
     kind === "claim"
       ? NAP.claimsEmail
       : kind === "coi"
         ? NAP.coiEmail
-        : NAP.leadsEmail;
+        : kind === "customer-service"
+          ? NAP.email
+          : NAP.leadsEmail;
   const formTo = process.env.FORM_EMAIL_TO ?? defaultTo;
   const formFrom = process.env.FORM_EMAIL_FROM;
 

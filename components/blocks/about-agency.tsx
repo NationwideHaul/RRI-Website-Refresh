@@ -9,9 +9,9 @@ import { FluidGradient } from "@/components/blocks/fluid-gradient";
 import { WordReveal } from "@/components/blocks/word-reveal";
 
 const STATS: { value: number; prefix?: string; suffix: string; label: string }[] = [
-  { value: 12, prefix: "$", suffix: "M+", label: "Premium written" },
+  { value: 20, prefix: "$", suffix: "M+", label: "Premium written" },
   { value: 100, suffix: "+", label: "Carriers compared" },
-  { value: 984, suffix: "+", label: "Fleets switched" },
+  { value: 1000, suffix: "+", label: "Active clients" },
 ];
 
 /**
@@ -165,7 +165,7 @@ function CountUp({
   return (
     <span ref={ref}>
       {prefix}
-      {value}
+      {value.toLocaleString("en-US")}
       {suffix}
     </span>
   );

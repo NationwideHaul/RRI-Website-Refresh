@@ -94,7 +94,7 @@ export const CARRIERS_DISPLAY: DisplayCarrier[] = [
 export const CARRIERS_COUNT_LABEL = "120+ carriers";
 
 /**
- * Markets band ("Top A-Rated Markets Access"), uniform all-white logo
+ * Markets band ("Top Rated Market Access"), uniform all-white logo
  * treatment on the dark blue band. White PNGs are generated from the
  * originals in /Insurance Companies (see session notes) into
  * /public/images/carriers/white/. Same Derek-confirmation caveat as
@@ -104,7 +104,6 @@ export const CARRIERS_MARKETS: DisplayCarrier[] = [
   { name: "Great West Casualty Company", slug: "great-west", logo: "/images/carriers/white/great-west.png", colorLogo: "/images/carriers/trimmed/great-west.png" },
   { name: "QEO Insurance Group", slug: "qeo", logo: "/images/carriers/white/qeo.png", colorLogo: "/images/carriers/trimmed/qeo.png" },
   { name: "Lancer Insurance", slug: "lancer", logo: "/images/carriers/white/lancer.png", colorLogo: "/images/carriers/trimmed/lancer.png" },
-  { name: "Sentry Insurance", slug: "sentry", logo: "/images/carriers/white/sentry.png", colorLogo: "/images/carriers/trimmed/sentry.png" },
   { name: "Berkshire Hathaway Homestate Companies", slug: "bhhc", logo: "/images/carriers/white/bhhc.png", colorLogo: "/images/carriers/trimmed/bhhc.png" },
   { name: "Canal Insurance", slug: "canal", logo: "/images/carriers/white/canal.png", colorLogo: "/images/carriers/trimmed/canal.png" },
   { name: "Cimarron Insurance Company", slug: "cimarron", logo: "/images/carriers/white/cimarron.png", colorLogo: "/images/carriers/trimmed/cimarron.png" },
@@ -127,9 +126,9 @@ export const STATS = {
     detail: "Including premium A-rated markets",
   },
   claims: {
-    value: "In-House",
-    label: "Claims adjuster",
-    detail: "Licensed professional on staff",
+    value: "Hands-on",
+    label: "Claims oversight & guidance",
+    detail: "We stay with you through every claim",
   },
   sweetSpot: {
     value: "All",
@@ -143,7 +142,7 @@ export const SITE = {
   name: "Road Ready Insurance",
   legalName: "Road Ready Insurance Agency",
   description:
-    "Specialist commercial trucking insurance broker. Licensed in 48 states plus DC with access to 120+ carriers including premium A-rated markets. In-house licensed claims and named agents who answer the phone.",
+    "Specialist commercial trucking insurance broker. Licensed in 48 states plus DC with access to 120+ carriers including premium A-rated markets. Hands-on claims oversight and named agents who answer the phone.",
   tagline: "Commercial trucking insurance, placed with the carriers that matter.",
   logoPath: "/images/rr-primary-logo.png",
   foundingLocation: "Boca Raton, FL",

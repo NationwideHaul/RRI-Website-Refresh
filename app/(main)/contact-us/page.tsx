@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Hero } from "@/components/blocks/hero";
-import { QuoteForm } from "@/components/blocks/quote-form";
+import { ContactChooser } from "@/components/blocks/contact-chooser";
 import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
 import { LocalBusinessSchema } from "@/components/schema/local-business";
 import { NAP } from "@/lib/constants";
@@ -9,7 +9,7 @@ import { NAP } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Start a quote, ask a question, or talk through your situation. Our agents answer the phone. Based in Boca Raton, FL. Licensed in 48 states plus DC.",
+    "Start a quote, ask a question, or talk through your situation. Our agents answer the phone. A national commercial trucking agency, licensed in 48 states plus DC.",
   alternates: { canonical: "/contact-us/" },
 };
 
@@ -19,7 +19,7 @@ const CONTACT_METHODS = [
     label: "Call us",
     primary: NAP.phoneDisplay,
     href: `tel:${NAP.phone}`,
-    detail: "Agents answer during business hours.",
+    detail: "Talk to a named agent, not a call-center queue.",
   },
   {
     icon: Mail,
@@ -27,19 +27,6 @@ const CONTACT_METHODS = [
     primary: NAP.email,
     href: `mailto:${NAP.email}`,
     detail: "For general inquiries. For a quote, use the form.",
-  },
-  {
-    icon: MapPin,
-    label: "Office",
-    primary: `${NAP.address.street}`,
-    secondary: `${NAP.address.city}, ${NAP.address.state} ${NAP.address.zip}`,
-    detail: "",
-  },
-  {
-    icon: Clock,
-    label: "Hours",
-    primary: NAP.hours,
-    detail: "Outside hours? Leave a message or use the form.",
   },
 ];
 
@@ -109,11 +96,6 @@ export default function ContactPage() {
                       >
                         {method.primary}
                       </PrimaryEl>
-                      {method.secondary && (
-                        <span className="text-[15px] text-gray-700">
-                          {method.secondary}
-                        </span>
-                      )}
                       {method.detail && (
                         <span className="text-[14px] leading-[1.5] text-gray-500">
                           {method.detail}
@@ -129,13 +111,13 @@ export default function ContactPage() {
           <div className="lg:col-span-3">
             <div className="mb-6">
               <p className="text-[13px] font-semibold capitalize tracking-normal text-primary">
-                Start your quote
+                How can we help?
               </p>
               <h2 className="mt-2 text-[28px] type-h2 text-foreground sm:text-[32px]">
-                Tell us about your operation.
+                First, tell us who you are.
               </h2>
             </div>
-            <QuoteForm />
+            <ContactChooser />
           </div>
         </div>
       </section>
