@@ -40,10 +40,10 @@ export default function ClientPortalPage() {
         eyebrow="Client portal"
         headline="Your policies, documents,"
         headlineMuted="and COIs, all in one place."
-        subhead="Road Ready clients manage everything from the portal: view policies, issue certificates, update your info, download documents, and pay, any time, without calling anyone."
+        subhead="Manage your insurance anytime through your secure online portal, or let our Customer Support team take care of it for you."
         primaryCTA={{ text: "Log in to your portal", href: PORTAL.nowcertsUrl }}
         secondaryCTA={{ text: "Talk to someone", href: "#handle" }}
-        illustration={{ src: "/images/manage-your-policy-4.png", alt: "Manage your policy in the Road Ready client portal", unoptimized: true }}
+        illustration={{ src: "/images/manage-your-policy-4.png", alt: "Manage your policy in the Road Ready client portal", unoptimized: true, className: "max-w-[760px] lg:max-w-none" }}
       />
 
       {/* ---------- Talk to our customer service team ---------- */}
@@ -51,9 +51,10 @@ export default function ClientPortalPage() {
         <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Talk to our customer service team"
-              headline="Send it to us"
-              headlineMuted="and we'll take care of it."
+              eyebrow="Talk to our team"
+              headline="Get in touch with our"
+              headlineMuted="customer support team."
+              className="max-w-none"
             />
           </Reveal>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -81,10 +82,7 @@ export default function ClientPortalPage() {
             <Reveal>
               <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:flex-row sm:items-center">
                 <div>
-                  <p className="text-[15px] font-semibold text-foreground">Talk to a real person.</p>
-                  <p className="text-[14px] text-gray-600">
-                    Your named agent is a call or email away.
-                  </p>
+                  <p className="text-[15px] font-semibold text-foreground">Speak with us now.</p>
                 </div>
                 <div className="flex flex-wrap gap-3">
                   <a href={`tel:${NAP.phone}`} className="btn btn-primary">
@@ -101,9 +99,16 @@ export default function ClientPortalPage() {
         </div>
       </section>
 
-      {/* ---------- Login: the focal point ---------- */}
-      <section id="login" aria-labelledby="login-heading" className="scroll-mt-28 bg-background">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+      {/* ---------- Self-service: portal login + how-to ---------- */}
+      <section id="login" aria-labelledby="login-heading" className="scroll-mt-28 bg-gray-50">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Self-service policy management"
+              headline="Access your portal"
+              headlineMuted="any time you need it."
+            />
+          </Reveal>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {/* NowCerts, primary — photo background */}
             <Reveal className="lg:col-span-2">
@@ -171,21 +176,17 @@ export default function ClientPortalPage() {
               </div>
             </Reveal>
           </div>
-        </div>
-      </section>
 
-      {/* ---------- How to use the portal (videos) ---------- */}
-      <section id="how-to" aria-labelledby="how-to-heading" className="scroll-mt-28 bg-gray-50">
-        <div className="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
-          <Reveal>
-            <SectionHeading
-              eyebrow="How to use it"
-              headline="A quick walkthrough,"
-              headlineMuted="in your language."
-              align="center"
-            />
-          </Reveal>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {/* How to use — same self-service section, divided subsection */}
+          <div id="how-to" className="mt-4 flex scroll-mt-28 flex-col gap-10 border-t border-gray-200 pt-14 lg:mt-6 lg:pt-16">
+            <Reveal>
+              <SectionHeading
+                eyebrow="How to use it"
+                headline="Learn how to use the client portal."
+                align="center"
+              />
+            </Reveal>
+            <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
             <Reveal>
               <YouTubeLite videoId={PORTAL.howToVideos.en} title="How to use the client portal" label="English" />
             </Reveal>
@@ -194,10 +195,13 @@ export default function ClientPortalPage() {
             </Reveal>
           </div>
 
-          {/* Compact rotating banner of portal capabilities */}
-          <Reveal>
-            <PortalCapabilities />
-          </Reveal>
+            {/* Compact rotating banner of portal capabilities */}
+            <div className="mx-auto w-full max-w-5xl">
+              <Reveal>
+                <PortalCapabilities />
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 

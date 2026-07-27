@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ConsentNoticeText } from "@/components/blocks/consent-notice";
 import { cn } from "@/lib/utils";
 
 /** Footer newsletter signup, posts to /api/newsletter. */
@@ -64,6 +65,9 @@ export function NewsletterForm() {
           Something went wrong. Try again.
         </p>
       )}
+      <p className="basis-full text-[11.5px] leading-[1.5] text-white/50">
+        <ConsentNoticeText variant="glass" kind="subscribe" />
+      </p>
     </form>
   );
 }

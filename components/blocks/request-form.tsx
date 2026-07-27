@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
+import { ConsentNoticeText } from "@/components/blocks/consent-notice";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -302,15 +302,7 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
         />
         <div className="flex flex-col gap-1">
           <label htmlFor="rf-consent" className="cursor-pointer text-[12.5px] leading-[1.5] text-gray-500">
-            I agree to the{" "}
-            <Link href="/privacy-policy/" className="text-primary underline underline-offset-2 hover:text-primary-dark">
-              Privacy Policy
-            </Link>{" "}
-            and{" "}
-            <Link href="/terms-conditions/" className="text-primary underline underline-offset-2 hover:text-primary-dark">
-              Terms of Service
-            </Link>
-            , and consent to receive communications from Road Ready Insurance.
+            <ConsentNoticeText />
           </label>
           {errors.consent && <p className="text-[12px] text-destructive">{errors.consent}</p>}
         </div>

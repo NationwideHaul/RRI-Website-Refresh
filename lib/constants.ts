@@ -59,13 +59,70 @@ export const LICENSE_INFO = {
   statesLicensed: 48,
   plusDC: true,
   licensedDescription: "Licensed in 48 states plus the District of Columbia",
-  // Road Ready Insurance's Florida agency license. Per-state license numbers for other states
-  // pending Derek confirmation (needed for state pages Phase 2).
-  agencyLicenseNumber: "6003367",
+  // Road Ready Insurance's home-state (Florida) agency license.
+  agencyLicenseNumber: "L109644",
   licenseNumbers: {
-    FL: "6003367",
+    FL: "L109644",
+    CA: "6003367",
   } as Record<string, string>,
 } as const;
+
+/**
+ * Full agency license roster by state, sourced from RRI_State_Licenses.pdf
+ * (Complete Carrier Coverage LLC d/b/a Road Ready Insurance). All are
+ * Property & Casualty agency licenses. Verify against the NIPR Producer
+ * Database (nipr.com) before relying on any single number.
+ */
+export const STATE_LICENSES: { state: string; type: string; number: string }[] = [
+  { state: "AL", type: "Property & Casualty", number: "3001035618" },
+  { state: "AR", type: "Property & Casualty", number: "3001035601" },
+  { state: "AZ", type: "Property & Casualty", number: "3001039361" },
+  { state: "CA", type: "Property & Casualty", number: "6003367" },
+  { state: "CO", type: "Property & Casualty", number: "663854" },
+  { state: "CT", type: "Property & Casualty", number: "2697636" },
+  { state: "DC", type: "Property & Casualty", number: "3001035639" },
+  { state: "DE", type: "Property & Casualty", number: "3001035641" },
+  { state: "FL", type: "Property & Casualty", number: "L109644" },
+  { state: "GA", type: "Property & Casualty", number: "213699" },
+  { state: "IA", type: "Property & Casualty", number: "3001074844" },
+  { state: "ID", type: "Property & Casualty", number: "807860" },
+  { state: "IL", type: "Property & Casualty", number: "30010177728" },
+  { state: "IN", type: "Property & Casualty", number: "3600155" },
+  { state: "KS", type: "Property & Casualty", number: "19598326" },
+  { state: "KY", type: "Property & Casualty", number: "1106029" },
+  { state: "LA", type: "Property & Casualty", number: "884142" },
+  { state: "MD", type: "Property & Casualty", number: "3001035670" },
+  { state: "ME", type: "Property & Casualty", number: "AGN366088" },
+  { state: "MI", type: "Property & Casualty", number: "0129616" },
+  { state: "MN", type: "Property & Casualty", number: "40708568" },
+  { state: "MO", type: "Property & Casualty", number: "3001052014" },
+  { state: "MS", type: "Property & Casualty", number: "15039165" },
+  { state: "MT", type: "Property & Casualty", number: "3001035660" },
+  { state: "NC", type: "Property & Casualty", number: "1000734760" },
+  { state: "ND", type: "Property & Casualty", number: "3001035677" },
+  { state: "NE", type: "Property & Casualty", number: "3001035740" },
+  { state: "NH", type: "Property & Casualty", number: "3001036693" },
+  { state: "NJ", type: "Property & Casualty", number: "3001017623" },
+  { state: "NM", type: "Property & Casualty", number: "3001041813" },
+  { state: "NV", type: "Property & Casualty", number: "3596280" },
+  { state: "NY", type: "Property & Casualty", number: "PC-1665891" },
+  { state: "OH", type: "Property & Casualty", number: "1324917" },
+  { state: "OK", type: "Property & Casualty", number: "3001035680" },
+  { state: "OR", type: "Property & Casualty", number: "3001039245" },
+  { state: "PA", type: "Property & Casualty", number: "973059" },
+  { state: "SC", type: "Property & Casualty", number: "3001035748" },
+  { state: "SD", type: "Property & Casualty", number: "10027650" },
+  { state: "TN", type: "Property & Casualty", number: "3001074865" },
+  { state: "TX", type: "Property & Casualty", number: "2581872" },
+  { state: "UT", type: "Property & Casualty", number: "807773" },
+  { state: "VA", type: "Property & Casualty", number: "149520" },
+  { state: "WI", type: "Property & Casualty", number: "3003527789" },
+  { state: "WV", type: "Property & Casualty", number: "3001035825" },
+  { state: "WY", type: "Property & Casualty", number: "446324" },
+];
+
+export const LICENSE_NOTES =
+  "Licenses are maintained by Complete Carrier Coverage LLC d/b/a Road Ready Insurance. Rhode Island and Vermont licenses are pending. Washington license is currently inactive. Massachusetts does not issue agency licenses without a physical location. This list is updated periodically. For license verification, visit the NIPR Producer Database at nipr.com.";
 
 /**
  * Carriers displayed publicly on the site (homepage strip, trust
@@ -154,9 +211,9 @@ export const SITE = {
  * in schema builders so a placeholder never ships.
  */
 export const SOCIALS = {
-  facebook: "", // e.g. "https://www.facebook.com/roadreadyinsurance"
-  linkedin: "", // e.g. "https://www.linkedin.com/company/road-ready-insurance"
-  instagram: "", // e.g. "https://www.instagram.com/roadreadyinsurance"
+  facebook: "https://www.facebook.com/RoadReadyInsurance",
+  linkedin: "https://www.linkedin.com/company/RoadReadyInsurance",
+  instagram: "https://www.instagram.com/RoadReadyInsurance",
   youtube: "",
   twitter: "",
 } as const;

@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
+import { ConsentNoticeText } from "@/components/blocks/consent-notice";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -389,27 +389,7 @@ export function QuoteForm({
               glass ? "text-white/70" : "text-gray-500",
             )}
           >
-            I agree to the{" "}
-            <Link
-              href="/privacy-policy/"
-              className={cn(
-                "underline underline-offset-2",
-                glass ? "text-cyan hover:text-white" : "text-primary hover:text-primary-dark",
-              )}
-            >
-              Privacy Policy
-            </Link>
-            {" "}and{" "}
-            <Link
-              href="/terms-conditions/"
-              className={cn(
-                "underline underline-offset-2",
-                glass ? "text-cyan hover:text-white" : "text-primary hover:text-primary-dark",
-              )}
-            >
-              Terms of Service
-            </Link>
-            , and consent to receive communications from Road Ready Insurance.
+            <ConsentNoticeText variant={glass ? "glass" : "light"} />
           </label>
           {errors.consent && (
             <p className={cn("text-[12px]", glass ? "text-red-300" : "text-destructive")}>

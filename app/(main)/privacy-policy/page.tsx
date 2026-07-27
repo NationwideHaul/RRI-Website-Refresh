@@ -38,9 +38,10 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "Communications and consent",
+    heading: "Communications and consent (TCPA & CAN-SPAM)",
     body: [
-      "By submitting a form on our website, you consent to be contacted by Road Ready Insurance by phone, email, or text regarding your inquiry and our services. Message and data rates may apply. You can opt out of marketing communications at any time by following the unsubscribe instructions in our emails or by contacting us directly.",
+      "By submitting a form on our website, you agree to our Privacy Policy and Terms & Conditions and consent to receive calls, texts, and emails from Road Ready Insurance at the phone number and email address you provide, including through automated technology, regarding your inquiry, your account, and our services. Consent is not a condition of purchasing any goods or services. Message and data rates may apply, and message frequency may vary.",
+      "You can opt out of text messages at any time by replying STOP to any message, and opt out of marketing emails by following the unsubscribe instructions in our emails, in accordance with the CAN-SPAM Act. You may also contact us directly to update your communication preferences. Even after opting out of marketing communications, we may still contact you about your existing policies or transactions as permitted by law.",
     ],
   },
   {
@@ -86,7 +87,7 @@ export default function PrivacyPolicyPage() {
       />
       <LegalLayout
         title="Privacy Policy"
-        lastUpdated="July 16, 2026"
+        lastUpdated="July 27, 2026"
         intro={`${NAP.legalName} ("Road Ready Insurance," "we," "us," or "our") respects your privacy. This policy explains what information we collect, how we use it, and the choices you have. It applies to our website and the services we provide.`}
         sections={SECTIONS}
       />

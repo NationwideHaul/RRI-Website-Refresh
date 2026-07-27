@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail } from "lucide-react";
-import { NAP, LICENSE_INFO, SOCIALS } from "@/lib/constants";
+import { NAP, SOCIALS } from "@/lib/constants";
 import {
   FOOTER_COMPANY,
+  FOOTER_NAVIGATE,
+  FOOTER_INSURANCE,
   FOOTER_SUPPORT,
   FOOTER_LEGAL,
   type NavLink,
@@ -46,16 +48,20 @@ function FooterColumn({ title, links }: { title: string; links: NavLink[] }) {
     <div className="flex flex-col gap-4">
       <h4 className="text-[13px] font-semibold text-white">{title}</h4>
       <ul className="flex flex-col gap-2.5">
-        {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              className="text-[14px] leading-snug text-white/65 transition-colors hover:text-cyan"
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
+        {links.map((link) => {
+          const external = link.href.startsWith("http");
+          return (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="text-[14px] leading-snug text-white/65 transition-colors hover:text-cyan"
+              >
+                {link.label}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
@@ -73,20 +79,27 @@ export function Footer() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Top: brand + newsletter */}
-        <div className="grid grid-cols-1 gap-10 border-b border-white/10 py-12 lg:grid-cols-2 lg:items-center">
-          <div className="flex flex-col gap-4">
-            <Link href="/" aria-label="Road Ready Insurance home" className="w-fit">
-              <Image
-                src="/images/rr-white-logo.png"
-                alt="Road Ready Insurance"
-                width={500}
-                height={110}
-                className="h-14 w-auto"
-              />
-            </Link>
+        {/* Top: get in touch + newsletter */}
+        <div className="grid grid-cols-1 gap-10 border-b border-white/10 py-12 lg:grid-cols-2">
+          {/* Get in touch — phone + email, kept tight together */}
+          <div className="flex flex-col gap-1.5">
+            <h4 className="text-[13px] font-semibold text-white">Get in touch</h4>
+            <a
+              href={`tel:${NAP.phone}`}
+              className="w-fit text-[28px] font-bold tracking-[-0.01em] text-cyan transition-colors hover:text-white"
+            >
+              {NAP.phoneDisplay}
+            </a>
+            <a
+              href={`mailto:${NAP.email}`}
+              className="inline-flex w-fit items-center gap-2.5 text-[14px] text-white/70 transition-colors hover:text-cyan"
+            >
+              <Mail className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
+              {NAP.email}
+            </a>
           </div>
 
+          {/* Newsletter */}
           <div className="flex flex-col gap-3 lg:items-end">
             <div className="lg:text-right">
               <h4 className="text-[15px] font-semibold text-white">Join our newsletter</h4>
@@ -98,28 +111,24 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Link columns + contact */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-14 sm:grid-cols-3 lg:grid-cols-4">
-          {/* Contact — spans wider */}
-          <div className="col-span-2 flex flex-col gap-5 sm:col-span-3 lg:col-span-2">
-            <h4 className="text-[13px] font-semibold text-white">Get in touch</h4>
-            <a
-              href={`tel:${NAP.phone}`}
-              className="w-fit text-[28px] font-bold tracking-[-0.01em] text-white transition-colors hover:text-cyan"
-            >
-              {NAP.phoneDisplay}
-            </a>
-            <div className="flex flex-col gap-2.5 text-[14px]">
-              <a
-                href={`mailto:${NAP.email}`}
-                className="inline-flex items-center gap-2.5 text-white/70 transition-colors hover:text-cyan"
-              >
-                <Mail className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
-                {NAP.email}
-              </a>
-            </div>
-
-            <ul className="mt-1 flex gap-2.5">
+        {/* Link columns + MCIEF membership beside Support */}
+        <div className="flex flex-col gap-10 py-14 lg:flex-row lg:items-start lg:justify-between">
+          <div className="grid flex-1 grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+            <FooterColumn title="Company" links={FOOTER_COMPANY} />
+            <FooterColumn title="Navigate" links={FOOTER_NAVIGATE} />
+            <FooterColumn title="Insurance" links={FOOTER_INSURANCE} />
+            <FooterColumn title="Support" links={FOOTER_SUPPORT} />
+          </div>
+          {/* MCIEF membership with social links beneath it */}
+          <div className="flex flex-col gap-4 lg:ml-8 lg:shrink-0 lg:items-start">
+            <Image
+              src="/images/partners/mcief.webp"
+              alt="MCIEF member"
+              width={800}
+              height={356}
+              className="h-11 w-auto opacity-90"
+            />
+            <ul className="flex gap-2.5">
               {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
                 <li key={label}>
                   <a
@@ -134,29 +143,13 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
-          <FooterColumn title="Company" links={FOOTER_COMPANY} />
-          <FooterColumn title="Support" links={FOOTER_SUPPORT} />
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-6 border-t border-white/10 py-6 text-[12px] text-white/55">
-          {/* MCIEF membership */}
-          <Image
-            src="/images/partners/mcief.webp"
-            alt="MCIEF"
-            width={800}
-            height={356}
-            className="h-11 w-auto self-start opacity-90"
-          />
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-col gap-1.5 md:flex-row md:items-center md:gap-4">
-            <span>
-              &copy; {year} {NAP.legalName}. All rights reserved.
-            </span>
-            <span className="hidden text-white/30 md:inline">&middot;</span>
-            <span>{LICENSE_INFO.licensedDescription}</span>
-          </div>
+        <div className="flex flex-col gap-4 border-t border-white/10 py-6 text-[12px] text-white/55 md:flex-row md:items-center md:justify-between">
+          <span>
+            &copy; {year} Complete Carrier Coverage LLC d/b/a Road Ready Insurance. All Rights Reserved.
+          </span>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {FOOTER_LEGAL.map((link) => (
               <li key={link.href}>
@@ -166,7 +159,6 @@ export function Footer() {
               </li>
             ))}
           </ul>
-          </div>
         </div>
       </div>
     </footer>

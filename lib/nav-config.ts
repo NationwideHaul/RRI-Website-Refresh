@@ -51,23 +51,31 @@ export const NAV_SECTIONS: NavSection[] = [
 ];
 
 export const FOOTER_COMPANY: NavLink[] = [
-  { label: "Coverage", href: "/coverage/" },
   { label: "Who We Are", href: "/who-we-are/" },
-  { label: "Who We Cover", href: "/who-we-cover/" },
   { label: "Careers", href: "/careers/" },
-  { label: "Contact", href: "/contact-us/" },
+  { label: "Contact Us", href: "/contact-us/" },
+];
+
+export const FOOTER_NAVIGATE: NavLink[] = [
+  { label: "Startup Guide", href: "/how-to-start-a-trucking-company/" },
+  { label: "Partner Network", href: "/client-perks/" },
+  { label: "Blog", href: "/road-ready-blog/" },
+];
+
+export const FOOTER_INSURANCE: NavLink[] = [
+  { label: "Coverage", href: "/coverage/" },
+  { label: "Customer Portal", href: "/customer-service/" },
+  { label: "Report a Claim", href: "/report-a-claim/" },
 ];
 
 export const FOOTER_SUPPORT: NavLink[] = [
-  { label: "Startup Guide", href: "/how-to-start-a-trucking-company/" },
+  { label: "Make a Payment", href: "https://roadreadyinsurance.epaypolicy.com/" },
   { label: "Get a COI", href: "/get-a-coi/" },
   { label: "Policy Change", href: "/policy-change/" },
-  { label: "Report a Claim", href: "/report-a-claim/" },
-  { label: "Customer Portal", href: "/customer-service/" },
-  { label: "Partner Network", href: "/client-perks/" },
 ];
 
 export const FOOTER_LEGAL: NavLink[] = [
   { label: "Privacy Policy", href: "/privacy-policy/" },
   { label: "Terms & Conditions", href: "/terms-conditions/" },
+  { label: "Licenses", href: "/licenses/" },
 ];

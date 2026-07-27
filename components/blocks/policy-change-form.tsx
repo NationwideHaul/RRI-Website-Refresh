@@ -12,6 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ConsentNoticeText } from "@/components/blocks/consent-notice";
 import { NAP } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -84,8 +86,9 @@ function isValidPhone(v: string) {
 export function PolicyChangeForm() {
   const [changeType, setChangeType] = useState<ChangeType | null>(null);
   const [values, setValues] = useState<FormValues>(INITIAL);
+  const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
-  const [errors, setErrors] = useState<Partial<Record<keyof FormValues | "changeType", string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormValues | "changeType" | "consent", string>>>({});
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -102,7 +105,7 @@ export function PolicyChangeForm() {
   }
 
   function validate(): boolean {
-    const next: Partial<Record<keyof FormValues | "changeType", string>> = {};
+    const next: Partial<Record<keyof FormValues | "changeType" | "consent", string>> = {};
     if (!changeType) next.changeType = "Pick what you'd like to change.";
     if (!values.firstName.trim()) next.firstName = "Required.";
     if (!values.lastName.trim()) next.lastName = "Required.";
@@ -113,6 +116,7 @@ export function PolicyChangeForm() {
     else if (!isValidPhone(values.phone)) next.phone = "Phone looks incomplete.";
     if (!values.explanation.trim()) next.explanation = "Please describe the change.";
     if (!values.signature.trim()) next.signature = "Type your name to sign.";
+    if (!consent) next.consent = "Please confirm to submit.";
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -137,6 +141,7 @@ export function PolicyChangeForm() {
           phone: values.phone,
           details: values.explanation,
           signature: values.signature,
+          consent,
           companyWebsite: honeypot,
         }),
       });
@@ -337,6 +342,27 @@ export function PolicyChangeForm() {
           a licensed Road Ready Insurance representative, and an official
           confirmation document will be sent to you.
         </p>
+      </div>
+
+      {/* TCPA / CAN-SPAM consent */}
+      <div className="flex items-start gap-3">
+        <Checkbox
+          id="pc-consent"
+          checked={consent}
+          onCheckedChange={(v) => {
+            setConsent(v === true);
+            if (errors.consent) setErrors((prev) => ({ ...prev, consent: undefined }));
+          }}
+          disabled={isLoading}
+          aria-invalid={!!errors.consent}
+          className="mt-0.5 shrink-0"
+        />
+        <div className="flex flex-col gap-1">
+          <label htmlFor="pc-consent" className="cursor-pointer text-[12.5px] leading-[1.5] text-gray-500">
+            <ConsentNoticeText />
+          </label>
+          {errors.consent && <p className="text-[12px] text-destructive">{errors.consent}</p>}
+        </div>
       </div>
 
       <button type="submit" disabled={isLoading} className="btn btn-primary w-full disabled:cursor-not-allowed disabled:bg-primary/80">
