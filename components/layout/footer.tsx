@@ -133,7 +133,7 @@ export function Footer() {
                 <li key={label}>
                   <a
                     href={href}
-                    {...(href !== "#" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     aria-label={`Road Ready Insurance on ${label}`}
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/10 transition-colors hover:bg-cyan hover:text-primary-dark"
                   >
