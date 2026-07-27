@@ -4,9 +4,10 @@ import { NAP, SITE } from "@/lib/constants";
 export const runtime = "nodejs";
 
 /**
- * Newsletter signup, same forwarding strategy as /api/quote: email via
- * Resend when configured, CRM webhook when configured, always logged
- * server-side so no signup is silently dropped.
+ * Newsletter signup. Newsletters are a MARKETING list, so they forward only
+ * to GoHighLevel (GHL_WEBHOOK_URL) — separate from the sales/lead pipeline the
+ * quote and request forms use (LEADS_WEBHOOK_URL). Email via Resend when
+ * configured, and always logged server-side so no signup is silently dropped.
  */
 export async function POST(req: Request) {
   let body: { email?: string; companyWebsite?: string };
@@ -60,21 +61,22 @@ export async function POST(req: Request) {
     }
   }
 
-  const crmUrl = process.env.CRM_WEBHOOK_URL;
-  if (crmUrl) {
+  // Newsletter → GoHighLevel marketing CRM only.
+  const ghlUrl = process.env.GHL_WEBHOOK_URL;
+  if (ghlUrl) {
     try {
-      const res = await fetch(crmUrl, {
+      const res = await fetch(ghlUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signup),
       });
-      if (!res.ok) failures.push(`crm:${res.status}`);
+      if (!res.ok) failures.push(`ghl:${res.status}`);
     } catch (err) {
-      failures.push(`crm:${err instanceof Error ? err.message : "error"}`);
+      failures.push(`ghl:${err instanceof Error ? err.message : "error"}`);
     }
   }
 
-  if (!resendKey && !crmUrl) {
+  if (!resendKey && !ghlUrl) {
     console.warn("[newsletter] No forwarding configured. Signup received:", signup);
   } else if (failures.length > 0) {
     console.error("[newsletter] Partial failure forwarding signup:", { signup, failures });

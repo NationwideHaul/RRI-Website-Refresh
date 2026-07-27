@@ -164,24 +164,24 @@ export async function POST(req: Request) {
     }
   }
 
-  // 2. Custom CRM webhook (Road Ready Insurance's own pipeline CRM).
-  const crmUrl = process.env.CRM_WEBHOOK_URL;
-  if (crmUrl) {
+  // 2. Sales/lead pipeline webhook (separate from the GHL marketing list).
+  const leadsUrl = process.env.LEADS_WEBHOOK_URL;
+  if (leadsUrl) {
     try {
-      const crmRes = await fetch(crmUrl, {
+      const crmRes = await fetch(leadsUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(lead),
       });
-      if (!crmRes.ok) failures.push(`crm:${crmRes.status}`);
+      if (!crmRes.ok) failures.push(`leads:${crmRes.status}`);
     } catch (err) {
-      failures.push(`crm:${errMsg(err)}`);
+      failures.push(`leads:${errMsg(err)}`);
     }
   }
 
-  if (!resendKey && !crmUrl) {
+  if (!resendKey && !leadsUrl) {
     console.warn(
-      "[quote] No RESEND_API_KEY or CRM_WEBHOOK_URL configured. Lead received but not forwarded:",
+      "[quote] No RESEND_API_KEY or LEADS_WEBHOOK_URL configured. Lead received but not forwarded:",
       lead,
     );
   } else if (failures.length > 0) {

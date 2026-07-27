@@ -155,23 +155,24 @@ export async function POST(req: Request) {
     }
   }
 
-  const crmUrl = process.env.CRM_WEBHOOK_URL;
-  if (crmUrl) {
+  // Sales/lead pipeline webhook (separate from the GHL marketing list).
+  const leadsUrl = process.env.LEADS_WEBHOOK_URL;
+  if (leadsUrl) {
     try {
-      const crmRes = await fetch(crmUrl, {
+      const crmRes = await fetch(leadsUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ kind, ...Object.fromEntries(rows) }),
       });
-      if (!crmRes.ok) failures.push(`crm:${crmRes.status}`);
+      if (!crmRes.ok) failures.push(`leads:${crmRes.status}`);
     } catch (err) {
-      failures.push(`crm:${errMsg(err)}`);
+      failures.push(`leads:${errMsg(err)}`);
     }
   }
 
-  if (!resendKey && !crmUrl) {
+  if (!resendKey && !leadsUrl) {
     console.warn(
-      `[request:${kind}] No RESEND_API_KEY or CRM_WEBHOOK_URL configured. Received but not forwarded:`,
+      `[request:${kind}] No RESEND_API_KEY or LEADS_WEBHOOK_URL configured. Received but not forwarded:`,
       Object.fromEntries(rows),
     );
   } else if (failures.length > 0) {
