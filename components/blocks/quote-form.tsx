@@ -144,7 +144,7 @@ export function QuoteForm({
 
       setStatus("success");
       setForm(INITIAL);
-      router.push("/thank-you/");
+      router.push("/quote-thank-you/");
     } catch {
       setStatus("error");
       setErrorMessage(

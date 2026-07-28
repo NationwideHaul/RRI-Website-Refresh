@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Thank You — Your Quote Request Is In",
   description:
     "Thanks for reaching out to Road Ready Insurance. Here's what happens next now that your quote request is in.",
-  alternates: { canonical: "/thank-you/" },
+  alternates: { canonical: "/quote-thank-you/" },
   // Confirmation page, keep it out of search and off conversion double-counts.
   robots: { index: false, follow: false },
 };
