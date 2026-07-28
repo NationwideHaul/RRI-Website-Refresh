@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { ConsentNoticeText } from "@/components/blocks/consent-notice";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -56,6 +57,7 @@ export function QuoteForm({
   /** "glass" = WhatsApp-style dark frosted card for photo backgrounds. */
   variant?: QuoteFormVariant;
 } = {}) {
+  const router = useRouter();
   const [form, setForm] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>(
     {},
@@ -142,6 +144,7 @@ export function QuoteForm({
 
       setStatus("success");
       setForm(INITIAL);
+      router.push("/thank-you/");
     } catch {
       setStatus("error");
       setErrorMessage(
@@ -161,13 +164,10 @@ export function QuoteForm({
             : "rounded-2xl border border-gray-100 bg-white",
         )}
       >
-        <CheckCircle2 className="h-10 w-10 text-success" strokeWidth={1.5} />
+        <Loader2 className="h-10 w-10 animate-spin text-success" strokeWidth={1.75} />
         <h3 className={cn("text-[20px] font-semibold", glass ? "text-white" : "text-foreground")}>
-          Got it. An agent will reach out within 2 business hours.
+          Got it. Taking you to your next steps...
         </h3>
-        <p className={cn("text-[15px] leading-[1.55]", glass ? "text-white/80" : "text-gray-700")}>
-          If you need something sooner, call us at {NAP.phoneDisplay}.
-        </p>
       </div>
     );
   }
