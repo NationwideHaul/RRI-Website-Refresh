@@ -12,7 +12,10 @@ import {
   sameAsList,
 } from "@/lib/schema-builder";
 
-export function InsuranceAgencySchema() {
+export function InsuranceAgencySchema({
+  rating = REVIEWS_SUMMARY.rating,
+  reviewCount = REVIEWS_SUMMARY.count,
+}: { rating?: number; reviewCount?: number } = {}) {
   const schema = clean({
     "@context": "https://schema.org",
     "@type": "InsuranceAgency",
@@ -32,8 +35,8 @@ export function InsuranceAgencySchema() {
     serviceType: [...SERVICE_TYPES],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: REVIEWS_SUMMARY.rating,
-      reviewCount: REVIEWS_SUMMARY.count,
+      ratingValue: rating,
+      reviewCount,
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",

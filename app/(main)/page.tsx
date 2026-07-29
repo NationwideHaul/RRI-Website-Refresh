@@ -15,7 +15,8 @@ import { PolicyReviewCta } from "@/components/blocks/policy-review-cta";
 import { Reveal } from "@/components/blocks/reveal";
 import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
-import { REVIEWS_SUMMARY, REVIEWS_URL } from "@/content/reviews";
+import { REVIEWS_URL } from "@/content/reviews";
+import { getReviews } from "@/lib/reviews";
 import { GoogleG } from "@/components/blocks/google-g";
 
 // Self-referencing canonical for the homepage. The root layout sets the
@@ -58,10 +59,15 @@ const FAQS: FAQItem[] = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Live Google rating/count (same source the "Backed by our loyal customers"
+  // section uses), so the hero trust row stays in sync with real reviews.
+  const { rating, count } = await getReviews();
+  const ratingLabel = Number.isInteger(rating) ? rating.toFixed(1) : `${rating}`;
+
   return (
     <>
-      <InsuranceAgencySchema />
+      <InsuranceAgencySchema rating={rating} reviewCount={count} />
 
       {/* Hero (reference design): interactive fluid-gradient backdrop under
           the white nav, white headline with a cyan marker highlight, trust
@@ -135,7 +141,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col justify-between gap-3"
-                aria-label={`${REVIEWS_SUMMARY.rating.toFixed(1)} stars from ${REVIEWS_SUMMARY.count} Google reviews, read them on Google`}
+                aria-label={`${ratingLabel} stars from ${count} Google reviews, read them on Google`}
               >
                 <div className="flex items-center gap-2">
                   <GoogleG className="h-4 w-4 drop-shadow" />
@@ -149,12 +155,12 @@ export default function HomePage() {
                     ))}
                   </span>
                   <span className="text-[12px] text-white/90 underline-offset-2 group-hover:underline">
-                    ({REVIEWS_SUMMARY.count} reviews)
+                    ({count} reviews)
                   </span>
                 </div>
                 <div className="flex items-end gap-2.5">
                   <span className="text-[38px] font-bold leading-none text-white">
-                    {REVIEWS_SUMMARY.rating.toFixed(1)}
+                    {ratingLabel}
                   </span>
                   <span className="max-w-[150px] text-[12px] leading-tight text-white/90">
                     Rated by real fleet operators
