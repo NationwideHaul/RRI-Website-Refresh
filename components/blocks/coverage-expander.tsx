@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -206,12 +207,13 @@ export function CoverageExpander({
               )}
             >
               {/* Background photo */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={panel.image}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="object-cover"
               />
 
               {/* Bottom scrim so the label stays legible over any photo */}

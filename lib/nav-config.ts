@@ -36,6 +36,7 @@ export const CLIENT_RESOURCES: NavLink[] = [
 export const OUR_AGENCY: NavLink[] = [
   { label: "Who We Are", href: "/who-we-are/", description: "The team, the ecosystem, and what makes us different." },
   { label: "Who We Cover", href: "/who-we-cover/", description: "Every size and stage, from new authorities to large fleets." },
+  { label: "Coverage by State", href: "/states/", description: "State-specific trucking insurance across the country." },
   { label: "Careers", href: "/careers/", description: "Join the Road Ready Insurance team." },
 ];
 
@@ -64,6 +65,7 @@ export const FOOTER_NAVIGATE: NavLink[] = [
 
 export const FOOTER_INSURANCE: NavLink[] = [
   { label: "Coverage", href: "/coverage/" },
+  { label: "Coverage by State", href: "/states/" },
   { label: "Customer Portal", href: "/customer-service/" },
   { label: "Report a Claim", href: "/report-a-claim/" },
 ];

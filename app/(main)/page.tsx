@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Star } from "lucide-react";
-import { FluidGradient } from "@/components/blocks/fluid-gradient";
 import { FAQ } from "@/components/blocks/faq";
 import { QuoteForm } from "@/components/blocks/quote-form";
 import { SectionHeading } from "@/components/blocks/section-heading";
@@ -17,6 +17,12 @@ import { InsuranceAgencySchema } from "@/components/schema/insurance-agency";
 import type { FAQItem } from "@/components/schema/faq-page";
 import { REVIEWS_SUMMARY, REVIEWS_URL } from "@/content/reviews";
 import { GoogleG } from "@/components/blocks/google-g";
+
+// Self-referencing canonical for the homepage. The root layout sets the
+// title/description/OG defaults but no canonical, so declare it here.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const AGENT_AVATARS = [
   "/images/avatars/agent-1.jpg",
@@ -66,17 +72,16 @@ export default function HomePage() {
         aria-labelledby="hero-heading"
         className="relative isolate -mt-24 overflow-hidden bg-primary-dark"
       >
-        <FluidGradient />
-
-        {/* TEST: background video. Sits above the fluid-gradient fallback,
-            below the scrim + content. Muted + playsInline so it autoplays. */}
+        {/* Background video: the hero backdrop. Sits below the scrim +
+            content. Muted + playsInline so it autoplays. The section's
+            bg-primary-dark is the fallback if the video can't load. */}
         <video
           aria-hidden="true"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           poster="/videos/home-hero-poster.jpg"
           className="pointer-events-none absolute inset-0 z-[1] h-full w-full object-cover"
         >

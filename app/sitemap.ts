@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/constants";
 import { COVERAGES } from "@/content/coverage";
+import { STATES } from "@/content/states";
+import { POSTS } from "@/content/blog";
 
 /**
  * XML sitemap covering every indexable route. Trailing-slash URLs match the
@@ -25,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/customer-service/", priority: 0.6, changeFrequency: "monthly" },
     { path: "/careers/", priority: 0.5, changeFrequency: "monthly" },
     { path: "/road-ready-blog/", priority: 0.5, changeFrequency: "weekly" },
+    { path: "/states/", priority: 0.7, changeFrequency: "monthly" },
     { path: "/contact-us/", priority: 0.7, changeFrequency: "yearly" },
     { path: "/privacy-policy/", priority: 0.3, changeFrequency: "yearly" },
     { path: "/terms-conditions/", priority: 0.3, changeFrequency: "yearly" },
@@ -36,7 +39,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
   }));
 
-  return [...staticRoutes, ...coverageRoutes].map((r) => ({
+  const stateRoutes = STATES.map((s) => ({
+    path: s.href,
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+  }));
+
+  const blogRoutes = POSTS.map((p) => ({
+    path: p.href,
+    priority: 0.6,
+    changeFrequency: "monthly" as const,
+  }));
+
+  return [...staticRoutes, ...coverageRoutes, ...stateRoutes, ...blogRoutes].map((r) => ({
     url: url(r.path),
     changeFrequency: r.changeFrequency,
     priority: r.priority,

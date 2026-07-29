@@ -97,6 +97,21 @@ export function Footer() {
               <Mail className="h-4 w-4 flex-shrink-0" strokeWidth={1.5} />
               {NAP.email}
             </a>
+            {/* Social links, sitting just beneath the email */}
+            <ul className="mt-3 flex gap-2.5">
+              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    aria-label={`Road Ready Insurance on ${label}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/10 transition-colors hover:bg-cyan hover:text-primary-dark"
+                  >
+                    <Icon className="h-[17px] w-[17px]" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Newsletter */}
@@ -111,16 +126,17 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Link columns + MCIEF membership beside Support */}
-        <div className="flex flex-col gap-10 py-14 lg:flex-row lg:items-start lg:justify-between">
+        {/* Link columns + MCIEF membership beside Support. items-center so the
+            lone MCIEF logo lines up vertically with the link columns. */}
+        <div className="flex flex-col gap-10 py-14 lg:flex-row lg:items-center lg:justify-between">
           <div className="grid flex-1 grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             <FooterColumn title="Company" links={FOOTER_COMPANY} />
             <FooterColumn title="Navigate" links={FOOTER_NAVIGATE} />
             <FooterColumn title="Insurance" links={FOOTER_INSURANCE} />
             <FooterColumn title="Support" links={FOOTER_SUPPORT} />
           </div>
-          {/* MCIEF membership with social links beneath it */}
-          <div className="flex flex-col gap-4 lg:ml-8 lg:shrink-0 lg:items-start">
+          {/* MCIEF membership badge */}
+          <div className="lg:ml-8 lg:shrink-0">
             <Image
               src="/images/partners/mcief.webp"
               alt="MCIEF member"
@@ -128,20 +144,6 @@ export function Footer() {
               height={356}
               className="h-11 w-auto opacity-90"
             />
-            <ul className="flex gap-2.5">
-              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    aria-label={`Road Ready Insurance on ${label}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/10 transition-colors hover:bg-cyan hover:text-primary-dark"
-                  >
-                    <Icon className="h-[17px] w-[17px]" />
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
 

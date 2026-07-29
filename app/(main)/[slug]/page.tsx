@@ -340,8 +340,7 @@ export default async function CoverageDetailPage({
                         </span>
                         <span className="relative flex aspect-square h-[72px] shrink-0 items-center justify-center self-center overflow-hidden rounded-xl bg-primary-soft">
                           {c.image ? (
-                            /* eslint-disable-next-line @next/next/no-img-element */
-                            <img src={c.image} alt="" aria-hidden="true" className="h-full w-full object-cover" />
+                            <Image src={c.image} alt="" aria-hidden="true" fill sizes="72px" className="object-cover" />
                           ) : (
                             <CIcon className="h-8 w-8 text-primary" strokeWidth={1.5} />
                           )}

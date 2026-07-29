@@ -51,7 +51,7 @@ the fast-quote, 5-minute-turnaround market.
 ## Core pages
 
 - [Homepage](https://www.roadreadyinsurance.com/)
-- [The RRI Advantage](https://www.roadreadyinsurance.com/rri-advantage/)
+- [Who We Are](https://www.roadreadyinsurance.com/who-we-are/)
 - [Who We Cover](https://www.roadreadyinsurance.com/who-we-cover/)
 - [How to Start a Trucking Company (Startup Guide)](https://www.roadreadyinsurance.com/how-to-start-a-trucking-company/)
 - [Contact](https://www.roadreadyinsurance.com/contact-us/)
@@ -72,7 +72,22 @@ the fast-quote, 5-minute-turnaround market.
 
 ## State-specific resources
 
+- [Coverage by State](https://www.roadreadyinsurance.com/states/)
 - [Florida](https://www.roadreadyinsurance.com/states/florida/)
+- [Texas](https://www.roadreadyinsurance.com/states/texas/)
+- [Georgia](https://www.roadreadyinsurance.com/states/georgia/)
+- [California](https://www.roadreadyinsurance.com/states/california/)
+- [New Jersey](https://www.roadreadyinsurance.com/states/new-jersey/)
+- [Pennsylvania](https://www.roadreadyinsurance.com/states/pennsylvania/)
+- [North Carolina](https://www.roadreadyinsurance.com/states/north-carolina/)
+- [Ohio](https://www.roadreadyinsurance.com/states/ohio/)
+
+## Guides & articles
+
+- [How to Start a Trucking Company (Startup Guide)](https://www.roadreadyinsurance.com/how-to-start-a-trucking-company/)
+- [How Much Does Commercial Truck Insurance Cost?](https://www.roadreadyinsurance.com/road-ready-blog/how-much-does-commercial-truck-insurance-cost/)
+- [New Trucking Authority Insurance Requirements](https://www.roadreadyinsurance.com/road-ready-blog/new-trucking-authority-insurance-requirements/)
+- [How to Lower Your Commercial Truck Insurance Premiums](https://www.roadreadyinsurance.com/road-ready-blog/how-to-lower-your-truck-insurance-premiums/)
 
 ## Differentiators
 

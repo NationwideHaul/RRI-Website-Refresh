@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Every canonical, the XML sitemap, and llms.txt use trailing-slash URLs.
+  // Without this, Next serves the non-slash form as canonical and 308-redirects
+  // the trailing-slash form — so each declared canonical pointed at a redirect.
+  // This makes the server's canonical form match what we advertise everywhere.
+  trailingSlash: true,
   images: {
     // The project lives on an external drive where macOS drops AppleDouble
     // ("._*") companion files inside .next/cache/images, which poisons the

@@ -4,6 +4,7 @@ import {
   SERVICE_TYPES,
   SITE,
 } from "@/lib/constants";
+import { REVIEWS_SUMMARY } from "@/content/reviews";
 import {
   absoluteUrl,
   clean,
@@ -29,6 +30,11 @@ export function InsuranceAgencySchema() {
       name: code,
     })),
     serviceType: [...SERVICE_TYPES],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: REVIEWS_SUMMARY.rating,
+      reviewCount: REVIEWS_SUMMARY.count,
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Commercial trucking insurance coverages",

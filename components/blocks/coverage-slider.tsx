@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -102,12 +103,13 @@ export function CoverageSlider() {
               </span>
               <span className="relative flex aspect-square h-full shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary-soft">
                 {coverage.image ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
+                  <Image
                     src={coverage.image}
                     alt=""
                     aria-hidden="true"
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="132px"
+                    className="object-cover"
                   />
                 ) : (
                   <Icon className="h-11 w-11 text-primary" strokeWidth={1.5} />
