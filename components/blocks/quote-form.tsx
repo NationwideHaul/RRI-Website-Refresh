@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { ConsentNoticeText } from "@/components/blocks/consent-notice";
+import { Honeypot } from "@/components/blocks/honeypot";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { NAP } from "@/lib/constants";
+import { readLeadMeta } from "@/lib/lead-meta";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -27,7 +29,7 @@ type FormState = {
   dot: string;
   authority: string;
   consent: boolean;
-  companyWebsite: string; // honeypot
+  hp: string; // honeypot (_hp)
 };
 
 const INITIAL: FormState = {
@@ -38,7 +40,7 @@ const INITIAL: FormState = {
   dot: "",
   authority: "",
   consent: false,
-  companyWebsite: "",
+  hp: "",
 };
 
 export type QuoteFormVariant = "light" | "glass";
@@ -114,10 +116,25 @@ export function QuoteForm({
     setErrorMessage(null);
 
     try {
-      const res = await fetch("/api/quote", {
+      const meta = readLeadMeta();
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          formId: "get-a-quote",
+          name: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          fields: {
+            usdot: form.dot,
+            authority: form.authority,
+            consent: form.consent,
+          },
+          utm: meta.utm,
+          pageUrl: meta.pageUrl,
+          _hp: form.hp,
+        }),
       });
       const data = (await res.json()) as { ok: boolean; error?: string };
 
@@ -215,19 +232,7 @@ export function QuoteForm({
         </div>
       )}
 
-      {/* Honeypot, not visible to humans, bots will fill it. */}
-      <div className="hidden" aria-hidden="true">
-        <label>
-          Company website
-          <input
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-            value={form.companyWebsite}
-            onChange={(e) => update("companyWebsite", e.target.value)}
-          />
-        </label>
-      </div>
+      <Honeypot value={form.hp} onChange={(v) => update("hp", v)} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>

@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { ConsentNoticeText } from "@/components/blocks/consent-notice";
+import { Honeypot } from "@/components/blocks/honeypot";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,11 +16,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { NAP } from "@/lib/constants";
+import { readLeadMeta } from "@/lib/lead-meta";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export type RequestKind = "claim" | "coi" | "policy-change" | "customer-service";
+
+// Map each request kind to the formId the /api/lead route routes on.
+const KIND_TO_FORM_ID: Record<RequestKind, string> = {
+  claim: "report-a-claim",
+  coi: "get-a-coi",
+  "policy-change": "policy-change",
+  "customer-service": "customer-service",
+};
+
+// Base contact keys live in their own columns; everything else goes in `fields`.
+const BASE_KEYS = new Set(["fullName", "company", "email", "phone"]);
 
 type Field = {
   key: string;
@@ -160,10 +173,25 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
     setStatus("loading");
     setErrorMessage(null);
     try {
-      const res = await fetch("/api/request", {
+      const meta = readLeadMeta();
+      const extra: Record<string, string> = {};
+      for (const [k, v] of Object.entries(values)) {
+        if (!BASE_KEYS.has(k)) extra[k] = v;
+      }
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind, consent, companyWebsite: honeypot, ...values }),
+        body: JSON.stringify({
+          formId: KIND_TO_FORM_ID[kind],
+          name: values.fullName ?? "",
+          email: values.email ?? "",
+          phone: values.phone ?? "",
+          company: values.company ?? "",
+          fields: { ...extra, consent },
+          utm: meta.utm,
+          pageUrl: meta.pageUrl,
+          _hp: honeypot,
+        }),
       });
       const data = (await res.json()) as { ok: boolean; error?: string };
       if (!res.ok || !data.ok) {
@@ -211,19 +239,7 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
         </div>
       )}
 
-      {/* Honeypot */}
-      <div className="hidden" aria-hidden="true">
-        <label>
-          Company website
-          <input
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-            value={honeypot}
-            onChange={(e) => setHoneypot(e.target.value)}
-          />
-        </label>
-      </div>
+      <Honeypot value={honeypot} onChange={setHoneypot} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {fields.map((f) => {

@@ -14,7 +14,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ConsentNoticeText } from "@/components/blocks/consent-notice";
+import { Honeypot } from "@/components/blocks/honeypot";
 import { NAP } from "@/lib/constants";
+import { readLeadMeta } from "@/lib/lead-meta";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -129,20 +131,28 @@ export function PolicyChangeForm() {
     setStatus("loading");
     setErrorMessage(null);
     try {
-      const res = await fetch("/api/request", {
+      const meta = readLeadMeta();
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          kind: "policy-change",
-          changeType: changeType?.label,
-          fullName: `${values.firstName.trim()} ${values.lastName.trim()}`,
-          company: values.company,
+          formId: "policy-change",
+          name: `${values.firstName.trim()} ${values.lastName.trim()}`,
           email: values.email,
           phone: values.phone,
-          details: values.explanation,
-          signature: values.signature,
-          consent,
-          companyWebsite: honeypot,
+          company: values.company,
+          fields: {
+            changeType: changeType?.label,
+            changeTypeKey: changeType?.key,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            details: values.explanation,
+            signature: values.signature,
+            consent,
+          },
+          utm: meta.utm,
+          pageUrl: meta.pageUrl,
+          _hp: honeypot,
         }),
       });
       const data = (await res.json()) as { ok: boolean; error?: string };
@@ -217,13 +227,7 @@ export function PolicyChangeForm() {
         </div>
       )}
 
-      {/* Honeypot */}
-      <div className="hidden" aria-hidden="true">
-        <label>
-          Company website
-          <input type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
-        </label>
-      </div>
+      <Honeypot value={honeypot} onChange={setHoneypot} />
 
       {/* Step 1, what kind of endorsement */}
       <div>

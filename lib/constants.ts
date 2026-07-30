@@ -21,6 +21,9 @@ export const NAP = {
   // Internal lead-routing destination (form submissions). Kept here so
   // schema-builder never ships it publicly but form API can reference it.
   leadsEmail: "agents@roadreadyinsurance.com",
+  // Customer-service rep inbox, receives policy-change and customer-service
+  // form submissions (with info@ CC'd). Internal routing only.
+  csrEmail: "csr@roadreadyinsurance.com",
   address: {
     street: "101 Plaza Real S, Suite 226",
     city: "Boca Raton",
