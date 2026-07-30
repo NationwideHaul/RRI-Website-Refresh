@@ -46,8 +46,14 @@ export const FORM_ROUTES: Record<string, FormRoute> = {
   "get-a-quote": {
     label: "Get a quote",
     to: "agents@roadreadyinsurance.com",
-    // New-business quotes are the only form pushed into the CRM pipeline.
-    crm: { pipeline: "New Business" },
+    // CRM auto-push is DEFERRED (per Derek, Jul 2026): new quote leads are
+    // worked from the agents@ email for now and added to the CRM manually.
+    // Re-enabling is pending CRM-side work — the webhook rejects our payload
+    // ("Unknown or inactive form mapping"); it needs a registered
+    // `formIdentifier` plus firstName/lastName and a mapping to the New
+    // Business pipeline (lead source "website", round-robin producer assign).
+    // To turn back on: add `crm: { pipeline: "New Business" }` here and align
+    // the payload in app/api/lead/route.ts to the CRM's field contract.
   },
   "report-a-claim": {
     label: "Report a claim",
