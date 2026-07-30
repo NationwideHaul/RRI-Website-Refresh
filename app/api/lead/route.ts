@@ -190,7 +190,7 @@ export async function POST(req: Request) {
   //    forms notify by email only. Best-effort: a CRM failure never fails
   //    the request, since the lead is already in Supabase + emailed.
   if (route.crm) {
-    const crmUrl = process.env.LEADS_WEBHOOK_URL;
+    const crmUrl = process.env.CRM_WEBHOOK_URL;
     if (crmUrl) {
       try {
         const crmRes = await fetch(crmUrl, {
@@ -221,7 +221,7 @@ export async function POST(req: Request) {
       }
     } else {
       console.warn(
-        `[lead] "${data.formId}" is flagged for CRM (${route.crm.pipeline}) but LEADS_WEBHOOK_URL is not set.`,
+        `[lead] "${data.formId}" is flagged for CRM (${route.crm.pipeline}) but CRM_WEBHOOK_URL is not set.`,
       );
     }
   }

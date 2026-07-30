@@ -5,9 +5,9 @@ export const runtime = "nodejs";
 
 /**
  * Newsletter signup. Newsletters are a MARKETING list, so they forward only
- * to GoHighLevel (GHL_WEBHOOK_URL) — separate from the sales/lead pipeline the
- * quote and request forms use (LEADS_WEBHOOK_URL). Email via Resend when
- * configured, and always logged server-side so no signup is silently dropped.
+ * to GoHighLevel (GHL_WEBHOOK_URL) — separate from the sales CRM pipeline the
+ * get-a-quote form uses (CRM_WEBHOOK_URL). Email via Resend when configured,
+ * and always logged server-side so no signup is silently dropped.
  */
 export async function POST(req: Request) {
   let body: { email?: string; companyWebsite?: string };

@@ -31,7 +31,7 @@ export type FormRoute = {
   /** Optional CC recipients. */
   cc?: string[];
   /**
-   * If set, this form ALSO forwards to the sales CRM (LEADS_WEBHOOK_URL) into
+   * If set, this form ALSO forwards to the sales CRM (CRM_WEBHOOK_URL) into
    * the named pipeline. Omit for forms that should notify by email only.
    * Currently only "get-a-quote" → New Business.
    */
