@@ -226,6 +226,40 @@ export async function POST(req: Request) {
     }
   }
 
+  // 5. Fire the customer autoresponder via GoHighLevel (best-effort). GHL sends
+  //    the "we got your request" confirmation to the PERSON who submitted (not
+  //    an internal inbox). One webhook, two branches keyed on confirmation_type:
+  //      "quote"   -> get-a-quote     ("We got your quote request")
+  //      "general" -> every other form ("We got your request")
+  const autoresponderUrl = process.env.GHL_AUTORESPONDER_WEBHOOK_URL;
+  if (autoresponderUrl) {
+    try {
+      const nameParts = data.name.trim().split(/\s+/);
+      const arRes = await fetch(autoresponderUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          first_name: nameParts[0] ?? data.name,
+          last_name: nameParts.slice(1).join(" "),
+          phone: data.phone || "",
+          company: data.company || "",
+          form_id: data.formId,
+          form_name: route.label,
+          confirmation_type: data.formId === "get-a-quote" ? "quote" : "general",
+        }),
+      });
+      if (!arRes.ok) {
+        console.error(`[lead] Autoresponder webhook returned ${arRes.status}`);
+      }
+    } catch (err) {
+      console.error(
+        "[lead] Autoresponder webhook threw:",
+        err instanceof Error ? err.message : String(err),
+      );
+    }
+  }
+
   // The lead is "handled" if it reached at least one channel.
   if (!stored && emailStatus !== "sent") {
     return json(
