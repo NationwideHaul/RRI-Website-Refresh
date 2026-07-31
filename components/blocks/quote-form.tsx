@@ -177,7 +177,7 @@ export function QuoteForm({
         className={cn(
           "flex flex-col items-center gap-4 p-8 text-center",
           glass
-            ? "rounded-3xl border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
+            ? "rounded-3xl border border-white/20 bg-primary-dark/35 shadow-2xl ring-1 ring-inset ring-white/10 backdrop-blur-2xl backdrop-saturate-150"
             : "rounded-2xl border border-gray-100 bg-white",
         )}
       >
@@ -198,7 +198,7 @@ export function QuoteForm({
       className={cn(
         "flex flex-col gap-5 p-6 lg:p-7",
         glass
-          ? "rounded-3xl border border-white/15 bg-primary-dark/45 shadow-2xl backdrop-blur-2xl"
+          ? "rounded-3xl border border-white/20 bg-primary-dark/35 shadow-2xl ring-1 ring-inset ring-white/10 backdrop-blur-2xl backdrop-saturate-150"
           : "rounded-2xl border border-gray-100 bg-white shadow-sm",
       )}
     >

@@ -118,10 +118,10 @@ export default async function HomePage() {
               id="hero-heading"
               className="text-[42px] type-display text-white sm:text-[54px] lg:text-[60px]"
             >
-              You keep the fleet on the road. We keep you{" "}
+              Your fleet works hard. We work{" "}
               {/* Accent phrase in the brand light-blue gradient */}
               <span className="bg-gradient-to-r from-[#d6fdff] via-[#9bf6ff] to-cyan bg-clip-text text-transparent">
-                protected every mile.
+                harder to protect it.
               </span>
             </h1>
 
