@@ -176,7 +176,7 @@ export function PolicyChangeForm() {
       >
         <CheckCircle2 className="h-10 w-10 text-success" strokeWidth={1.5} />
         <h3 className="text-[20px] font-semibold text-foreground">
-          Request received. Your agent will confirm the change and follow up.
+          Request received. Our team will confirm the change and follow up.
         </h3>
         <p className="text-[15px] leading-[1.55] text-gray-700">
           Remember, this is a request only. Coverage is confirmed by a licensed

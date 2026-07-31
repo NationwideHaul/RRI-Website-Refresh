@@ -1,40 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, Clock, PhoneCall, Search, ShieldCheck } from "lucide-react";
+import { CheckCircle2, PhoneCall } from "lucide-react";
 import { Hero } from "@/components/blocks/hero";
 import { Reveal } from "@/components/blocks/reveal";
-import { SectionHeading } from "@/components/blocks/section-heading";
+import { YouTubeLite } from "@/components/blocks/youtube-lite";
 import { NAP } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Thank You — Your Quote Request Is In",
   description:
-    "Thanks for reaching out to Road Ready Insurance. Here's what happens next now that your quote request is in.",
+    "Thanks for reaching out to Road Ready Insurance. Your confirmation email is on its way and a licensed agent will review your details shortly.",
   alternates: { canonical: "/quote-thank-you/" },
   // Confirmation page, keep it out of search and off conversion double-counts.
   robots: { index: false, follow: false },
 };
-
-const STEPS = [
-  {
-    step: "1",
-    title: "We review your submission",
-    body: "A licensed agent reviews your details and authority status, then pulls the coverages that fit your operation.",
-    Icon: Search,
-  },
-  {
-    step: "2",
-    title: "We shop your coverage",
-    body: "We compare your risk across our A-rated markets to find the right protection at the best available rate, no guesswork.",
-    Icon: ShieldCheck,
-  },
-  {
-    step: "3",
-    title: "An agent reaches out",
-    body: "You'll hear from us within 2 business hours by phone or email with your options and clear next steps.",
-    Icon: Clock,
-  },
-];
 
 const hasRealPhone = !NAP.phone.startsWith("PLACEHOLDER_");
 
@@ -45,36 +24,22 @@ export default function ThankYouPage() {
         eyebrow="Quote request received"
         headline="Thank you."
         headlineMuted="Your request is in."
-        subhead="Thanks for reaching out to Road Ready Insurance. A licensed agent is already on it, here's exactly what happens next."
+        subhead="Your confirmation email is on its way, and a licensed agent will review your application details shortly. Please expect a call or email from our team. Talk soon!"
       />
 
-      {/* Next steps */}
-      <section aria-labelledby="next-steps-heading" className="bg-background">
-        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-16 lg:px-8 lg:py-20">
+      {/* Welcome video */}
+      <section aria-labelledby="welcome-video-heading" className="bg-background">
+        <div className="mx-auto max-w-3xl px-6 py-16 lg:px-8 lg:py-20">
+          <h2 id="welcome-video-heading" className="sr-only">
+            A quick welcome from Road Ready Insurance
+          </h2>
           <Reveal>
-            <SectionHeading
-              eyebrow="What happens next"
-              headline="From your request"
-              headlineMuted="to a real quote."
+            <YouTubeLite
+              videoId="AuhpTk3-j18"
+              start={12}
+              title="Welcome to Road Ready Insurance"
             />
           </Reveal>
-
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {STEPS.map((item, i) => (
-              <Reveal key={item.step} delay={i * 80} className="h-full">
-                <div className="flex h-full flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[28px] font-bold leading-none text-primary/25">
-                      {item.step.padStart(2, "0")}
-                    </span>
-                    <item.Icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
-                  </div>
-                  <h3 className="text-[18px] font-semibold text-foreground">{item.title}</h3>
-                  <p className="text-[15px] leading-[1.6] text-gray-700">{item.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 

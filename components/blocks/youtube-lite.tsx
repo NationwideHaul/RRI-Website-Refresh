@@ -12,13 +12,17 @@ export function YouTubeLite({
   videoId,
   title,
   label,
+  start,
 }: {
   videoId: string;
   title: string;
   /** Small badge, e.g. a language tag. */
   label?: string;
+  /** Optional start offset in seconds. */
+  start?: number;
 }) {
   const [playing, setPlaying] = useState(false);
+  const startParam = start ? `&start=${start}` : "";
 
   return (
     <div className="flex flex-col gap-3">
@@ -26,7 +30,7 @@ export function YouTubeLite({
         {playing ? (
           <iframe
             className="absolute inset-0 h-full w-full"
-            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0${startParam}`}
             title={title}
             allow="accelerated-camera; autoplay; encrypted-media; picture-in-picture"
             allowFullScreen

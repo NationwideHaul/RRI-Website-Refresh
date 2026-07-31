@@ -125,7 +125,7 @@ export const STATE_LICENSES: { state: string; type: string; number: string }[] =
 ];
 
 export const LICENSE_NOTES =
-  "Licenses are maintained by Complete Carrier Coverage LLC d/b/a Road Ready Insurance. Rhode Island and Vermont licenses are pending. Washington license is currently inactive. Massachusetts does not issue agency licenses without a physical location. This list is updated periodically. For license verification, visit the NIPR Producer Database at nipr.com.";
+  "Licenses are maintained by Complete Carrier Coverage LLC d/b/a Road Ready Insurance. This list is updated periodically. For license verification, visit the NIPR Producer Database at nipr.com.";
 
 /**
  * Carriers displayed publicly on the site (homepage strip, trust

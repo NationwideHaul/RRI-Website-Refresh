@@ -70,7 +70,7 @@ const KIND_CONFIG: Record<
   },
   coi: {
     submitLabel: "Request certificate",
-    success: "Request received. Your agent will process it within business days and confirm when it's sent.",
+    success: "Request received. Our team will process it within business days and confirm when it's sent.",
     fields: [
       { key: "dot", label: "USDOT number", type: "text", placeholder: "1234567", half: true },
       { key: "policyNumber", label: "Policy number", type: "text", placeholder: "If you have it handy", half: true },
@@ -81,7 +81,7 @@ const KIND_CONFIG: Record<
   },
   "policy-change": {
     submitLabel: "Request the change",
-    success: "Request received. Your agent will confirm the change and follow up.",
+    success: "Request received. Our team will confirm the change and follow up.",
     fields: [
       { key: "dot", label: "USDOT number", type: "text", placeholder: "1234567", half: true },
       { key: "policyNumber", label: "Policy number", type: "text", placeholder: "If you have it handy", half: true },
@@ -103,7 +103,7 @@ const KIND_CONFIG: Record<
   },
   "customer-service": {
     submitLabel: "Send my request",
-    success: "Got it. Your agent will get back to you within 2 business hours.",
+    success: "Got it. Our team will get back to you within 2 business hours.",
     fields: [
       { key: "dot", label: "USDOT number", type: "text", placeholder: "1234567", half: true },
       {
