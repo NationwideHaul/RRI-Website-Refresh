@@ -34,8 +34,8 @@ export function IntercomWidget() {
           requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
         }
       ).requestIdleCallback;
-      if (ric) ric(boot, { timeout: 2500 });
-      else window.setTimeout(boot, 1500);
+      if (ric) ric(boot, { timeout: 800 });
+      else window.setTimeout(boot, 600);
     };
     if (document.readyState === "complete") schedule();
     else window.addEventListener("load", schedule, { once: true });
