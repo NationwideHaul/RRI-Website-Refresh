@@ -132,7 +132,7 @@ export function PolicyChangeForm() {
     setErrorMessage(null);
     try {
       const meta = readLeadMeta();
-      const res = await fetch("/api/lead", {
+      const res = await fetch("/api/lead/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

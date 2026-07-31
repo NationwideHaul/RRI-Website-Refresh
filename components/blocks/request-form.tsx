@@ -178,7 +178,7 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
       for (const [k, v] of Object.entries(values)) {
         if (!BASE_KEYS.has(k)) extra[k] = v;
       }
-      const res = await fetch("/api/lead", {
+      const res = await fetch("/api/lead/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
