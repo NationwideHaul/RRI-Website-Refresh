@@ -148,12 +148,18 @@ export function QuoteForm({
       }
 
       if (typeof window !== "undefined") {
-        const gtag = (
-          window as unknown as {
-            gtag?: (command: string, name: string, params: Record<string, unknown>) => void;
-          }
-        ).gtag;
-        gtag?.("event", "quote_form_submit", {
+        const w = window as unknown as {
+          dataLayer?: Record<string, unknown>[];
+          gtag?: (command: string, name: string, params: Record<string, unknown>) => void;
+        };
+        // Push to GTM's dataLayer (primary — GTM is installed site-wide) and
+        // also fire gtag directly if a GA4 tag exposes it.
+        (w.dataLayer = w.dataLayer || []).push({
+          event: "quote_form_submit",
+          form_id: "get-a-quote",
+          authority: form.authority,
+        });
+        w.gtag?.("event", "quote_form_submit", {
           event_category: "lead",
           event_label: form.authority,
         });

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { FAQ } from "@/components/blocks/faq";
 import { QuoteForm } from "@/components/blocks/quote-form";
+import { HeroVideo } from "@/components/blocks/hero-video";
 import { SectionHeading } from "@/components/blocks/section-heading";
 import { MarketsBand } from "@/components/blocks/markets-band";
 import { CoverageExpander } from "@/components/blocks/coverage-expander";
@@ -78,21 +79,9 @@ export default async function HomePage() {
         aria-labelledby="hero-heading"
         className="relative isolate -mt-24 overflow-hidden bg-primary-dark"
       >
-        {/* Background video: the hero backdrop. Sits below the scrim +
-            content. Muted + playsInline so it autoplays. The section's
-            bg-primary-dark is the fallback if the video can't load. */}
-        <video
-          aria-hidden="true"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/videos/home-hero-poster.jpg"
-          className="pointer-events-none absolute inset-0 z-[1] h-full w-full object-cover"
-        >
-          <source src="/videos/home-hero.mp4" type="video/mp4" />
-        </video>
+        {/* Background: poster-only on mobile/reduced-motion, autoplay video on
+            larger pointer devices. bg-primary-dark is the fallback. */}
+        <HeroVideo />
         {/* Scrim in the brand blue (not navy) so the white headline/trust row
             stays legible while the video still reads through. */}
         <div

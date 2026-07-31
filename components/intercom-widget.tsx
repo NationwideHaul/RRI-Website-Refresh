@@ -14,7 +14,28 @@ import Intercom from "@intercom/messenger-js-sdk";
  */
 export function IntercomWidget() {
   useEffect(() => {
-    Intercom({ app_id: "v4qbge05" });
+    let booted = false;
+    const events = ["scroll", "pointerdown", "keydown", "touchstart"] as const;
+
+    const boot = () => {
+      if (booted) return;
+      booted = true;
+      cleanup();
+      Intercom({ app_id: "v4qbge05" });
+    };
+
+    function cleanup() {
+      events.forEach((e) => window.removeEventListener(e, boot));
+      clearTimeout(idleTimer);
+    }
+
+    // Defer the (heavy, third-party) messenger off the critical load path:
+    // boot on the first real interaction, or after a short idle fallback so
+    // passive readers still get it. Keeps it out of initial TBT/INP.
+    events.forEach((e) => window.addEventListener(e, boot, { passive: true }));
+    const idleTimer = window.setTimeout(boot, 5000);
+
+    return cleanup;
   }, []);
 
   return null;

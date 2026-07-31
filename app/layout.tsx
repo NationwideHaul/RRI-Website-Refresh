@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 import { OrganizationSchema } from "@/components/schema/organization";
 import { IntercomWidget } from "@/components/intercom-widget";
@@ -52,6 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
+      <GoogleTagManager gtmId="GTM-N2JQCVW" />
       <body className="font-sans antialiased">
         <OrganizationSchema />
         {children}
