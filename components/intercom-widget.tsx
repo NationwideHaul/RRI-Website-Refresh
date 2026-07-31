@@ -20,22 +20,29 @@ export function IntercomWidget() {
     const boot = () => {
       if (booted) return;
       booted = true;
-      cleanup();
+      events.forEach((e) => window.removeEventListener(e, boot));
       Intercom({ app_id: "v4qbge05" });
     };
 
-    function cleanup() {
-      events.forEach((e) => window.removeEventListener(e, boot));
-      clearTimeout(idleTimer);
-    }
+    // Keep the messenger off the initial critical path, but load it on its own
+    // shortly after the page is ready (so the launcher is present and clickable
+    // without needing the visitor to interact first) — or immediately on the
+    // first interaction, whichever comes first.
+    const schedule = () => {
+      const ric = (
+        window as Window & {
+          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
+        }
+      ).requestIdleCallback;
+      if (ric) ric(boot, { timeout: 2500 });
+      else window.setTimeout(boot, 1500);
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
 
-    // Defer the (heavy, third-party) messenger off the critical load path:
-    // boot on the first real interaction, or after a short idle fallback so
-    // passive readers still get it. Keeps it out of initial TBT/INP.
     events.forEach((e) => window.addEventListener(e, boot, { passive: true }));
-    const idleTimer = window.setTimeout(boot, 5000);
 
-    return cleanup;
+    return () => events.forEach((e) => window.removeEventListener(e, boot));
   }, []);
 
   return null;

@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/coverage/", priority: 0.9, changeFrequency: "monthly" },
     { path: "/who-we-are/", priority: 0.8, changeFrequency: "monthly" },
     { path: "/who-we-cover/", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/owner-operator-trucking-insurance/", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/amazon-relay/", priority: 0.8, changeFrequency: "monthly" },
     { path: "/client-perks/", priority: 0.6, changeFrequency: "monthly" },
     { path: "/free-fuel-card/", priority: 0.6, changeFrequency: "monthly" },
     { path: "/tips/", priority: 0.6, changeFrequency: "monthly" },

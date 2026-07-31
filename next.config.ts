@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   // This makes the server's canonical form match what we advertise everywhere.
   trailingSlash: true,
   images: {
+    // Serve AVIF (smallest) first, then WebP, then the original — browsers that
+    // don't support AVIF fall back automatically. Meaningfully smaller photos.
+    formats: ["image/avif", "image/webp"],
     // The project lives on an external drive where macOS drops AppleDouble
     // ("._*") companion files inside .next/cache/images, which poisons the
     // optimizer cache (it serves the 4KB "._" junk instead of the image).
@@ -23,11 +26,11 @@ const nextConfig: NextConfig = {
       { source: "/rri-advantage/", destination: "/who-we-are/", permanent: true },
 
       // ---- Audience-segment pages removed in the refresh -> Who We Cover hub ----
-      { source: "/owner-operator-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
+      // Note: /owner-operator-trucking-insurance/ and /amazon-relay/ were
+      // REBUILT as real pages (high-intent SEO), so they are NOT redirected.
       { source: "/small-fleet-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
       { source: "/large-fleet-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
       { source: "/high-risk-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
-      { source: "/amazon-relay/", destination: "/who-we-cover/", permanent: true },
 
       // ---- Old blog posts with a strong topical match on the new site ----
       { source: "/road-ready-blog/how-much-does-insurance-cost-for-a-truck/", destination: "/road-ready-blog/how-much-does-commercial-truck-insurance-cost/", permanent: true },
