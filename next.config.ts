@@ -15,9 +15,34 @@ const nextConfig: NextConfig = {
     unoptimized: process.env.NODE_ENV === "development",
   },
   async redirects() {
+    // Migration map: old roadreadyinsurance.com URLs -> new site. Sources use
+    // trailing slashes to match the live site's URL form (and trailingSlash:true).
+    // Keeps inbound links + SEO equity intact when the content is swapped.
     return [
-      // /rri-advantage was renamed to /who-we-are (keep old links + SEO).
-      { source: "/rri-advantage", destination: "/who-we-are", permanent: true },
+      // ---- Renamed page ----
+      { source: "/rri-advantage/", destination: "/who-we-are/", permanent: true },
+
+      // ---- Audience-segment pages removed in the refresh -> Who We Cover hub ----
+      { source: "/owner-operator-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
+      { source: "/small-fleet-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
+      { source: "/large-fleet-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
+      { source: "/high-risk-trucking-insurance/", destination: "/who-we-cover/", permanent: true },
+      { source: "/amazon-relay/", destination: "/who-we-cover/", permanent: true },
+
+      // ---- Old blog posts with a strong topical match on the new site ----
+      { source: "/road-ready-blog/how-much-does-insurance-cost-for-a-truck/", destination: "/road-ready-blog/how-much-does-commercial-truck-insurance-cost/", permanent: true },
+      { source: "/road-ready-blog/trucking-insurance-rates/", destination: "/road-ready-blog/how-much-does-commercial-truck-insurance-cost/", permanent: true },
+      { source: "/road-ready-blog/how-fleets-lower-truck-insurance-costs-2026/", destination: "/road-ready-blog/how-to-lower-your-truck-insurance-premiums/", permanent: true },
+
+      // ---- Old blog posts with no direct equivalent -> blog index ----
+      { source: "/road-ready-blog/fleet-trucking-insurance-guide-2026/", destination: "/road-ready-blog/", permanent: true },
+      { source: "/road-ready-blog/trucking-insurance-claims/", destination: "/road-ready-blog/", permanent: true },
+      { source: "/road-ready-blog/2025-international-roadcheck-results/", destination: "/road-ready-blog/", permanent: true },
+      { source: "/road-ready-blog/what-is-gap-insurance-in-trucking-and-when-do-you-need-it-2025-guide/", destination: "/road-ready-blog/", permanent: true },
+      { source: "/road-ready-blog/top-trucking-insurance-companies-in-2025-what-fleets-need-to-know/", destination: "/road-ready-blog/", permanent: true },
+      { source: "/road-ready-blog/what-is-the-best-insurance-for-a-trucking-company/", destination: "/road-ready-blog/", permanent: true },
+      { source: "/road-ready-blog/the-real-benefits-of-commercial-trucking-insurance-for-fleet-owners/", destination: "/road-ready-blog/", permanent: true },
+      { source: "/road-ready-blog/how-to-get-the-right-trucking-insurance-for-your-business/", destination: "/road-ready-blog/", permanent: true },
     ];
   },
 };
