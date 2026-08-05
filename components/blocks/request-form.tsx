@@ -265,6 +265,10 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
                   value={values[f.key] ?? ""}
                   onChange={(e) => set(f.key, e.target.value)}
                   disabled={isLoading}
+                  required={f.required}
+                  aria-required={f.required || undefined}
+                  aria-invalid={!!err}
+                  aria-describedby={err ? `${id}-err` : undefined}
                 />
               ) : f.type === "select" ? (
                 <Select
@@ -274,6 +278,9 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
                 >
                   <SelectTrigger
                     id={id}
+                    aria-required={f.required || undefined}
+                    aria-invalid={!!err}
+                    aria-describedby={err ? `${id}-err` : undefined}
                     className={cn(FIELD_CLASS, "!h-12 justify-between text-left data-[placeholder]:text-gray-500", errCls)}
                   >
                     <SelectValue placeholder="Select" />
@@ -296,9 +303,17 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
                   value={values[f.key] ?? ""}
                   onChange={(e) => set(f.key, e.target.value)}
                   disabled={isLoading}
+                  required={f.required}
+                  aria-required={f.required || undefined}
+                  aria-invalid={!!err}
+                  aria-describedby={err ? `${id}-err` : undefined}
                 />
               )}
-              {err && <p className="mt-1 text-[13px] text-destructive">{err}</p>}
+              {err && (
+                <p id={`${id}-err`} role="alert" className="mt-1 text-[13px] text-destructive">
+                  {err}
+                </p>
+              )}
             </div>
           );
         })}

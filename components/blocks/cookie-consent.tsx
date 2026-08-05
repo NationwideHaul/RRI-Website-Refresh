@@ -35,6 +35,9 @@ export function CookieConsent() {
       // Ignore storage failures; the banner still dismisses for this session.
     }
     setShow(false);
+    // Decline must actually suppress the trackers that already loaded this
+    // session (GTM, Intercom). Reload so they re-evaluate consent and stay off.
+    if (value === "declined") window.location.reload();
   }
 
   return (

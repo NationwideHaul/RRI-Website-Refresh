@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Intercom from "@intercom/messenger-js-sdk";
+import { hasDeclinedCookies } from "@/lib/consent";
 
 /**
  * Boots the Intercom messenger on every page.
@@ -14,35 +15,10 @@ import Intercom from "@intercom/messenger-js-sdk";
  */
 export function IntercomWidget() {
   useEffect(() => {
-    let booted = false;
-    const events = ["scroll", "pointerdown", "keydown", "touchstart"] as const;
-
-    const boot = () => {
-      if (booted) return;
-      booted = true;
-      events.forEach((e) => window.removeEventListener(e, boot));
-      Intercom({ app_id: "v4qbge05" });
-    };
-
-    // Keep the messenger off the initial critical path, but load it on its own
-    // shortly after the page is ready (so the launcher is present and clickable
-    // without needing the visitor to interact first) — or immediately on the
-    // first interaction, whichever comes first.
-    const schedule = () => {
-      const ric = (
-        window as Window & {
-          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
-        }
-      ).requestIdleCallback;
-      if (ric) ric(boot, { timeout: 800 });
-      else window.setTimeout(boot, 600);
-    };
-    if (document.readyState === "complete") schedule();
-    else window.addEventListener("load", schedule, { once: true });
-
-    events.forEach((e) => window.addEventListener(e, boot, { passive: true }));
-
-    return () => events.forEach((e) => window.removeEventListener(e, boot));
+    // Boot immediately after hydration so the launcher is reliably present and
+    // clickable. Skipped only if the visitor declined cookies.
+    if (hasDeclinedCookies()) return;
+    Intercom({ app_id: "v4qbge05" });
   }, []);
 
   return null;

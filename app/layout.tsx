@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { AnalyticsGTM } from "@/components/analytics-gtm";
 import "./globals.css";
 import { OrganizationSchema } from "@/components/schema/organization";
 import { IntercomWidget } from "@/components/intercom-widget";
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     title: `${SITE.name}, Commercial Trucking Insurance Specialist`,
     description: SITE.description,
     url: SITE.url,
-    images: [SITE.logoPath],
+    images: ["/images/og-default.png"],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name}, Commercial Trucking Insurance Specialist`,
     description: SITE.description,
-    images: [SITE.logoPath],
+    images: ["/images/og-default.png"],
   },
   robots: {
     index: true,
@@ -53,8 +53,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <GoogleTagManager gtmId="GTM-N2JQCVW" />
       <body className="font-sans antialiased">
+        <AnalyticsGTM />
         <OrganizationSchema />
         {children}
         <CookieConsent />

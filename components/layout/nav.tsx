@@ -74,7 +74,7 @@ export function Nav() {
                     <Link
                       href={section.href}
                       className={cn(
-                        "inline-flex h-9 items-center rounded-full px-3.5 text-[15px] font-medium transition-colors focus-visible:outline-none",
+                        "inline-flex h-9 items-center rounded-full px-3.5 text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-1 focus-visible:ring-offset-transparent",
                         active
                           ? "bg-primary/10 text-primary"
                           : "text-gray-700 hover:bg-black/[0.04] hover:text-ink",

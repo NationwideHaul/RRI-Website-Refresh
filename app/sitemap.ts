@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/policy-change/", priority: 0.6, changeFrequency: "monthly" },
     { path: "/customer-service/", priority: 0.6, changeFrequency: "monthly" },
     { path: "/careers/", priority: 0.5, changeFrequency: "monthly" },
+    { path: "/licenses/", priority: 0.4, changeFrequency: "monthly" },
     { path: "/road-ready-blog/", priority: 0.5, changeFrequency: "weekly" },
     { path: "/states/", priority: 0.7, changeFrequency: "monthly" },
     { path: "/contact-us/", priority: 0.7, changeFrequency: "yearly" },
