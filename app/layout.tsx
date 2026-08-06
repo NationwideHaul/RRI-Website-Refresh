@@ -54,6 +54,22 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased">
+        {/*
+          Canonical-host guard. The apex (roadreadyinsurance.com) 308-redirects
+          to www at the server, but a page CACHED on the apex origin (e.g. held
+          open across the DNS cutover) posts its form to /api/lead/ on the apex,
+          which then redirects cross-origin to www — and the browser kills that
+          POST with a CORS error ("Failed to fetch"), so the lead never sends.
+          This runs synchronously before any form can be submitted and bounces a
+          bare-apex page to www so every form POST stays same-origin. Scoped to
+          the exact apex host only — never touches www, *.vercel.app, or local.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){if(location.hostname==='roadreadyinsurance.com'){location.replace('https://www.roadreadyinsurance.com'+location.pathname+location.search+location.hash);}})();",
+          }}
+        />
         <AnalyticsGTM />
         <OrganizationSchema />
         {children}
