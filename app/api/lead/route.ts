@@ -22,6 +22,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { BRAND, resolveRoute } from "@/lib/form-config";
 import { buildSubject, renderLeadEmail } from "@/lib/email-template";
+import { emailDomainHasMx, phoneLooksValid } from "@/lib/lead-verification";
 
 export const runtime = "nodejs";
 
@@ -231,9 +232,23 @@ export async function POST(req: Request) {
         typeof data.fields.authority === "string" ? data.fields.authority : "";
       const usdot =
         typeof data.fields.usdot === "string" ? data.fields.usdot.trim() : "";
+
+      // Free, no-friction contact checks — advisory only. We flag the lead in
+      // notes for the producer; we never reject over a typo.
+      const [mxOk, phoneOk] = await Promise.all([
+        emailDomainHasMx(data.email),
+        Promise.resolve(data.phone ? phoneLooksValid(data.phone) : true),
+      ]);
+
       const noteLines = [
         "Submitted via the roadreadyinsurance.com quote form.",
         authority ? `Authority status: ${humanizeAuthority(authority)}` : null,
+        mxOk === false
+          ? "⚠️ Email domain has no mail server — likely a typo or fake address; call the number instead."
+          : null,
+        !phoneOk
+          ? "⚠️ Phone failed a basic validity check — double-check before dialing."
+          : null,
         data.pageUrl ? `Page: ${data.pageUrl}` : null,
       ].filter(Boolean);
 
