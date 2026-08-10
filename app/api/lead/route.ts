@@ -28,6 +28,10 @@ export const runtime = "nodejs";
 const LeadSchema = z.object({
   formId: z.string().min(1),
   name: z.string().min(1),
+  // Optional split name — quote form sends these so the CRM (which requires
+  // first/last separately) gets clean values without server-side guessing.
+  firstName: z.string().default(""),
+  lastName: z.string().default(""),
   email: z.email(),
   phone: z.string().default(""),
   company: z.string().default(""),
@@ -40,6 +44,20 @@ const LeadSchema = z.object({
 
 function json(body: Record<string, unknown>, status = 200) {
   return NextResponse.json(body, { status });
+}
+
+/** Quote-form "authority" dropdown value → human label for the CRM note. */
+function humanizeAuthority(value: string): string {
+  switch (value) {
+    case "new-authority":
+      return "New Authority";
+    case "existing-authority":
+      return "Existing Authority";
+    case "pending-cancellation":
+      return "Pending Cancellation";
+    default:
+      return value;
+  }
 }
 
 function getSupabase(): SupabaseClient | null {
@@ -185,33 +203,69 @@ export async function POST(req: Request) {
     }
   }
 
-  // 4. Forward to the sales CRM pipeline — ONLY for forms flagged with a
-  //    pipeline (currently just "get-a-quote" → New Business). All other
-  //    forms notify by email only. Best-effort: a CRM failure never fails
-  //    the request, since the lead is already in Supabase + emailed.
+  // 4. Forward to the Road Ready CRM lead-intake webhook — ONLY for forms
+  //    flagged with a formIdentifier (currently just "get-a-quote"). The CRM
+  //    matches formIdentifier to its mapping and handles pipeline, lead source
+  //    ("Website"), and round-robin producer assignment itself. We send only
+  //    the flat field contract. Best-effort: a CRM failure never fails the
+  //    request, since the lead is already in Supabase + emailed.
   if (route.crm) {
+    // CRM_WEBHOOK_URL carries the endpoint. The shared secret can be supplied
+    // either inside that URL as `?key=...` (Cognito-style) OR separately via
+    // CRM_WEBHOOK_SECRET (sent as x-api-key). CRM_WEBHOOK_SECRET is optional —
+    // if the key is already in the URL, we don't need it.
     const crmUrl = process.env.CRM_WEBHOOK_URL;
+    const crmSecret = process.env.CRM_WEBHOOK_SECRET;
     if (crmUrl) {
+      // First/last: prefer the explicit fields the form sends; fall back to
+      // splitting the full name so we never send an empty required field.
+      const nameParts = data.name.trim().split(/\s+/);
+      const firstName = data.firstName.trim() || nameParts[0] || "";
+      const lastName =
+        data.lastName.trim() ||
+        (nameParts.length > 1 ? nameParts.slice(1).join(" ") : "");
+
+      // Fields the RRI form collects that have no dedicated CRM column go into
+      // notes so nothing is lost (authority status, page context).
+      const authority =
+        typeof data.fields.authority === "string" ? data.fields.authority : "";
+      const usdot =
+        typeof data.fields.usdot === "string" ? data.fields.usdot.trim() : "";
+      const noteLines = [
+        "Submitted via the roadreadyinsurance.com quote form.",
+        authority ? `Authority status: ${humanizeAuthority(authority)}` : null,
+        data.pageUrl ? `Page: ${data.pageUrl}` : null,
+      ].filter(Boolean);
+
       try {
         const crmRes = await fetch(crmUrl, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            // Send the key as a header ONLY when it isn't already in the URL's
+            // query (avoid presenting the same key twice). If CRM_WEBHOOK_URL
+            // carries `?key=...`, that's used; otherwise fall back to the
+            // separate secret as x-api-key.
+            ...(crmSecret && !/[?&]key=/.test(crmUrl)
+              ? { "x-api-key": crmSecret }
+              : {}),
+          },
           body: JSON.stringify({
-            formType: data.formId,
-            pipeline: route.crm.pipeline,
-            leadSource,
-            name: data.name,
+            formIdentifier: route.crm.formIdentifier,
+            firstName,
+            lastName,
             email: data.email,
-            phone: data.phone || null,
-            company: data.company || null,
-            ...data.fields,
-            utm,
-            pageUrl: data.pageUrl || null,
-            submittedAt,
+            ...(data.phone ? { phone: data.phone } : {}),
+            ...(data.company ? { companyName: data.company } : {}),
+            ...(usdot ? { dotNumber: usdot } : {}),
+            notes: noteLines.join("\n"),
           }),
         });
         if (!crmRes.ok) {
-          console.error(`[lead] CRM webhook returned ${crmRes.status}`);
+          const detail = await crmRes.text().catch(() => "");
+          console.error(
+            `[lead] CRM webhook returned ${crmRes.status}${detail ? `: ${detail}` : ""}`,
+          );
         }
       } catch (err) {
         console.error(
@@ -221,7 +275,7 @@ export async function POST(req: Request) {
       }
     } else {
       console.warn(
-        `[lead] "${data.formId}" is flagged for CRM (${route.crm.pipeline}) but CRM_WEBHOOK_URL is not set.`,
+        `[lead] "${data.formId}" is flagged for CRM (${route.crm.formIdentifier}) but CRM_WEBHOOK_URL / CRM_WEBHOOK_SECRET is not set.`,
       );
     }
   }

@@ -22,7 +22,8 @@ import { cn } from "@/lib/utils";
 type Status = "idle" | "loading" | "success" | "error";
 
 type FormState = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   company: string;
   email: string;
   phone: string;
@@ -33,7 +34,8 @@ type FormState = {
 };
 
 const INITIAL: FormState = {
-  fullName: "",
+  firstName: "",
+  lastName: "",
   company: "",
   email: "",
   phone: "",
@@ -95,7 +97,8 @@ export function QuoteForm({
 
   function validate(): boolean {
     const next: Partial<Record<keyof FormState, string>> = {};
-    if (!form.fullName.trim()) next.fullName = "Required.";
+    if (!form.firstName.trim()) next.firstName = "Required.";
+    if (!form.lastName.trim()) next.lastName = "Required.";
     if (!form.company.trim()) next.company = "Required.";
     if (!form.email.trim()) next.email = "Required.";
     else if (!isValidEmail(form.email)) next.email = "Double-check the email.";
@@ -122,7 +125,9 @@ export function QuoteForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           formId: "get-a-quote",
-          name: form.fullName,
+          name: `${form.firstName.trim()} ${form.lastName.trim()}`.trim(),
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
           email: form.email,
           phone: form.phone,
           company: form.company,
@@ -242,24 +247,45 @@ export function QuoteForm({
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="qf-fullname" className={LABEL_CLASS}>
-            Full Name <span className={REQUIRED_CLASS}>*</span>
+          <Label htmlFor="qf-firstname" className={LABEL_CLASS}>
+            First Name <span className={REQUIRED_CLASS}>*</span>
           </Label>
           <Input
-            id="qf-fullname"
+            id="qf-firstname"
             type="text"
-            autoComplete="name"
-            placeholder="Jane Doe"
+            autoComplete="given-name"
+            placeholder="Jane"
             className={cn(
               FIELD_CLASS,
-              errors.fullName && "border-destructive focus-visible:border-destructive",
+              errors.firstName && "border-destructive focus-visible:border-destructive",
             )}
-            value={form.fullName}
-            onChange={(e) => update("fullName", e.target.value)}
+            value={form.firstName}
+            onChange={(e) => update("firstName", e.target.value)}
             disabled={isLoading}
             required
           />
-          {errors.fullName && <p className={ERROR_CLASS}>{errors.fullName}</p>}
+          {errors.firstName && <p className={ERROR_CLASS}>{errors.firstName}</p>}
+        </div>
+
+        <div>
+          <Label htmlFor="qf-lastname" className={LABEL_CLASS}>
+            Last Name <span className={REQUIRED_CLASS}>*</span>
+          </Label>
+          <Input
+            id="qf-lastname"
+            type="text"
+            autoComplete="family-name"
+            placeholder="Doe"
+            className={cn(
+              FIELD_CLASS,
+              errors.lastName && "border-destructive focus-visible:border-destructive",
+            )}
+            value={form.lastName}
+            onChange={(e) => update("lastName", e.target.value)}
+            disabled={isLoading}
+            required
+          />
+          {errors.lastName && <p className={ERROR_CLASS}>{errors.lastName}</p>}
         </div>
 
         <div>

@@ -31,11 +31,13 @@ export type FormRoute = {
   /** Optional CC recipients. */
   cc?: string[];
   /**
-   * If set, this form ALSO forwards to the sales CRM (CRM_WEBHOOK_URL) into
-   * the named pipeline. Omit for forms that should notify by email only.
-   * Currently only "get-a-quote" → New Business.
+   * If set, this form ALSO forwards to the Road Ready CRM lead-intake webhook
+   * (CRM_WEBHOOK_URL + CRM_WEBHOOK_SECRET). `formIdentifier` is the value the
+   * CRM matches against its FormMapping table to decide brand, pipeline, lead
+   * source, and round-robin producer assignment — all configured CRM-side.
+   * Omit for forms that should notify by email only.
    */
-  crm?: { pipeline: string };
+  crm?: { formIdentifier: string };
 };
 
 /**
@@ -46,14 +48,13 @@ export const FORM_ROUTES: Record<string, FormRoute> = {
   "get-a-quote": {
     label: "Get a quote",
     to: "agents@roadreadyinsurance.com",
-    // CRM auto-push is DEFERRED (per Derek, Jul 2026): new quote leads are
-    // worked from the agents@ email for now and added to the CRM manually.
-    // Re-enabling is pending CRM-side work — the webhook rejects our payload
-    // ("Unknown or inactive form mapping"); it needs a registered
-    // `formIdentifier` plus firstName/lastName and a mapping to the New
-    // Business pipeline (lead source "website", round-robin producer assign).
-    // To turn back on: add `crm: { pipeline: "New Business" }` here and align
-    // the payload in app/api/lead/route.ts to the CRM's field contract.
+    // Live CRM push (Aug 2026): forwards to the RRI CRM lead-intake webhook.
+    // The CRM matches `formIdentifier` to its "Road Ready Insurance" mapping
+    // (brand RRI, New Business → New Lead, source "Website", round-robin
+    // producer assignment) — all handled CRM-side. We only send the flat
+    // field contract; see app/api/lead/route.ts. Email + Supabase still fire
+    // in parallel as a safety net.
+    crm: { formIdentifier: "Road Ready Insurance" },
   },
   "report-a-claim": {
     label: "Report a claim",
