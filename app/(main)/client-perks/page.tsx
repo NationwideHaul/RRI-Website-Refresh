@@ -97,6 +97,14 @@ const PARTNERS: Partner[] = [
     external: true,
     linkLabel: "oakwoodef.com",
   },
+  {
+    name: "Paychex",
+    logo: "/images/partners/paychex.png",
+    description: "Payroll, HR, benefits, and 401(k) built for trucking, so you can pay your team and stay compliant without the paperwork.",
+    href: "/paychex/",
+    external: false,
+    linkLabel: "Learn more",
+  },
 ];
 
 function PartnerCard({ partner, delay }: { partner: Partner; delay: number }) {
