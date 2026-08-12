@@ -19,6 +19,8 @@ export type HeroProps = {
   headlineMuted?: string;
   subhead?: string;
   primaryCTA?: HeroCTA;
+  /** Interactive element rendered in place of the primary CTA (e.g. a menu button). */
+  primarySlot?: React.ReactNode;
   secondaryCTA?: HeroCTA;
   trustLine?: string;
   /** Kept for API compatibility; the header is always brand-colored now. */
@@ -44,6 +46,7 @@ export function Hero({
   headlineMuted,
   subhead,
   primaryCTA,
+  primarySlot,
   secondaryCTA,
   trustLine,
   image,
@@ -75,17 +78,18 @@ export function Hero({
         </p>
       )}
 
-      {(primaryCTA || secondaryCTA) && (
+      {(primaryCTA || primarySlot || secondaryCTA) && (
         <div className={cn("mt-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4", centered && "sm:justify-center")}>
-          {primaryCTA && (
-            <Link
-              href={primaryCTA.href}
-              {...externalProps(primaryCTA.href)}
-              className="btn bg-cyan text-primary-dark hover:bg-white"
-            >
-              {primaryCTA.text}
-            </Link>
-          )}
+          {primarySlot ??
+            (primaryCTA && (
+              <Link
+                href={primaryCTA.href}
+                {...externalProps(primaryCTA.href)}
+                className="btn bg-cyan text-primary-dark hover:bg-white"
+              >
+                {primaryCTA.text}
+              </Link>
+            ))}
           {secondaryCTA && (
             <Link
               href={secondaryCTA.href}

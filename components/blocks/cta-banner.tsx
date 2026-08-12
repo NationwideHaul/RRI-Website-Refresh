@@ -9,7 +9,9 @@ export type CTABannerProps = {
   /** Optional gray continuation of the headline (two-tone, like SectionHeading). */
   headlineMuted?: string;
   subhead?: string;
-  primaryCTA: { text: string; href: string };
+  primaryCTA?: { text: string; href: string };
+  /** Interactive element rendered in place of the primary CTA (e.g. a menu button). */
+  primarySlot?: React.ReactNode;
   showPhone?: boolean;
   variant?: "primary" | "dark";
   className?: string;
@@ -20,6 +22,7 @@ export function CTABanner({
   headlineMuted,
   subhead,
   primaryCTA,
+  primarySlot,
   showPhone = true,
   variant = "primary",
   className,
@@ -56,17 +59,20 @@ export function CTABanner({
         </div>
 
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-5">
-          <Link
-            href={primaryCTA.href}
-            className={cn(
-              "btn",
-              isDark
-                ? "bg-cyan text-primary-dark hover:bg-white"
-                : "bg-white text-primary hover:bg-cyan hover:text-primary-dark",
-            )}
-          >
-            {primaryCTA.text}
-          </Link>
+          {primarySlot ??
+            (primaryCTA && (
+              <Link
+                href={primaryCTA.href}
+                className={cn(
+                  "btn",
+                  isDark
+                    ? "bg-cyan text-primary-dark hover:bg-white"
+                    : "bg-white text-primary hover:bg-cyan hover:text-primary-dark",
+                )}
+              >
+                {primaryCTA.text}
+              </Link>
+            ))}
 
           {showPhone && hasRealPhone && (
             <a

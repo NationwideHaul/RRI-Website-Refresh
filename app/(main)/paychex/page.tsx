@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Hero } from "@/components/blocks/hero";
 import { CTABanner } from "@/components/blocks/cta-banner";
+import { EmailCTA } from "@/components/blocks/email-cta";
 import { SectionHeading } from "@/components/blocks/section-heading";
 import { Reveal } from "@/components/blocks/reveal";
 import { BreadcrumbListSchema } from "@/components/schema/breadcrumb-list";
@@ -39,14 +40,20 @@ const PAYCHEX_MAILTO =
   `&body=${encodeURIComponent(PAYCHEX_BODY)}`;
 
 /**
- * Webmail fallback. A bare mailto only opens if the visitor's device has a
- * default mail app registered, which many desktops do not. This Gmail compose
- * link works in any browser with no OS-level handler required.
+ * Webmail fallbacks. A bare mailto only opens if the visitor's device has a
+ * default mail app registered, which many desktops do not. These compose links
+ * work in any browser with no OS-level handler required.
  */
 const PAYCHEX_GMAIL =
   `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PAYCHEX_TO)}` +
   `&cc=${encodeURIComponent(PAYCHEX_CC)}` +
   `&su=${encodeURIComponent(PAYCHEX_SUBJECT)}` +
+  `&body=${encodeURIComponent(PAYCHEX_BODY)}`;
+
+const PAYCHEX_OUTLOOK =
+  `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(PAYCHEX_TO)}` +
+  `&cc=${encodeURIComponent(PAYCHEX_CC)}` +
+  `&subject=${encodeURIComponent(PAYCHEX_SUBJECT)}` +
   `&body=${encodeURIComponent(PAYCHEX_BODY)}`;
 
 export const metadata: Metadata = {
@@ -106,7 +113,16 @@ export default function PaychexPage() {
         headline="Payroll, HR, and benefits,"
         headlineMuted="handled by Paychex."
         subhead="As a Road Ready client, you get a direct introduction to Paychex, the payroll and HR partner that lets you pay your team, stay compliant, and offer real benefits, without the paperwork slowing you down."
-        primaryCTA={{ text: "Email our Paychex rep", href: PAYCHEX_MAILTO }}
+        primarySlot={
+          <EmailCTA
+            label="Email our Paychex rep"
+            address={PAYCHEX_TO}
+            mailto={PAYCHEX_MAILTO}
+            gmail={PAYCHEX_GMAIL}
+            outlook={PAYCHEX_OUTLOOK}
+            className="btn bg-cyan text-primary-dark hover:bg-white"
+          />
+        }
       />
 
       {/* Brand band + email fallback */}
@@ -122,20 +138,11 @@ export default function PaychexPage() {
             An official Road Ready partner
           </p>
           <p className="max-w-xl text-center text-[14px] leading-[1.6] text-slate">
-            The button opens your email app. No email app set up? Write to{" "}
+            Prefer to write us directly? Email{" "}
             <a href={PAYCHEX_MAILTO} className="font-semibold text-primary underline underline-offset-2">
               {PAYCHEX_TO}
             </a>{" "}
-            (CC {PAYCHEX_CC}) or{" "}
-            <a
-              href={PAYCHEX_GMAIL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-primary underline underline-offset-2"
-            >
-              open it in Gmail
-            </a>
-            .
+            and CC {PAYCHEX_CC}.
           </p>
         </div>
       </section>
@@ -234,8 +241,17 @@ export default function PaychexPage() {
       <CTABanner
         headline="Ready to hand off payroll?"
         headlineMuted="Send the intro email."
-        subhead="Your email opens with our Paychex rep prefilled and Road Ready CC'd. Add a couple details about your fleet and Paychex takes it from there."
-        primaryCTA={{ text: "Email our Paychex rep", href: PAYCHEX_MAILTO }}
+        subhead="Pick your email app, Gmail, or Outlook and your message opens with our Paychex rep prefilled and Road Ready CC'd. Add a couple details about your fleet and Paychex takes it from there."
+        primarySlot={
+          <EmailCTA
+            label="Email our Paychex rep"
+            address={PAYCHEX_TO}
+            mailto={PAYCHEX_MAILTO}
+            gmail={PAYCHEX_GMAIL}
+            outlook={PAYCHEX_OUTLOOK}
+            className="btn bg-white text-primary hover:bg-cyan hover:text-primary-dark"
+          />
+        }
         variant="primary"
       />
     </>
