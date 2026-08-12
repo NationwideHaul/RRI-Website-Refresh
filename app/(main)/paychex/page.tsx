@@ -38,6 +38,17 @@ const PAYCHEX_MAILTO =
   `&subject=${encodeURIComponent(PAYCHEX_SUBJECT)}` +
   `&body=${encodeURIComponent(PAYCHEX_BODY)}`;
 
+/**
+ * Webmail fallback. A bare mailto only opens if the visitor's device has a
+ * default mail app registered, which many desktops do not. This Gmail compose
+ * link works in any browser with no OS-level handler required.
+ */
+const PAYCHEX_GMAIL =
+  `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PAYCHEX_TO)}` +
+  `&cc=${encodeURIComponent(PAYCHEX_CC)}` +
+  `&su=${encodeURIComponent(PAYCHEX_SUBJECT)}` +
+  `&body=${encodeURIComponent(PAYCHEX_BODY)}`;
+
 export const metadata: Metadata = {
   title: "Paychex Payroll & HR for Trucking",
   description:
@@ -98,8 +109,8 @@ export default function PaychexPage() {
         primaryCTA={{ text: "Email our Paychex rep", href: PAYCHEX_MAILTO }}
       />
 
-      {/* Brand band */}
-      <section aria-hidden="true" className="bg-background">
+      {/* Brand band + email fallback */}
+      <section aria-labelledby="contact-heading" className="bg-background">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 pt-14 lg:px-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -107,8 +118,24 @@ export default function PaychexPage() {
             alt="Paychex"
             className="h-10 w-auto sm:h-12"
           />
-          <p className="text-[13px] font-semibold uppercase tracking-wide text-slate">
+          <p id="contact-heading" className="text-[13px] font-semibold uppercase tracking-wide text-slate">
             An official Road Ready partner
+          </p>
+          <p className="max-w-xl text-center text-[14px] leading-[1.6] text-slate">
+            The button opens your email app. No email app set up? Write to{" "}
+            <a href={PAYCHEX_MAILTO} className="font-semibold text-primary underline underline-offset-2">
+              {PAYCHEX_TO}
+            </a>{" "}
+            (CC {PAYCHEX_CC}) or{" "}
+            <a
+              href={PAYCHEX_GMAIL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary underline underline-offset-2"
+            >
+              open it in Gmail
+            </a>
+            .
           </p>
         </div>
       </section>
