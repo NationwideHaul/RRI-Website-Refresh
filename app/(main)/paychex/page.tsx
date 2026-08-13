@@ -137,13 +137,6 @@ export default function PaychexPage() {
           <p id="contact-heading" className="text-[13px] font-semibold uppercase tracking-wide text-slate">
             An official Road Ready partner
           </p>
-          <p className="max-w-xl text-center text-[14px] leading-[1.6] text-slate">
-            Prefer to write us directly? Email{" "}
-            <a href={PAYCHEX_MAILTO} className="font-semibold text-primary underline underline-offset-2">
-              {PAYCHEX_TO}
-            </a>{" "}
-            and CC {PAYCHEX_CC}.
-          </p>
         </div>
       </section>
 
