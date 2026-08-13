@@ -1,8 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Intercom from "@intercom/messenger-js-sdk";
 import { hasDeclinedCookies } from "@/lib/consent";
+
+/**
+ * Standalone paid-landing routes are single-purpose conversion pages with no
+ * escape routes, so the chat launcher (an escape route + the heaviest
+ * third-party on the page) is suppressed there to protect the mobile score.
+ */
+const NO_INTERCOM_PREFIXES = ["/renewal-review"];
 
 /**
  * Boots the Intercom messenger on every page.
@@ -14,12 +22,16 @@ import { hasDeclinedCookies } from "@/lib/consent";
  * added later, pass those fields in to identify signed-in users.
  */
 export function IntercomWidget() {
+  const pathname = usePathname();
+
   useEffect(() => {
     // Boot immediately after hydration so the launcher is reliably present and
-    // clickable. Skipped only if the visitor declined cookies.
+    // clickable. Skipped if the visitor declined cookies, or on the isolated
+    // paid-landing routes.
     if (hasDeclinedCookies()) return;
+    if (NO_INTERCOM_PREFIXES.some((p) => pathname?.startsWith(p))) return;
     Intercom({ app_id: "v4qbge05" });
-  }, []);
+  }, [pathname]);
 
   return null;
 }

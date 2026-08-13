@@ -56,6 +56,15 @@ export const FORM_ROUTES: Record<string, FormRoute> = {
     // in parallel as a safety net.
     crm: { formIdentifier: "Road Ready Insurance" },
   },
+  "renewal-review": {
+    label: "Renewal review request",
+    to: "agents@roadreadyinsurance.com",
+    // Paid Meta landing page (/renewal-review). Pushes to the RRI CRM the same
+    // way the main quote form does — same "Road Ready Insurance" mapping (brand
+    // RRI, New Business, source "Website", round-robin producer). Email +
+    // Supabase fire in parallel as the safety net.
+    crm: { formIdentifier: "Road Ready Insurance" },
+  },
   "report-a-claim": {
     label: "Report a claim",
     to: "claims@roadreadyinsurance.com",
