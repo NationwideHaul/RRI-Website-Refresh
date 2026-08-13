@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { FileSearch, Globe2, LifeBuoy, Check } from "lucide-react";
 import { Reveal } from "@/components/blocks/reveal";
 import { MarketsBand } from "@/components/blocks/markets-band";
@@ -270,12 +271,12 @@ export default function RenewalReviewPage() {
             <span aria-hidden="true" className="text-gray-300">
               |
             </span>
-            <a
+            <Link
               href="/privacy-policy/"
               className="font-semibold text-primary hover:underline"
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
         </div>
       </footer>

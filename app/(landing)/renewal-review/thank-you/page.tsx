@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 /**
  * Post-submit confirmation for the /renewal-review landing page. Same isolated
@@ -82,12 +83,12 @@ export default function RenewalReviewThankYouPage() {
             <span aria-hidden="true" className="text-gray-300">
               |
             </span>
-            <a
+            <Link
               href="/privacy-policy/"
               className="font-semibold text-primary hover:underline"
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
         </div>
       </footer>
