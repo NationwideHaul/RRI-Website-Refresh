@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PhoneCall } from "lucide-react";
+import { MetaPixel } from "@/components/meta-pixel";
 
 /**
  * Standalone landing shell for paid traffic. Renders a minimal branded header
@@ -15,6 +16,8 @@ export default function LandingLayout({
 }) {
   return (
     <div className="min-h-screen scroll-smooth">
+      {/* Meta Pixel — scoped to this landing group only (never global). */}
+      <MetaPixel />
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3 sm:px-6">
           <Image

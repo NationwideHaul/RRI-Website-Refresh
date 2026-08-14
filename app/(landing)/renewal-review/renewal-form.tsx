@@ -175,11 +175,17 @@ export function RenewalForm() {
       if (typeof window !== "undefined") {
         const w = window as unknown as {
           dataLayer?: Record<string, unknown>[];
+          fbq?: (...args: unknown[]) => void;
         };
         (w.dataLayer = w.dataLayer || []).push({
           event: "renewal_review_submit",
           form_id: "renewal-review",
         });
+        // Meta Pixel standard Lead event — fired once here, only on a successful
+        // submission and before the redirect. Validation failures and errors
+        // return earlier, so Lead never fires for them, on page load, or on the
+        // thank-you page.
+        w.fbq?.("track", "Lead");
       }
 
       router.push("/renewal-review/thank-you/");
