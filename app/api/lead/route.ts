@@ -96,8 +96,12 @@ export async function POST(req: Request) {
   const userAgent = req.headers.get("user-agent") || null;
 
   const utm = data.utm ?? {};
+  // An explicit per-form source (e.g. "Meta Ads" for the renewal-review landing)
+  // wins over the utm-derived source; otherwise fall back to utm_source / website.
   const leadSource =
-    (typeof utm.utm_source === "string" && utm.utm_source) || "website";
+    route.source ||
+    (typeof utm.utm_source === "string" && utm.utm_source) ||
+    "website";
   const medium =
     (typeof utm.utm_medium === "string" && utm.utm_medium) || null;
 
@@ -227,11 +231,16 @@ export async function POST(req: Request) {
         (nameParts.length > 1 ? nameParts.slice(1).join(" ") : "");
 
       // Fields the RRI form collects that have no dedicated CRM column go into
-      // notes so nothing is lost (authority status, page context).
-      const authority =
-        typeof data.fields.authority === "string" ? data.fields.authority : "";
-      const usdot =
-        typeof data.fields.usdot === "string" ? data.fields.usdot.trim() : "";
+      // notes so nothing is lost. `str()` reads a string field or "".
+      const str = (key: string) =>
+        typeof data.fields[key] === "string" ? (data.fields[key] as string).trim() : "";
+      const authority = str("authority");
+      const usdot = str("usdot");
+      // Renewal-review qualifying answers (paid Meta landing form).
+      const state = str("state");
+      const powerUnits = str("powerUnits");
+      const runLength = str("runLength");
+      const policyRenews = str("policyRenews");
 
       // Free, no-friction contact checks — advisory only. We flag the lead in
       // notes for the producer; we never reject over a typo.
@@ -241,8 +250,13 @@ export async function POST(req: Request) {
       ]);
 
       const noteLines = [
-        "Submitted via the roadreadyinsurance.com quote form.",
+        `Submitted via the ${route.label} form on roadreadyinsurance.com.`,
+        route.source ? `Lead source: ${route.source}` : null,
         authority ? `Authority status: ${humanizeAuthority(authority)}` : null,
+        state ? `State of operation: ${state}` : null,
+        powerUnits ? `Number of power units: ${powerUnits}` : null,
+        runLength ? `Most runs: ${runLength}` : null,
+        policyRenews ? `Current policy renews: ${policyRenews}` : null,
         mxOk === false
           ? "⚠️ Email domain has no mail server — likely a typo or fake address; call the number instead."
           : null,
@@ -273,6 +287,14 @@ export async function POST(req: Request) {
             ...(data.phone ? { phone: data.phone } : {}),
             ...(data.company ? { companyName: data.company } : {}),
             ...(usdot ? { dotNumber: usdot } : {}),
+            // Explicit source override (e.g. "Meta Ads"). Sent under both keys
+            // so the CRM picks up whichever field name it expects; the source is
+            // also in the note above as a guaranteed-visible fallback. If the CRM
+            // derives source only from formIdentifier, these are ignored and the
+            // note still carries it.
+            ...(route.source
+              ? { source: route.source, leadSource: route.source }
+              : {}),
             notes: noteLines.join("\n"),
           }),
         });
@@ -300,7 +322,14 @@ export async function POST(req: Request) {
   //    an internal inbox). One webhook, two branches keyed on confirmation_type:
   //      "quote"   -> get-a-quote     ("We got your quote request")
   //      "general" -> every other form ("We got your request")
-  const autoresponderUrl = process.env.GHL_AUTORESPONDER_WEBHOOK_URL;
+  // Renewal-review can point at its OWN duplicated GHL workflow via a dedicated
+  // inbound webhook (GHL_RENEWAL_AUTORESPONDER_WEBHOOK_URL). If that env var
+  // isn't set it falls back to the shared webhook, so the visitor still gets the
+  // generic confirmation — no regression until the new workflow is wired up.
+  const autoresponderUrl =
+    (data.formId === "renewal-review" &&
+      process.env.GHL_RENEWAL_AUTORESPONDER_WEBHOOK_URL) ||
+    process.env.GHL_AUTORESPONDER_WEBHOOK_URL;
   if (autoresponderUrl) {
     try {
       const nameParts = data.name.trim().split(/\s+/);
@@ -315,7 +344,35 @@ export async function POST(req: Request) {
           company: data.company || "",
           form_id: data.formId,
           form_name: route.label,
-          confirmation_type: data.formId === "get-a-quote" ? "quote" : "general",
+          confirmation_type:
+            data.formId === "get-a-quote"
+              ? "quote"
+              : data.formId === "renewal-review"
+                ? "renewal"
+                : "general",
+          // Renewal-review extras for its dedicated GHL workflow: the source and
+          // the qualifying answers, so the confirmation can be personalized and
+          // the data stored on the contact. Only sent for renewal-review so the
+          // shared workflow's field matching stays unchanged for other forms.
+          ...(data.formId === "renewal-review"
+            ? {
+                source: route.source || "",
+                state:
+                  typeof data.fields.state === "string" ? data.fields.state : "",
+                power_units:
+                  typeof data.fields.powerUnits === "string"
+                    ? data.fields.powerUnits
+                    : "",
+                run_length:
+                  typeof data.fields.runLength === "string"
+                    ? data.fields.runLength
+                    : "",
+                policy_renews:
+                  typeof data.fields.policyRenews === "string"
+                    ? data.fields.policyRenews
+                    : "",
+              }
+            : {}),
         }),
       });
       if (!arRes.ok) {

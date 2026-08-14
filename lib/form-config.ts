@@ -31,6 +31,13 @@ export type FormRoute = {
   /** Optional CC recipients. */
   cc?: string[];
   /**
+   * Explicit lead source for this form (e.g. "Meta Ads"). When set it wins over
+   * the utm-derived source for the Supabase `lead_source` column, is sent to the
+   * CRM webhook as `source`/`leadSource`, and is written into the CRM deal note.
+   * Omit to keep the utm-derived source (falls back to "website").
+   */
+  source?: string;
+  /**
    * If set, this form ALSO forwards to the Road Ready CRM lead-intake webhook
    * (CRM_WEBHOOK_URL + CRM_WEBHOOK_SECRET). `formIdentifier` is the value the
    * CRM matches against its FormMapping table to decide brand, pipeline, lead
@@ -59,10 +66,12 @@ export const FORM_ROUTES: Record<string, FormRoute> = {
   "renewal-review": {
     label: "Renewal review request",
     to: "agents@roadreadyinsurance.com",
-    // Paid Meta landing page (/renewal-review). Pushes to the RRI CRM the same
-    // way the main quote form does — same "Road Ready Insurance" mapping (brand
-    // RRI, New Business, source "Website", round-robin producer). Email +
-    // Supabase fire in parallel as the safety net.
+    // Paid Meta landing page (/renewal-review). Source is forced to "Meta Ads"
+    // (Supabase lead_source + CRM note + CRM `source` field). Pushes to the RRI
+    // CRM with the same "Road Ready Insurance" mapping as the main quote form
+    // (brand RRI, New Business, round-robin producer); the renewal answers ride
+    // in the CRM deal note. Email + Supabase fire in parallel as the safety net.
+    source: "Meta Ads",
     crm: { formIdentifier: "Road Ready Insurance" },
   },
   "report-a-claim": {
