@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AnalyticsGTM } from "@/components/analytics-gtm";
+import { MetaPixel } from "@/components/meta-pixel";
 import "./globals.css";
 import { OrganizationSchema } from "@/components/schema/organization";
 import { IntercomWidget } from "@/components/intercom-widget";
@@ -71,6 +72,7 @@ export default function RootLayout({
           }}
         />
         <AnalyticsGTM />
+        <MetaPixel />
         <OrganizationSchema />
         {children}
         <CookieConsent />
