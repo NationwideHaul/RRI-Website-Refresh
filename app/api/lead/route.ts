@@ -16,6 +16,7 @@
  * leaves this handler. Nothing here is imported by client components.
  */
 
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
@@ -23,6 +24,7 @@ import { Resend } from "resend";
 import { BRAND, resolveRoute } from "@/lib/form-config";
 import { buildSubject, renderLeadEmail } from "@/lib/email-template";
 import { emailDomainHasMx, phoneLooksValid } from "@/lib/lead-verification";
+import { sendCapiLead } from "@/lib/meta-capi";
 
 export const runtime = "nodejs";
 
@@ -394,5 +396,41 @@ export async function POST(req: Request) {
     );
   }
 
-  return json({ ok: true });
+  // 6. Meta Conversions API — server-side Lead, ONLY for renewal-review so it
+  //    mirrors the browser pixel exactly (the pixel's Lead fires only from that
+  //    form). Shares event_id with the browser fbq call (returned below) so
+  //    Meta deduplicates the pair and counts one Lead. Best-effort and awaited
+  //    (Vercel kills un-awaited work after the response); sendCapiLead never
+  //    throws, so a Meta outage can't fail the request.
+  let eventId: string | undefined;
+  if (data.formId === "renewal-review") {
+    // Prefer the durable Supabase row id as the dedup key; fall back to a UUID
+    // if storage was unavailable (the email channel still carried the lead).
+    eventId = submissionId !== null ? String(submissionId) : randomUUID();
+
+    const nameParts = data.name.trim().split(/\s+/);
+    const cookieHeader = req.headers.get("cookie") ?? "";
+    const readCookie = (name: string) =>
+      cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`))?.[1] ?? null;
+
+    await sendCapiLead({
+      eventId,
+      email: data.email,
+      phone: data.phone || null,
+      firstName: nameParts[0] ?? null,
+      lastName: nameParts.length > 1 ? nameParts.slice(1).join(" ") : null,
+      clientIpAddress: ipAddress,
+      clientUserAgent: userAgent,
+      fbc: readCookie("_fbc"),
+      fbp: readCookie("_fbp"),
+      sourceUrl:
+        data.pageUrl ||
+        req.headers.get("referer") ||
+        "https://www.roadreadyinsurance.com/renewal-review/",
+    });
+  }
+
+  // eventId (when present) lets the browser pass the same eventID to its fbq
+  // Lead call so Meta dedups the browser/server pair.
+  return json(eventId ? { ok: true, eventId } : { ok: true });
 }

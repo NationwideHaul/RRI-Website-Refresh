@@ -161,7 +161,11 @@ export function RenewalForm() {
           _hp: form.hp,
         }),
       });
-      const data = (await res.json()) as { ok: boolean; error?: string };
+      const data = (await res.json()) as {
+        ok: boolean;
+        error?: string;
+        eventId?: string;
+      };
 
       if (!res.ok || !data.ok) {
         setStatus("error");
@@ -184,8 +188,13 @@ export function RenewalForm() {
         // Meta Pixel standard Lead event — fired once here, only on a successful
         // submission and before the redirect. Validation failures and errors
         // return earlier, so Lead never fires for them, on page load, or on the
-        // thank-you page.
-        w.fbq?.("track", "Lead");
+        // thank-you page. The eventID returned by /api/lead/ matches the
+        // server-side CAPI event's event_id, so Meta dedups the pair into one.
+        if (data.eventId) {
+          w.fbq?.("track", "Lead", {}, { eventID: data.eventId });
+        } else {
+          w.fbq?.("track", "Lead");
+        }
       }
 
       router.push("/renewal-review/thank-you/");
